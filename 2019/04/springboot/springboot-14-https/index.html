@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1. 获取 HTTPS 证书正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 keytool 生成 HTTPS 证书。">
+<meta name="keywords" content="Springboot,Https">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot 系列（十四）启用 HTTPS 服务">
+<meta property="og:url" content="https://www.codingme.net/2019/04/springboot/springboot-14-https/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="1. 获取 HTTPS 证书正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 keytool 生成 HTTPS 证书。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1c08d9d35c7506cc52030a8773378f22.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3f4682d8b6eaa6ac7bf29eae9f9d5109.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/29a658a7761aa462cb80e1e34e5b0017.png">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Springboot 系列（十四）启用 HTTPS 服务">
+<meta name="twitter:description" content="1. 获取 HTTPS 证书正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 keytool 生成 HTTPS 证书。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1c08d9d35c7506cc52030a8773378f22.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2019/04/springboot/springboot-14-https/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Springboot 系列（十四）启用 HTTPS 服务 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/04/springboot/springboot-14-https/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Springboot 系列（十四）启用 HTTPS 服务
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-22 00:20:22" itemprop="dateCreated datePublished" datetime="2019-04-22T00:20:22+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1c08d9d35c7506cc52030a8773378f22.png" alt="图片来自 数字尾巴-
+肥宅爱画画"></p>
+<h2 id="1-获取-HTTPS-证书"><a href="#1-获取-HTTPS-证书" class="headerlink" title="1. 获取 HTTPS 证书"></a>1. 获取 HTTPS 证书</h2><p>正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 <strong>keytool</strong> 生成 HTTPS 证书。</p>
+<a id="more"></a>
+<p>查看 keytool 工具使用说明。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">D:\&gt;keytool</span><br><span class="line">密钥和证书管理工具</span><br><span class="line">命令:</span><br><span class="line"> -certreq            生成证书请求</span><br><span class="line"> -changealias        更改条目的别名</span><br><span class="line"> -delete             删除条目</span><br><span class="line"> -exportcert         导出证书</span><br><span class="line"> -genkeypair         生成密钥对</span><br><span class="line"> -genseckey          生成密钥</span><br><span class="line"> -gencert            根据证书请求生成证书</span><br><span class="line"> -importcert         导入证书或证书链</span><br><span class="line"> -importpass         导入口令</span><br><span class="line"> -importkeystore     从其他密钥库导入一个或所有条目</span><br><span class="line"> -keypasswd          更改条目的密钥口令</span><br><span class="line"> -list               列出密钥库中的条目</span><br><span class="line"> -printcert          打印证书内容</span><br><span class="line"> -printcertreq       打印证书请求的内容</span><br><span class="line"> -printcrl           打印 CRL 文件的内容</span><br><span class="line"> -storepasswd        更改密钥库的存储口令</span><br><span class="line"></span><br><span class="line">使用 "keytool -command_name -help" 获取 command_name 的用法</span><br><span class="line"></span><br><span class="line">D:\&gt;keytool -genkeypair --help</span><br><span class="line">keytool -genkeypair [OPTION]...</span><br><span class="line">生成密钥对</span><br><span class="line">选项:</span><br><span class="line"> -alias &lt;alias&gt;                  要处理的条目的别名</span><br><span class="line"> -keyalg &lt;keyalg&gt;                密钥算法名称</span><br><span class="line"> -keysize &lt;keysize&gt;              密钥位大小</span><br><span class="line"> -sigalg &lt;sigalg&gt;                签名算法名称</span><br><span class="line"> -destalias &lt;destalias&gt;          目标别名</span><br><span class="line"> -dname &lt;dname&gt;                  唯一判别名</span><br><span class="line"> -startdate &lt;startdate&gt;          证书有效期开始日期/时间</span><br><span class="line"> -ext &lt;value&gt;                    X.509 扩展</span><br><span class="line"> -validity &lt;valDays&gt;             有效天数</span><br><span class="line"> -keypass &lt;arg&gt;                  密钥口令</span><br><span class="line"> -keystore &lt;keystore&gt;            密钥库名称</span><br><span class="line"> -storepass &lt;arg&gt;                密钥库口令</span><br><span class="line"> -storetype &lt;storetype&gt;          密钥库类型</span><br><span class="line"> -providername &lt;providername&gt;    提供方名称</span><br><span class="line"> -providerclass &lt;providerclass&gt;  提供方类名</span><br><span class="line"> -providerarg &lt;arg&gt;              提供方参数</span><br><span class="line"> -providerpath &lt;pathlist&gt;        提供方类路径</span><br><span class="line"> -v                              详细输出</span><br><span class="line"> -protected                      通过受保护的机制的口令</span><br></pre></td></tr></table></figure>
+<p>通过上面的 keytool ，我们生成自己的自签名证书。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">D:\&gt;keytool -genkeypair -alias tomcat_https -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -keystore d:/tomcat_https.keystore -storepass 123456</span><br><span class="line">您的名字与姓氏是什么?</span><br><span class="line">  [Unknown]:  darcy</span><br><span class="line">您的组织单位名称是什么?</span><br><span class="line">  [Unknown]:  codingme</span><br><span class="line">您的组织名称是什么?</span><br><span class="line">  [Unknown]:  codingme</span><br><span class="line">您所在的城市或区域名称是什么?</span><br><span class="line">  [Unknown]:  ShangHai</span><br><span class="line">您所在的省/市/自治区名称是什么?</span><br><span class="line">  [Unknown]:  ShangHai</span><br><span class="line">该单位的双字母国家/地区代码是什么?</span><br><span class="line">  [Unknown]:  ZN</span><br><span class="line">CN=darcy, OU=codingme, O=codingme, L=ShangHai, ST=ShangHai, C=ZN是否正确?</span><br><span class="line">  [否]:  y</span><br><span class="line">D:\&gt;</span><br></pre></td></tr></table></figure>
+<p>这时候已经在我们指定的位置下生成了证书文件，如果需要查看证书信息，可以使用 keytool 的 list 命令，可以看到密钥库类型是 JKS，在后面的配置里会用到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">D:\&gt;keytool -list -keystore tomcat_https.keystore</span><br><span class="line">输入密钥库口令:</span><br><span class="line"></span><br><span class="line">密钥库类型: JKS</span><br><span class="line">密钥库提供方: SUN</span><br><span class="line"></span><br><span class="line">您的密钥库包含 1 个条目</span><br><span class="line"></span><br><span class="line">tomcat_https, 2019-4-21, PrivateKeyEntry,</span><br><span class="line">证书指纹 (SHA1): 1E:5F:15:9C:45:BD:D3:2A:7E:7F:1F:83:56:B8:74:E0:8B:CA:FD:F6</span><br><span class="line"></span><br><span class="line">D:\&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2-配置-HTTPS-证书"><a href="#2-配置-HTTPS-证书" class="headerlink" title="2. 配置 HTTPS 证书"></a>2. 配置 HTTPS 证书</h2><p>创建一个 Springboot 项目这里不提，拷贝上一步骤中生成的 tomcat_https.keystore 证书文件到<strong>src/main/resource</strong> 文件夹下，先看下总体的项目结构。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3f4682d8b6eaa6ac7bf29eae9f9d5109.png" alt="项目结构如下"></p>
+<p>然后在 application.yml 文件中配置 HTTPS 相关信息。直接配置了端口号为 <strong>443</strong>，443是 HTTPS 的默认端口，这样在使用 HTTPS 就行访问的时候就不需要写额外的端口号了。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 HTTPS 相关信息</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">443</span></span><br><span class="line"><span class="attr">  http-port:</span> <span class="number">80</span> <span class="comment"># 为了后面的配置使用，暂时无用</span></span><br><span class="line"><span class="attr">  ssl:</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    key-store:</span> <span class="attr">classpath:tomcat_https.keystore</span> <span class="comment"># 证书文件</span></span><br><span class="line"><span class="attr">    key-password:</span> <span class="number">123456</span>  <span class="comment"># 密码</span></span><br><span class="line"><span class="attr">    key-store-type:</span> <span class="string">JKS</span> <span class="comment"># 密钥库类型</span></span><br><span class="line"><span class="attr">    key-alias:</span> <span class="string">tomcat_https</span></span><br></pre></td></tr></table></figure>
+<p>这时，已经可以通过 HTTPS 进行页面访问了。</p>
+<h2 id="3-测试-HTTPS-证书"><a href="#3-测试-HTTPS-证书" class="headerlink" title="3. 测试 HTTPS 证书"></a>3. 测试 HTTPS 证书</h2><p>直接编写一个 接口用于测试。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Https 接口控制类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/4/20 22:59</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpsController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello HTTPS"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动之后可以通过 <a href="https://localhost/hello" target="_blank" rel="noopener">https://localhost/hello</a> 进行访问了。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/29a658a7761aa462cb80e1e34e5b0017.png" alt="HTTPS 访问测试"></p>
+<p>当然，由于是自己生成的证书，会提示不安全，继续访问即可，如果是正常申请或者购买的证书就不会有这个问题的。</p>
+<h2 id="4-HTTP-跳转-HTTPS"><a href="#4-HTTP-跳转-HTTPS" class="headerlink" title="4. HTTP 跳转 HTTPS"></a>4. HTTP 跳转 HTTPS</h2><p>在上面的测试里，HTTPS 已经可以访问了，但是 HTTP 却不能访问，大多数情况下在启用了 HTTPS 之后，都会希望 HTTP 的请求会自动跳转到 HTTPS，这个在 Springboot 里自然也是可以实现的。我们只需要写一个配置类把 HTTP 请求直接转发到 HTTPS 即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * HTTP 强制跳转 HTTPS</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/4/21 17:47</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Http2Https</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sslPort;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.http-port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> httpPort;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactory <span class="title">servletContainerFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatServletWebServerFactory tomcat = <span class="keyword">new</span> TomcatServletWebServerFactory() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">postProcessContext</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint securityConstraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                securityConstraint.setUserConstraint(<span class="string">"CONFIDENTIAL"</span>);</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                securityConstraint.addCollection(collection);</span><br><span class="line">                context.addConstraint(securityConstraint);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Connector connector = <span class="keyword">new</span> Connector(<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span>);</span><br><span class="line">        connector.setScheme(<span class="string">"http"</span>);</span><br><span class="line">        connector.setPort(httpPort);</span><br><span class="line">        connector.setRedirectPort(sslPort);</span><br><span class="line">        tomcat.addAdditionalTomcatConnectors(connector);</span><br><span class="line">        <span class="keyword">return</span> tomcat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次启动之后，使用 <a href="http://localhost/hello" target="_blank" rel="noopener">http://localhost/hello</a> 访问会自动跳转到 <a href="https://localhost/hello" target="_blank" rel="noopener">https://localhost/hello</a>.</p>
+<p>文章相关代码已经上传 Github <a href="https://github.com/niumoo/springboot/tree/master/springboot-web-https" target="_blank" rel="noopener">Spring Boot https</a>。</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Springboot/" rel="tag"># Springboot</a>
+          
+            <a href="/tags/Https/" rel="tag"># Https</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/springboot/springboot-13-email/" rel="next" title="Springboot 系列（十三）使用邮件服务">
+                <i class="fa fa-chevron-left"></i> Springboot 系列（十三）使用邮件服务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+              
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取-HTTPS-证书"><span class="nav-text">1. 获取 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置-HTTPS-证书"><span class="nav-text">2. 配置 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试-HTTPS-证书"><span class="nav-text">3. 测试 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HTTP-跳转-HTTPS"><span class="nav-text">4. HTTP 跳转 HTTPS</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Apache Ant介绍是一个将软件编译、测试、部署等步骤联系在一起加以自动化的一个工具，大多用于Java环境中的软件开发。由Apache软件基金会所提供。">
+<meta name="keywords" content="Tomcat,Ant">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Apache Ant 进行Java web项目打包并部署至TOMCAT">
+<meta property="og:url" content="https://www.codingme.net/2017/11/develop/tool-apache-ant/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="Apache Ant介绍是一个将软件编译、测试、部署等步骤联系在一起加以自动化的一个工具，大多用于Java环境中的软件开发。由Apache软件基金会所提供。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/4dc4a6de5cef51923d5e5da700be6fa8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6b6e8cf5d117335e278227d6b6d0de0d.jpg">
+<meta property="og:updated_time" content="2017-11-01T10:58:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Apache Ant 进行Java web项目打包并部署至TOMCAT">
+<meta name="twitter:description" content="Apache Ant介绍是一个将软件编译、测试、部署等步骤联系在一起加以自动化的一个工具，大多用于Java环境中的软件开发。由Apache软件基金会所提供。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/4dc4a6de5cef51923d5e5da700be6fa8.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2017/11/develop/tool-apache-ant/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用Apache Ant 进行Java web项目打包并部署至TOMCAT | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2017/11/develop/tool-apache-ant/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Apache Ant 进行Java web项目打包并部署至TOMCAT
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-01 18:58:23" itemprop="dateCreated datePublished" datetime="2017-11-01T18:58:23+08:00">2017-11-01</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/生产工具/" itemprop="url" rel="index"><span itemprop="name">生产工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Apache-Ant介绍"><a href="#Apache-Ant介绍" class="headerlink" title="Apache Ant介绍"></a>Apache Ant介绍</h3><p>是一个将软件编译、测试、部署等步骤联系在一起加以自动化的一个工具，大多用于Java环境中的软件开发。由Apache软件基金会所提供。<br><a id="more"></a><br><strong>优点</strong>：Ant是Apache软件基金会JAKARTA目录中的一个子项目，它有以下的优点。跨平台性。Ant是纯Java语言编写的，所以具有很好的跨平台性。操作简单。Ant是由一个内置任务和可选任务组成的。Ant运行时需要一个XML文件(构建文件)。 Ant通过调用target树，就可以执行各种task。每个task实现了特定接口对象。由于Ant构建文件 是XML格式的文件，所以很容易维护和书写，而且结构很清晰。由于Ant的跨平台性和操作简单的特点，它很容易集成到一些开发环 境中去。</p>
+<p> <strong>那么我们如何使用呢？这里用一个例子进行演示如何用ANT来编译一个Java web项目。</strong></p>
+<h3 id="下载Apache-Ant"><a href="#下载Apache-Ant" class="headerlink" title="下载Apache Ant"></a>下载Apache Ant</h3><p> 直接到<a href="http://ant.apache.org/" target="_blank" rel="noopener">官方网站</a>下载，<br>或者直接：</p>
+<blockquote>
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/apache//ant/binaries/apache-ant-1.9.9-bin.zip" target="_blank" rel="noopener">Windows版本</a></p>
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/apache//ant/binaries/apache-ant-1.9.9-bin.tar.gz" target="_blank" rel="noopener">Linux版本</a></p>
+</blockquote>
+<h3 id="安装Apache-Ant"><a href="#安装Apache-Ant" class="headerlink" title="安装Apache Ant"></a>安装Apache Ant</h3><p>直接解压下载的压缩包，可以看到Ant的目录结构。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/4dc4a6de5cef51923d5e5da700be6fa8.jpg" alt="enter image description here"></p>
+<p>Bin目录：Ant命令<br>Lib目录：Ant所需要的jar包<br>manual：用户参考文档  </p>
+<h3 id="配置Apache-Ant"><a href="#配置Apache-Ant" class="headerlink" title="配置Apache Ant"></a>配置Apache Ant</h3><p>1：首先需要安装了JDK,并且配置环境变量。<br>2：配置ANT_HOME/bin目录即可。（自行配置）<br>3：测试是否配置成功。<br>运行命令ant -version查看版本号，配置成功可以看到：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;ant -version</span><br><span class="line">Apache Ant(TM) version 1.9.9 compiled on February 2 2017</span><br><span class="line">C:\&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Apache-Ant编译准备"><a href="#Apache-Ant编译准备" class="headerlink" title="Apache Ant编译准备"></a>Apache Ant编译准备</h3><p>这里用一个Java web项目为例。<br>看下JavaWeb项目整体目录结构。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">├─.settings</span><br><span class="line">├─src</span><br><span class="line">│  └─net</span><br><span class="line">│      └─codingme</span><br><span class="line">│          ├─controller</span><br><span class="line">│          ├─dao</span><br><span class="line">│          ├─mapping</span><br><span class="line">│          ├─po</span><br><span class="line">│          ├─service</span><br><span class="line">│          │  └─impl</span><br><span class="line">│          └─util</span><br><span class="line">└─WebContent</span><br><span class="line">    ├─attached</span><br><span class="line">    ├─css</span><br><span class="line">    ├─fonts</span><br><span class="line">    ├─js</span><br><span class="line">    │  └─google-code-prettify</span><br><span class="line">    ├─META-INF</span><br><span class="line">    └─WEB-INF</span><br><span class="line">        ├─lib</span><br><span class="line">        └─view</span><br><span class="line">            └─post</span><br></pre></td></tr></table></figure>
+<h4 id="编写用于编译的build-xml"><a href="#编写用于编译的build-xml" class="headerlink" title="编写用于编译的build.xml"></a>编写用于编译的build.xml</h4><p> <img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6b6e8cf5d117335e278227d6b6d0de0d.jpg" alt="enter image description here"></p>
+<p>build.xml具体内容。 这里已经把注释已经写的非常清楚，具体内容如下。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">name</span>=<span class="string">"BlogV2"</span>  <span class="attr">default</span>=<span class="string">"run"</span> <span class="attr">basedir</span>=<span class="string">"."</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- java源代码目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"src.dir"</span> <span class="attr">location</span>=<span class="string">"src"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 构建存放目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"build.dir"</span> <span class="attr">location</span>=<span class="string">"build"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- class文件存放目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"build.classes"</span> <span class="attr">location</span>=<span class="string">"$&#123;build.dir&#125;/classes"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 打包目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"build.war"</span> <span class="attr">location</span>=<span class="string">"$&#123;build.dir&#125;/war"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- tomcat根目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"tomcat.home"</span> <span class="attr">location</span>=<span class="string">"D:\CodeProgram\tomcat7"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- tomcat项目存放--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"tomcat.WebContent"</span> <span class="attr">location</span>=<span class="string">"$&#123;tomcat.home&#125;/webContent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- war包名字 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"war.name"</span> <span class="attr">value</span>=<span class="string">"BlogV2"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- web 根目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"web.root"</span> <span class="attr">location</span>=<span class="string">"WebContent"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- web jar包所在 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"web.lib"</span> <span class="attr">location</span>=<span class="string">"WebContent/WEB-INF/lib"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 加载环境变量 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">environment</span>=<span class="string">"env"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 定义编译时的jar --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">path</span> <span class="attr">id</span>=<span class="string">"compile.path"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">fileset</span> <span class="attr">dir</span>=<span class="string">"$&#123;web.lib&#125;"</span> <span class="attr">includes</span>=<span class="string">"*.jar"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">fileset</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">fileset</span> <span class="attr">dir</span>=<span class="string">"$&#123;tomcat.home&#125;/lib"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">include</span> <span class="attr">name</span>=<span class="string">"**/*.jar"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">fileset</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 初始化需要的文件夹 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span> <span class="attr">name</span>=<span class="string">"init"</span> <span class="attr">description</span>=<span class="string">"初始化"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mkdir</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.dir&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mkdir</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.classes&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mkdir</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.war&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">echo</span>&gt;</span>初始化工作结束！<span class="tag">&lt;/<span class="name">echo</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 编译java文件为class --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span> <span class="attr">name</span>=<span class="string">"compile"</span> <span class="attr">depends</span>=<span class="string">"init"</span> <span class="attr">description</span>=<span class="string">"编译"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">javac</span> <span class="attr">destdir</span>=<span class="string">"build/classes"</span> <span class="attr">srcdir</span>=<span class="string">"src"</span> <span class="attr">includeantruntime</span>=<span class="string">"false"</span> <span class="attr">fork</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">compilerarg</span> <span class="attr">line</span>=<span class="string">"-encoding UTF-8 "</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">classpath</span> <span class="attr">refid</span>=<span class="string">"compile.path"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">javac</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">echo</span>&gt;</span>初始化工作结束！<span class="tag">&lt;/<span class="name">echo</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">echo</span> <span class="attr">message</span>=<span class="string">"编译完成！"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 把项目打包成war包存放在指定位置 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span> <span class="attr">name</span>=<span class="string">"war"</span> <span class="attr">depends</span>=<span class="string">"compile"</span> <span class="attr">description</span>=<span class="string">"打包war文件"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">war</span> <span class="attr">destfile</span>=<span class="string">"$&#123;build.war&#125;/$&#123;war.name&#125;.war"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">fileset</span> <span class="attr">dir</span>=<span class="string">"$&#123;web.root&#125;"</span> <span class="attr">includes</span>=<span class="string">"**/*.*"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">lib</span> <span class="attr">dir</span>=<span class="string">"$&#123;web.lib&#125;"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">classes</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.classes&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">war</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">echo</span>&gt;</span>打包完成！<span class="tag">&lt;/<span class="name">echo</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 拷贝war包到tomcat发布目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span> <span class="attr">name</span>=<span class="string">"deploy"</span> <span class="attr">depends</span>=<span class="string">"war"</span> <span class="attr">description</span>=<span class="string">"发布"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">copy</span> <span class="attr">todir</span>=<span class="string">"$&#123;tomcat.WebContent&#125;"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">fileset</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.war&#125;"</span> <span class="attr">includes</span>=<span class="string">"*.war"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">copy</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">echo</span>&gt;</span>已发布到Tomcat！<span class="tag">&lt;/<span class="name">echo</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span> <span class="attr">name</span>=<span class="string">"clean"</span> <span class="attr">description</span>=<span class="string">"清理"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">delete</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.dir&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">delete</span> <span class="attr">dir</span>=<span class="string">"$&#123;tomcat.WebContent&#125;/$&#123;web.name&#125;"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">delete</span> <span class="attr">file</span>=<span class="string">"$&#123;tomcat.WebContent&#125;/$&#123;web.name&#125;.war"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">echo</span>&gt;</span>清理完成！<span class="tag">&lt;/<span class="name">echo</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Build-xml文件的一些解释"><a href="#Build-xml文件的一些解释" class="headerlink" title="Build.xml文件的一些解释"></a>Build.xml文件的一些解释</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span><br></pre></td></tr></table></figure>
+<p>build.xml中的第一句话，没有实际的意义。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">name</span>=<span class="string">"BlogV2"</span> <span class="attr">default</span>=<span class="string">"run"</span> <span class="attr">basedir</span>=<span class="string">"."</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>包含Ant的所有内容，name即名字，basedir即工作根目录，default即默认操作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"src.dir"</span> <span class="attr">location</span>=<span class="string">"src"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>类似于声明变量：即src.dir代表localtion里配置的目录。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">target</span> <span class="attr">name</span>=<span class="string">"war"</span> <span class="attr">depends</span>=<span class="string">"compile"</span> <span class="attr">description</span>=<span class="string">"打包war文件"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">war</span> <span class="attr">destfile</span>=<span class="string">"$&#123;build.war&#125;/$&#123;war.name&#125;.war"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">fileset</span> <span class="attr">dir</span>=<span class="string">"$&#123;web.root&#125;"</span> <span class="attr">includes</span>=<span class="string">"**/*.*"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">lib</span> <span class="attr">dir</span>=<span class="string">"$&#123;web.lib&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">classes</span> <span class="attr">dir</span>=<span class="string">"$&#123;build.classes&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">war</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">echo</span>&gt;</span>打包完成！<span class="tag">&lt;/<span class="name">echo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Ant每一件要做的事情我们都需要写 成<strong>target</strong>的形式，并给出一个名字name，depends=”compile”表示在做这个target之前需要先执行compile，description即描述。<br>中间则是打包成war包的格式需要。</p>
+<p>参考上面的build.xml文件，我相信可以解决很多简单的编译问题。<br>但是Ant的功能远远不止于此，其他参数可以参考<a href="http://ant.apache.org/manual-1.9.x/index.html" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Apache-Ant编译开始"><a href="#Apache-Ant编译开始" class="headerlink" title="Apache Ant编译开始"></a>Apache Ant编译开始</h3><p>在做了上面的准备工作之后，我们离成功只差一步之遥了。<br>命令切换到build.xml文件所在目录。<br>查看当前目录里build.xml里编写的功能<br>用命令 ant -p（在执行ant命令时默认会使用名字为build.xml的文件）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\83981\Desktop\Apache Ant\BlogV2&gt;ant -p</span><br><span class="line">Buildfile: C:\Users\83981\Desktop\Apache Ant\BlogV2\build.xml</span><br><span class="line">Main targets:</span><br><span class="line"> clean    清理</span><br><span class="line"> compile  编译</span><br><span class="line"> deploy   发布</span><br><span class="line"> init     初始化</span><br><span class="line"> war      打包war文件</span><br><span class="line">Default target: run</span><br><span class="line">	</span><br><span class="line">C:\Users\83981\Desktop\Apache Ant\BlogV2&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Ant的常用操作：<br>ant  target_name  执行相应的操作。<br>ant clean  清理文件夹。<br>ant deploy  进行发布。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\83981\Desktop\Apache Ant\BlogV2&gt;ant clean</span><br><span class="line">Buildfile: C:\Users\83981\Desktop\Apache Ant\BlogV2\build.xml</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">     [echo] 清理完成！</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: 0 seconds</span><br><span class="line"></span><br><span class="line">C:\Users\83981\Desktop\Apache Ant\BlogV2&gt;ant deploy</span><br><span class="line">Buildfile: C:\Users\83981\Desktop\Apache Ant\BlogV2\build.xml</span><br><span class="line"></span><br><span class="line">init:</span><br><span class="line">    [mkdir] Created dir: C:\Users\83981\Desktop\Apache Ant\BlogV2\build</span><br><span class="line">    [mkdir] Created dir: C:\Users\83981\Desktop\Apache Ant\BlogV2\build\classes</span><br><span class="line">    [mkdir] Created dir: C:\Users\83981\Desktop\Apache Ant\BlogV2\build\war</span><br><span class="line">     [echo] 初始化工作结束！</span><br><span class="line"></span><br><span class="line">compile:</span><br><span class="line">    [javac] Compiling 30 source files to C:\Users\83981\Desktop\Apache Ant\BlogV2\build\classes</span><br><span class="line">     [echo] 初始化工作结束！</span><br><span class="line">     [echo] 编译完成！</span><br><span class="line"></span><br><span class="line">war:</span><br><span class="line">      [war] Building war: C:\Users\83981\Desktop\Apache Ant\BlogV2\build\war\BlogV2.war</span><br><span class="line">     [echo] 打包完成！</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">     [copy] Copying 1 file to D:\CodeProgram\tomcat7\webContent</span><br><span class="line">     [echo] 已发布到Tomcat！</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: 6 seconds</span><br><span class="line"></span><br><span class="line">C:\Users\83981\Desktop\Apache Ant\BlogV2&gt;</span><br></pre></td></tr></table></figure>
+<p>项目已经编译并打包成war格式拷贝至指定的tomcat目录<br>操作结束，关于Ant的其他命令可以执行ant -help进行查看。</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+            <a href="/tags/Ant/" rel="tag"># Ant</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/develop/tool-mybatis-generator/" rel="next" title="使用MyBatis Generator自动生成Model、Dao、Mapper相关代码">
+                <i class="fa fa-chevron-left"></i> 使用MyBatis Generator自动生成Model、Dao、Mapper相关代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/dp/pattern-singleton/" rel="prev" title="设计模式 - 创建型模式之单例模式（Singleton Pattern）">
+                设计模式 - 创建型模式之单例模式（Singleton Pattern） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Ant介绍"><span class="nav-number">1.</span> <span class="nav-text">Apache Ant介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Apache-Ant"><span class="nav-number">2.</span> <span class="nav-text">下载Apache Ant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Apache-Ant"><span class="nav-number">3.</span> <span class="nav-text">安装Apache Ant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Apache-Ant"><span class="nav-number">4.</span> <span class="nav-text">配置Apache Ant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Ant编译准备"><span class="nav-number">5.</span> <span class="nav-text">Apache Ant编译准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写用于编译的build-xml"><span class="nav-number">5.1.</span> <span class="nav-text">编写用于编译的build.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Build-xml文件的一些解释"><span class="nav-number">5.2.</span> <span class="nav-text">Build.xml文件的一些解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Ant编译开始"><span class="nav-number">6.</span> <span class="nav-text">Apache Ant编译开始</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

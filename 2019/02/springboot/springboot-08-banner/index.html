@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。   使用过 Springboot 的对上面这个图案肯定不会陌生，Springboot 启动的同时会打印上面的图案，并带有版本号。查看官方文档可以找到关于 banner 的描述  The banner that is printed on start">
+<meta name="keywords" content="Springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot 系列（八）动态Banner与图片转字符图案的手动实现">
+<meta property="og:url" content="https://www.codingme.net/2019/02/springboot/springboot-08-banner/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。   使用过 Springboot 的对上面这个图案肯定不会陌生，Springboot 启动的同时会打印上面的图案，并带有版本号。查看官方文档可以找到关于 banner 的描述  The banner that is printed on start">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/33e6877404fed0daf8c894cec6a4d37c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/d9879377e30b5f37f9116e7927e35604.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/935928a0c76faa399a6f49252c713afa.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ddc9487dd2050f9188825195427ed0a1.png">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Springboot 系列（八）动态Banner与图片转字符图案的手动实现">
+<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。   使用过 Springboot 的对上面这个图案肯定不会陌生，Springboot 启动的同时会打印上面的图案，并带有版本号。查看官方文档可以找到关于 banner 的描述  The banner that is printed on start">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/33e6877404fed0daf8c894cec6a4d37c.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2019/02/springboot/springboot-08-banner/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Springboot 系列（八）动态Banner与图片转字符图案的手动实现 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/02/springboot/springboot-08-banner/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Springboot 系列（八）动态Banner与图片转字符图案的手动实现
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-25 23:40:01" itemprop="dateCreated datePublished" datetime="2019-02-25T23:40:01+08:00">2019-02-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>注意：本 Spring Boot 系列文章基于 Spring Boot 版本 <strong>v2.1.1.RELEASE</strong> 进行学习分析，版本不同可能会有细微差别。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/33e6877404fed0daf8c894cec6a4d37c.png" alt="Springboot 启动 banner"></p>
+<p>使用过 Springboot 的对上面这个图案肯定不会陌生，Springboot 启动的同时会打印上面的图案，并带有版本号。查看官方文档可以找到关于 banner 的描述</p>
+<blockquote>
+<p>The banner that is printed on start up can be changed by adding a banner.txt file to your classpath or by setting the spring.banner.location property to the location of such a file. If the file has an encoding other than UTF-8, you can set spring.banner.charset. In addition to a text file, you can also add a banner.gif, banner.jpg, or banner.png image file to your classpath or set the spring.banner.image.location property. Images are converted into an ASCII art representation and printed above any text banner.</p>
+</blockquote>
+<a id="more"></a>
+<p>就不翻译了，直接有道翻译贴过来看个大概意思。</p>
+<blockquote>
+<p>可以通过向类路径中添加一个banner.txt文件或设置spring.banner来更改在start up上打印的banner。属性指向此类文件的位置。如果文件的编码不是UTF-8，那么可以设置spring.banner.charset。除了文本文件，还可以添加横幅。将gif、banner.jpg或banner.png图像文件保存到类路径或设置spring.banner.image。位置属性。图像被转换成ASCII艺术形式，并打印在任何文本横幅上面。</p>
+</blockquote>
+<h1 id="1-自定义-banner"><a href="#1-自定义-banner" class="headerlink" title="1. 自定义 banner"></a>1. 自定义 banner</h1><p>根据官方的描述，可以在类路径中自定义 banner 图案，我们进行尝试在放 resouce 目录下新建文件 banner.txt 并写入内容（<a href="http://patorjk.com/software/taag/#p=testall&amp;f=Graffiti&amp;t=niumoo" target="_blank" rel="noopener">在线字符生成</a>）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    (_)</span><br><span class="line"> _ __  _ _   _ _ __ ___   ___   ___</span><br><span class="line">| &apos;_ \| | | | | &apos;_ ` _ \ / _ \ / _ \</span><br><span class="line">| | | | | |_| | | | | | | (_) | (_) |</span><br><span class="line">|_| |_|_|\__,_|_| |_| |_|\___/ \___/ 版本：$&#123;spring-boot.formatted-version&#125;</span><br></pre></td></tr></table></figure></p>
+<p>启动 Springboot 在控制台看到下面的输出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">     (_)</span><br><span class="line">  _ __  _ _   _ _ __ ___   ___   ___</span><br><span class="line"> | &apos;_ \| | | | | &apos;_ ` _ \ / _ \ / _ \</span><br><span class="line"> | | | | | |_| | | | | | | (_) | (_) |</span><br><span class="line"> |_| |_|_|\__,_|_| |_| |_|\___/ \___/ 版本：(v2.1.3.RELEASE)</span><br><span class="line">2019-02-25 14:00:31.289  INFO 12312 --- [           main] net.codingme.banner.BannerApplication    : Starting BannerApplication on LAPTOP-L1S5MKTA with PID 12312 (D:\IdeaProjectMy\springboot-git\springboot-banner\target\classes started by Niu in D:\IdeaProjectMy\springboot-git\springboot-banner)</span><br><span class="line">2019-02-25 14:00:31.291  INFO 12312 --- [           main] net.codingme.banner.BannerApplication    : No active profile set, falling back to default profiles: default</span><br><span class="line">2019-02-25 14:00:32.087  INFO 12312 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)</span><br></pre></td></tr></table></figure></p>
+<p>发现自定义 banner 已经生效了，官方文档的介绍里说还可以放置图片，下面放置图片 banner.jpg 测试。<br>网上随便找了一个图片。<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/d9879377e30b5f37f9116e7927e35604.jpg" alt="Google Log">再次启动观察输出。<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/935928a0c76faa399a6f49252c713afa.png" alt="自定义 Banner">Springboot 把图案转成了 ASCII 图案。</p>
+<h1 id="2-ASCII-图案生成原理"><a href="#2-ASCII-图案生成原理" class="headerlink" title="2. ASCII 图案生成原理"></a>2. ASCII 图案生成原理</h1><p>看了上面的例子，发现 Springboot 可以把图片转换成 ASCII 图案，那么它是怎么做的呢？我们或许可以想象出一个大概流程。</p>
+<ol>
+<li>获取图片。</li>
+<li>遍历图片像素点。</li>
+<li>分析像素点，每个像素点根据颜色深度得出一个值，根据明暗度匹配不同的字符。</li>
+<li>输出图案。</li>
+</ol>
+<p>Springboot 对图片 banner 的处理到底是不是我们上面想想的那样呢？直接去源码中寻找答案。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 位置：org.springframework.boot.SpringApplicationBannerPrinter */</span></span><br><span class="line"><span class="comment">//方法1：</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Banner <span class="title">print</span><span class="params">(Environment environment, Class&lt;?&gt; sourceClass, Log logger)</span> </span>&#123;</span><br><span class="line">	    <span class="comment">// 获取 banner  调用方法记为2</span></span><br><span class="line">		Banner banner = getBanner(environment);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			logger.info(createStringFromBanner(banner, environment, sourceClass));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (UnsupportedEncodingException ex) &#123;</span><br><span class="line">			logger.warn(<span class="string">"Failed to create String for banner"</span>, ex);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 打印 banner</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> PrintedBanner(banner, sourceClass);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方法2</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Banner <span class="title">getBanner</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">		Banners banners = <span class="keyword">new</span> Banners();</span><br><span class="line">		<span class="comment">// 获取图片banner，我们只关注这个，调用方法记为3</span></span><br><span class="line">		banners.addIfNotNull(getImageBanner(environment));</span><br><span class="line">		banners.addIfNotNull(getTextBanner(environment));</span><br><span class="line">		<span class="keyword">if</span> (banners.hasAtLeastOneBanner()) &#123;</span><br><span class="line">			<span class="keyword">return</span> banners;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.fallbackBanner != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.fallbackBanner;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> DEFAULT_BANNER;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// 方法3</span></span><br><span class="line"><span class="comment">/** 获取自定义banner文件信息 */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Banner <span class="title">getImageBanner</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// BANNER_IMAGE_LOCATION_PROPERTY = "spring.banner.image.location";</span></span><br><span class="line">		String location = environment.getProperty(BANNER_IMAGE_LOCATION_PROPERTY);</span><br><span class="line">		<span class="keyword">if</span> (StringUtils.hasLength(location)) &#123;</span><br><span class="line">			Resource resource = <span class="keyword">this</span>.resourceLoader.getResource(location);</span><br><span class="line">			<span class="keyword">return</span> resource.exists() ? <span class="keyword">new</span> ImageBanner(resource) : <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// IMAGE_EXTENSION = &#123; "gif", "jpg", "png" &#125;;</span></span><br><span class="line">		<span class="keyword">for</span> (String ext : IMAGE_EXTENSION) &#123;</span><br><span class="line">			Resource resource = <span class="keyword">this</span>.resourceLoader.getResource(<span class="string">"banner."</span> + ext);</span><br><span class="line">			<span class="keyword">if</span> (resource.exists()) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> ImageBanner(resource);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面是寻找自定义图片 banner 文件源码，如果把图片转换成 ASCII 图案继续跟进，追踪方法1中的<code>PrintedBanner(banner, sourceClass)</code>方法。最终查找输出图案的主要方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 位置：org.springframework.boot.ImageBanner#printBanner</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printBanner</span><span class="params">(BufferedImage image, <span class="keyword">int</span> margin, <span class="keyword">boolean</span> invert,</span></span></span><br><span class="line"><span class="function"><span class="params">			PrintStream out)</span> </span>&#123;</span><br><span class="line">		AnsiElement background = invert ? AnsiBackground.BLACK : AnsiBackground.DEFAULT;</span><br><span class="line">		out.print(AnsiOutput.encode(AnsiColor.DEFAULT));</span><br><span class="line">		out.print(AnsiOutput.encode(background));</span><br><span class="line">		out.println();</span><br><span class="line">		out.println();</span><br><span class="line">		AnsiColor lastColor = AnsiColor.DEFAULT;</span><br><span class="line">		<span class="comment">// 图片高度遍历</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; image.getHeight(); y++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; margin; i++) &#123;</span><br><span class="line">				out.print(<span class="string">" "</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 图片宽度遍历</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; image.getWidth(); x++) &#123;</span><br><span class="line">				<span class="comment">// 获取每一个像素点</span></span><br><span class="line">				Color color = <span class="keyword">new</span> Color(image.getRGB(x, y), <span class="keyword">false</span>);</span><br><span class="line">				AnsiColor ansiColor = AnsiColors.getClosest(color);</span><br><span class="line">				<span class="keyword">if</span> (ansiColor != lastColor) &#123;</span><br><span class="line">					out.print(AnsiOutput.encode(ansiColor));</span><br><span class="line">					lastColor = ansiColor;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">// 像素点转换成字符输出，调用方法记为2</span></span><br><span class="line">				out.print(getAsciiPixel(color, invert));</span><br><span class="line">			&#125;</span><br><span class="line">			out.println();</span><br><span class="line">		&#125;</span><br><span class="line">		out.print(AnsiOutput.encode(AnsiColor.DEFAULT));</span><br><span class="line">		out.print(AnsiOutput.encode(AnsiBackground.DEFAULT));</span><br><span class="line">		out.println();</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// 方法2，像素点转换成字符</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">char</span> <span class="title">getAsciiPixel</span><span class="params">(Color color, <span class="keyword">boolean</span> dark)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 根据 color 算出一个亮度值</span></span><br><span class="line">		<span class="keyword">double</span> luminance = getLuminance(color, dark);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; PIXEL.length; i++) &#123;</span><br><span class="line">			<span class="comment">// 寻找亮度值匹配的字符</span></span><br><span class="line">			<span class="keyword">if</span> (luminance &gt;= (LUMINANCE_START - (i * LUMINANCE_INCREMENT))) &#123;</span><br><span class="line">				<span class="comment">// PIXEL = &#123; ' ', '.', '*', ':', 'o', '&amp;', '8', '#', '@' &#125;;</span></span><br><span class="line">				<span class="keyword">return</span> PIXEL[i];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> PIXEL[PIXEL.length - <span class="number">1</span>];</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过查看源码，发现 Springboot 的图片 banner 的转换和我们预想的大致一致，这么有趣的功能我们能不能自己写一个呢？</p>
+<h1 id="3-自己实现图片转-ASCII字符"><a href="#3-自己实现图片转-ASCII字符" class="headerlink" title="3.自己实现图片转 ASCII字符"></a>3.自己实现图片转 ASCII字符</h1><p>根据上面的分析，总结一下思路，我们也可以手动写一个图片转 ASCII 字符图案。<br>思路如下：</p>
+<ol>
+<li>图片大小缩放，调整到合适大小。</li>
+<li>遍历图片像素。</li>
+<li>获取图片像素点亮度（RGB颜色通过公式可以得到亮度数值）。</li>
+<li>匹配字符。</li>
+<li>输出图案。</li>
+</ol>
+<p>上面的5个步骤直接使用 Java 代码就可以完整实现，下面是编写的源码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 根据图片生成字符图案</span></span><br><span class="line"><span class="comment"> * 1.图片大小缩放</span></span><br><span class="line"><span class="comment"> * 2.遍历图片像素点</span></span><br><span class="line"><span class="comment"> * 3.获取图片像素点亮度</span></span><br><span class="line"><span class="comment"> * 4.匹配字符</span></span><br><span class="line"><span class="comment"> * 5.输出图案</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>  niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@website</span> www.codingme.net</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019-02-25 23:03:01</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeneratorTextImage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span>[] PIXEL = &#123;<span class="string">'@'</span>, <span class="string">'#'</span>, <span class="string">'8'</span>, <span class="string">'&amp;'</span>, <span class="string">'o'</span>, <span class="string">':'</span>, <span class="string">'*'</span>, <span class="string">'.'</span>, <span class="string">' '</span>&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 图片缩放</span></span><br><span class="line">        BufferedImage bufferedImage = makeSmallImage(<span class="string">"src/main/resources/banner.jpg"</span>);</span><br><span class="line">        <span class="comment">// 输出</span></span><br><span class="line">        printImage(bufferedImage);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printImage</span><span class="params">(BufferedImage image)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> width = image.getWidth();</span><br><span class="line">        <span class="keyword">int</span> height = image.getHeight();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> rgb = image.getRGB(j, i);</span><br><span class="line">                Color color = <span class="keyword">new</span> Color(rgb);</span><br><span class="line">                <span class="keyword">int</span> red = color.getRed();</span><br><span class="line">                <span class="keyword">int</span> green = color.getGreen();</span><br><span class="line">                <span class="keyword">int</span> blue = color.getBlue();</span><br><span class="line">                <span class="comment">// 一个用于计算RGB像素点亮度的公式</span></span><br><span class="line">                Double luminace = <span class="number">0.2126</span> * red + <span class="number">0.7152</span> * green + <span class="number">0.0722</span> * blue;</span><br><span class="line">                <span class="keyword">double</span> index = luminace / (Math.ceil(<span class="number">255</span> / PIXEL.length) + <span class="number">0.5</span>);</span><br><span class="line">                System.out.print(PIXEL[(<span class="keyword">int</span>)(Math.floor(index))]);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title">makeSmallImage</span><span class="params">(String srcImageName)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        File srcImageFile = <span class="keyword">new</span> File(srcImageName);</span><br><span class="line">        <span class="keyword">if</span> (srcImageFile == <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">"文件不存在"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        FileOutputStream fileOutputStream = <span class="keyword">null</span>;</span><br><span class="line">        BufferedImage tagImage = <span class="keyword">null</span>;</span><br><span class="line">        Image srcImage = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            srcImage = ImageIO.read(srcImageFile);</span><br><span class="line">            <span class="keyword">int</span> srcWidth = srcImage.getWidth(<span class="keyword">null</span>);<span class="comment">// 原图片宽度</span></span><br><span class="line">            <span class="keyword">int</span> srcHeight = srcImage.getHeight(<span class="keyword">null</span>);<span class="comment">// 原图片高度</span></span><br><span class="line">            <span class="keyword">int</span> dstMaxSize = <span class="number">90</span>;<span class="comment">// 目标缩略图的最大宽度/高度，宽度与高度将按比例缩写</span></span><br><span class="line">            <span class="keyword">int</span> dstWidth = srcWidth;<span class="comment">// 缩略图宽度</span></span><br><span class="line">            <span class="keyword">int</span> dstHeight = srcHeight;<span class="comment">// 缩略图高度</span></span><br><span class="line">            <span class="keyword">float</span> scale = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// 计算缩略图的宽和高</span></span><br><span class="line">            <span class="keyword">if</span> (srcWidth &gt; dstMaxSize) &#123;</span><br><span class="line">                dstWidth = dstMaxSize;</span><br><span class="line">                scale = (<span class="keyword">float</span>)srcWidth / (<span class="keyword">float</span>)dstMaxSize;</span><br><span class="line">                dstHeight = Math.round((<span class="keyword">float</span>)srcHeight / scale);</span><br><span class="line">            &#125;</span><br><span class="line">            srcHeight = dstHeight;</span><br><span class="line">            <span class="keyword">if</span> (srcHeight &gt; dstMaxSize) &#123;</span><br><span class="line">                dstHeight = dstMaxSize;</span><br><span class="line">                scale = (<span class="keyword">float</span>)srcHeight / (<span class="keyword">float</span>)dstMaxSize;</span><br><span class="line">                dstWidth = Math.round((<span class="keyword">float</span>)dstWidth / scale);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 生成缩略图</span></span><br><span class="line">            tagImage = <span class="keyword">new</span> BufferedImage(dstWidth, dstHeight, BufferedImage.TYPE_INT_RGB);</span><br><span class="line">            tagImage.getGraphics().drawImage(srcImage, <span class="number">0</span>, <span class="number">0</span>, dstWidth, dstHeight, <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">return</span> tagImage;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (fileOutputStream != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    fileOutputStream.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">                fileOutputStream = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            tagImage = <span class="keyword">null</span>;</span><br><span class="line">            srcImage = <span class="keyword">null</span>;</span><br><span class="line">            System.gc();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还是拿上面的 Google log 图片作为实验对象，运行得到字符图案输出。<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ddc9487dd2050f9188825195427ed0a1.png" alt="图片转 ASCII 字符"></p>
+<p>文章代码已经上传到 GitHub <a href="https://github.com/niumoo/springboot/tree/master/" target="_blank" rel="noopener">Spring Boot</a>。</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Springboot/" rel="tag"># Springboot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/springboot/springboot-07-web-exception/" rel="next" title="Springboot 系列（七）web 开发之异常错误处理机制剖析">
+                <i class="fa fa-chevron-left"></i> Springboot 系列（七）web 开发之异常错误处理机制剖析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/springboot/springboot-09-data-jdbc/" rel="prev" title="Springboot 系列（九）使用 Spring JDBC 和 Druid 数据源监控">
+                Springboot 系列（九）使用 Spring JDBC 和 Druid 数据源监控 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+              
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-自定义-banner"><span class="nav-text">1. 自定义 banner</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-ASCII-图案生成原理"><span class="nav-text">2. ASCII 图案生成原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-自己实现图片转-ASCII字符"><span class="nav-text">3.自己实现图片转 ASCII字符</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

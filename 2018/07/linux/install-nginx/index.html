@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="NginxNginx是一个异步框架的 Web服务器，也可以用作反向代理，负载平衡器 和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。 同名公司成立于2011年，以提供支持。 安装1yum -y install nginx 启动12// 启动使用start 检查是否启动使用status 停止stopservice nginx start">
+<meta name="keywords" content="Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在CentOS7下Nginx的简单使用">
+<meta property="og:url" content="https://www.codingme.net/2018/07/linux/install-nginx/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="NginxNginx是一个异步框架的 Web服务器，也可以用作反向代理，负载平衡器 和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。 同名公司成立于2011年，以提供支持。 安装1yum -y install nginx 启动12// 启动使用start 检查是否启动使用status 停止stopservice nginx start">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/060ce880b9ad8d2688139d38ce01b355.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/cd56f7d9e0b1df3d6bf1e9e668d09cf9.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ed853d7219f3414a1676b0e411e40018.png">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在CentOS7下Nginx的简单使用">
+<meta name="twitter:description" content="NginxNginx是一个异步框架的 Web服务器，也可以用作反向代理，负载平衡器 和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。 同名公司成立于2011年，以提供支持。 安装1yum -y install nginx 启动12// 启动使用start 检查是否启动使用status 停止stopservice nginx start">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/060ce880b9ad8d2688139d38ce01b355.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/07/linux/install-nginx/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>在CentOS7下Nginx的简单使用 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/07/linux/install-nginx/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">在CentOS7下Nginx的简单使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-10 23:05:10" itemprop="dateCreated datePublished" datetime="2018-07-10T23:05:10+08:00">2018-07-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- ![Nginx Logo](https://raw.githubusercontent.com/niumoo/files/master/images/blog/c4f4c4d1ee971b2faa3ee4d504837a18.jpg)-->
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/060ce880b9ad8d2688139d38ce01b355.jpg" alt="Nginx Logo"></p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>Nginx是一个异步框架的 Web服务器，也可以用作反向代理，负载平衡器 和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。 同名公司成立于2011年，以提供支持。</p>
+<p>安装<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install nginx</span><br></pre></td></tr></table></figure></p>
+<p>启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 启动使用start 检查是否启动使用status 停止stop</span><br><span class="line">service nginx start</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>测试<br>输入IP地址进行访问，出现下图说明已经成功<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/cd56f7d9e0b1df3d6bf1e9e668d09cf9.jpg" alt="nginx访问"></p>
+<h3 id="Nginx简单配置-发布web目录"><a href="#Nginx简单配置-发布web目录" class="headerlink" title="Nginx简单配置 - 发布web目录"></a>Nginx简单配置 - 发布web目录</h3><p>nginx 的配置文件位置在/etc/nginx/nginx.conf ，在修改之前建议进行备份！<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 备份配置文件</span><br><span class="line">cp nginx.conf nginx.conf.bak</span><br><span class="line">// 编辑Nginx配置文件</span><br><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line">// 在配置文件的http&#123;&#125;中添加如下配置</span><br><span class="line">server &#123;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> 端口号</span></span><br><span class="line">		listen       80;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> 域名</span></span><br><span class="line">		server_name  codingme.net;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> web目录</span></span><br><span class="line">		root /webroot;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> 默认首页</span></span><br><span class="line">		index index.html</span><br><span class="line">		error_page   500 502 503 504  /50x.html;</span><br><span class="line">		location / &#123;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Nginx简单配置-反向代理"><a href="#Nginx简单配置-反向代理" class="headerlink" title="Nginx简单配置 - 反向代理"></a>Nginx简单配置 - 反向代理</h3><p>什么是反向代理呢？服务器根据客户端的请求，从一组或多组后端服务器（如Web服务器）上获取资源，然后再将这些资源返回给客户端，客户端只会得知反向代理的IP地址，而不知道在代理服务器后面的服务器簇的存在。<br>一图胜千言：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ed853d7219f3414a1676b0e411e40018.png" alt="反向代理"><br>使用反向代理有如下功能，引用维基百科：</p>
+<blockquote>
+<p>对客户端隐藏服务器（簇）的IP地址<br>安全：作为应用层防火墙，为网站提供对基于Web的攻击行为（例如DoS/DDoS）的防护，更容易排查恶意软件等<br>为后端服务器（簇）统一提供加密和SSL加速（如SSL终端代理）<br>负载均衡，若服务器簇中有负荷较高者，反向代理通过URL重写，根据连线请求从负荷较低者获取与所需相同的资源或备援<br>对于静态内容及短时间内有大量访问请求的动态内容提供缓存服务<br>对一些内容进行压缩，以节约带宽或为网络带宽不佳的网络提供服务<br>减速上传<br>为在私有网络下（如局域网）的服务器簇提供NAT穿透及外网发布服务<br>提供HTTP访问认证[2]<br>突破互联网封锁（不常用，因为反向代理与客户端之间的连线不一定是加密连线，非加密连线仍有遭内容审查进而遭封禁的风险；此外面对针对域名的关键字过滤、DNS缓存污染/投毒攻击乃至深度数据包检测也无能为力）</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 编辑Nginx配置文件</span><br><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line">// 在配置文件的http&#123;&#125;中添加如下配置</span><br><span class="line"> server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  codingme.net;</span><br><span class="line">        location / &#123;</span><br><span class="line"><span class="meta">			#</span><span class="bash"> Tomcat访问路径</span></span><br><span class="line">            proxy_pass http://127.0.0.1:8080/;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Nginx简单配置-HTTPS"><a href="#Nginx简单配置-HTTPS" class="headerlink" title="Nginx简单配置 - HTTPS"></a>Nginx简单配置 - HTTPS</h3><p>在Google对HTPPS的推动下，越来越多的网站开始启用HTTPS协议，以应对网络安全问题。</p>
+<p>关于HTTPS的概念，推荐一篇文章：<a href="https://qianduan.group/posts/5a6560b00cf6b624d2239c6f" target="_blank" rel="noopener">HTTPS 的故事</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 编辑Nginx配置文件</span><br><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line">// 在配置文件的http&#123;&#125;中添加如下配置</span><br><span class="line">server &#123;</span><br><span class="line">		listen   80;</span><br><span class="line">		server_name codingme.net;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> HTTP请求跳转至HTTPS</span></span><br><span class="line">        rewrite ^(.*) https://$host$1 permanent;</span><br><span class="line">    &#125;	</span><br><span class="line">server &#123;</span><br><span class="line">        listen     443;</span><br><span class="line">        server_name codingme.net;</span><br><span class="line">        ssl on;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> HTTPS证书位置</span></span><br><span class="line">        ssl_certificate /webroot/xxx.crt; </span><br><span class="line"><span class="meta">		#</span><span class="bash"> 密钥位置</span></span><br><span class="line">        ssl_certificate_key /webroot/xxx.key; </span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2; </span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> 网站目录</span></span><br><span class="line">        root /webroot;</span><br><span class="line">		error_page 500 502 503 504 /50x.html;</span><br><span class="line">		location / &#123;</span><br><span class="line"></span><br><span class="line">	 &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/linux/linux-crontab/" rel="next" title="Linux定时任务crontab的使用">
+                <i class="fa fa-chevron-left"></i> Linux定时任务crontab的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/computer/protocol-http/" rel="prev" title="网络协议之HTTP">
+                网络协议之HTTP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx"><span class="nav-number">1.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx简单配置-发布web目录"><span class="nav-number">2.</span> <span class="nav-text">Nginx简单配置 - 发布web目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx简单配置-反向代理"><span class="nav-number">3.</span> <span class="nav-text">Nginx简单配置 - 反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx简单配置-HTTPS"><span class="nav-number">4.</span> <span class="nav-text">Nginx简单配置 - HTTPS</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

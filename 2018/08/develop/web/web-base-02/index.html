@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Tomcat 介绍Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一">
+<meta name="keywords" content="Tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web笔记（二）Tomcat 使用总结">
+<meta property="og:url" content="https://www.codingme.net/2018/08/develop/web/web-base-02/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="Tomcat 介绍Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/84e22fa4d78bc3eb8ed5109a0beb21f8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae2daaf8a3849968ec40589cdcc54f4b.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5479a7ba9d098838d3e0fee1d2f05877.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/869cfe4d5dc8a32e1e1b7f7723587a53.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/73a4fd3da0339281189dd33b0b417eba.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/f9501721ef675ded41268e0080ef05bc.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/b6b0c70169fe8297bec33d9f51980a72.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6a0ecaf86e878e286eb489d0b5b673d2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1a56a5580ae151d1b7201e11fd04bed8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ab3ac58378336d818a7386d18e887eab.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5ca799c38a020dbd5ae476420537d3bc.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c437877b962ffd9aac1f3beb2b9c074c.gif">
+<meta property="og:updated_time" content="2018-08-23T01:12:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web笔记（二）Tomcat 使用总结">
+<meta name="twitter:description" content="Tomcat 介绍Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/84e22fa4d78bc3eb8ed5109a0beb21f8.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/08/develop/web/web-base-02/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Web笔记（二）Tomcat 使用总结 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/develop/web/web-base-02/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web笔记（二）Tomcat 使用总结
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-23 09:12:31" itemprop="dateCreated datePublished" datetime="2018-08-23T09:12:31+08:00">2018-08-23</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/84e22fa4d78bc3eb8ed5109a0beb21f8.jpg" alt=""></p>
+<h3 id="Tomcat-介绍"><a href="#Tomcat-介绍" class="headerlink" title="Tomcat 介绍"></a>Tomcat 介绍</h3><p>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache HTTP服务器混淆，Apache HTTP服务器是一个用C语言实现的HTTPWeb服务器；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。（摘录自<a href="https://zh.wikipedia.org/wiki/Apache_Tomcat" target="_blank" rel="noopener">Wiki</a>）(<a href="http://tomcat.apache.org/" target="_blank" rel="noopener">Apache Tomcat</a>)<br><a id="more"></a></p>
+<h3 id="Tomcat-安装"><a href="#Tomcat-安装" class="headerlink" title="Tomcat 安装"></a>Tomcat 安装</h3><p>Tomcat是免费的开源软件，可在直接在官方网站下载。<br><a href="http://tomcat.apache.org/" target="_blank" rel="noopener">http://tomcat.apache.org/</a><br>1.可以直接在左侧选择版本：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae2daaf8a3849968ec40589cdcc54f4b.jpg" alt="enter image description here"></p>
+<p>2.选择版本后可以在下方进行下载，可以选择下载安装版或者解压版，这里选择了解压版<br>tar.gz文件是Linux操作系统下的安装版本<br>exe文件是Windows系统下的安装版本<br>zip文件是Windows系统下的压缩版本</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5479a7ba9d098838d3e0fee1d2f05877.jpg" alt="enter image description here"></p>
+<p>3.下载完成后解压缩，得到Tomcat目录，</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/869cfe4d5dc8a32e1e1b7f7723587a53.jpg" alt="Tomca目录"></p>
+<h3 id="Tomcat-的默认端口"><a href="#Tomcat-的默认端口" class="headerlink" title="Tomcat 的默认端口"></a>Tomcat 的默认端口</h3><p>Tomcat 修改HTTP默认端口，可以直接修改Tomcat 目录下\conf \server.xml文件。默认端口号为8080，修改为想要的端口，重启Tomcat即可。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">URIEncoding</span>=<span class="string">"UTF-8"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>若要修改成8081端口：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">URIEncoding</span>=<span class="string">"UTF-8"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">port</span>=<span class="string">"8081"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Tomcat-的虚拟目录配置"><a href="#Tomcat-的虚拟目录配置" class="headerlink" title="Tomcat 的虚拟目录配置"></a>Tomcat 的虚拟目录配置</h3><p>什么是虚拟目录呢，简单的说，我们可以根据请求的路径不同，来发布不同的项目。如此形式：我们想要<br>在访问<a href="http://www.codingme.net/testA">http://www.codingme.net/testA</a>  时，进入A项目。<br>在访问<a href="http://www.codingme.net/testB">http://www.codingme.net/testB</a>  时，进入B项目。<br>这个时候我们就需要配置虚拟目录来完成这个操作。<br>此时的URL：<a href="http://www.codingme.net/testA">http://www.codingme.net/testA</a>  不是单纯的路径，而是协议域名端口号+WEB应用testA。</p>
+<h4 id="自动映射虚拟目录"><a href="#自动映射虚拟目录" class="headerlink" title="自动映射虚拟目录"></a>自动映射虚拟目录</h4><p>在Tomcat 默认情况下，我们可以看到 %Tomca%\conf \server.xml文件最底部有配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">"localhost"</span>  <span class="attr">appBase</span>=<span class="string">"webapps"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">unpackWARs</span>=<span class="string">"true"</span> <span class="attr">autoDeploy</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- SingleSignOn valve, share authentication between web applications</span></span><br><span class="line"><span class="comment">       Documentation at: /docs/config/valve.html --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">  &lt;Valve className="org.apache.catalina.authenticator.SingleSignOn" /&gt;</span></span><br><span class="line"><span class="comment">  --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Access log processes all example.</span></span><br><span class="line"><span class="comment">       Documentation at: /docs/config/valve.html</span></span><br><span class="line"><span class="comment">       <span class="doctag">Note:</span> The pattern used is equivalent to using pattern="common" --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.valves.AccessLogValve"</span> <span class="attr">directory</span>=<span class="string">"logs"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">prefix</span>=<span class="string">"localhost_access_log"</span> <span class="attr">suffix</span>=<span class="string">".txt"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">pattern</span>=<span class="string">"%h %l %u %t "</span>%<span class="attr">r</span>" %<span class="attr">s</span> %<span class="attr">b</span>" /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Host</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里Tomcat 默认配置了虚拟主机localhost，基础应用目录webapps，也就是%Tomca%\webapps\ 目录，Tomcat 服务器会自动管理webapps目录下的所有web应用，并把它映射成虚似目录。<br>因此在需要配置虚拟目录时我们可以直接把项目复制到webapps 目录下进行发布<br>示例：</p>
+<ol>
+<li>复制项目到webapps下</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/73a4fd3da0339281189dd33b0b417eba.jpg" alt="复制项目到webapps"></p>
+<ol start="2">
+<li>查看test/ index.html 文件内容<br> <img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/f9501721ef675ded41268e0080ef05bc.jpg" alt="Index内容"></li>
+<li>运行%Tomcat%/bin/startup.bat 启动Tomcat</li>
+<li>进行访问测试<a href="http://localhost:8080/test/index.html" target="_blank" rel="noopener">http://localhost:8080/test/index.html</a></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/b6b0c70169fe8297bec33d9f51980a72.jpg" alt="访问测试"></p>
+<p>注意：<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 会默认访问 webapps/ROOT文件夹中的内容。</p>
+<h4 id="修改server-xml-映射虚拟目录"><a href="#修改server-xml-映射虚拟目录" class="headerlink" title="修改server.xml 映射虚拟目录"></a>修改server.xml 映射虚拟目录</h4><p>我们也可以通过在server.xml 文件中的host 元素之间添加配置代码来配置虚拟目录：添加代码如下;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Context path="/app" docBase="D:/app" debug="0" reloadable="true" crossContext="true"/&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6a0ecaf86e878e286eb489d0b5b673d2.jpg" alt=""></p>
+<p>配置中我们配置了访问路径为/app  ，项目路径D:/app 因此我们只要把要发布的内容放入D:/app 文件夹中即可。<br> 配置完毕后 运行%Tomcat%/bin/startup.bat 启动Tomcat，可以通过</p>
+<blockquote>
+<p><a href="http://localhost:8080/app/index.html" target="_blank" rel="noopener">http://localhost:8080/app/index.html</a></p>
+</blockquote>
+<p>访问到D:/app/index.html，需要多个虚拟目录可以直接配置多条配置。</p>
+<p>注意：若想使用<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 访问项目则需要配置 <code>path=&quot;&quot;</code><br>注意：配置中的path值和docBase中的文件夹名称没有任何关系。</p>
+<h4 id="在conf-Catalina-localhost-增加xml文件映射虚拟目录"><a href="#在conf-Catalina-localhost-增加xml文件映射虚拟目录" class="headerlink" title="在conf /Catalina /localhost 增加xml文件映射虚拟目录"></a>在conf /Catalina /localhost 增加xml文件映射虚拟目录</h4><p>博主比较推荐这一种。<br>在%Tomcat%/conf/Catalina/localhost目录中，增加配置文件来配置虚拟目录。<br>配置文件名称格式为：虚拟目录路径.xml<br>举个栗子：<br>在%Tomcat%/conf/Catalina/localhost目录中增加文件  <code>blog.xml</code><br>写入内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"> <span class="tag">&lt;<span class="name">Context</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">docBase</span>=<span class="string">"d:/blog"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">reloadable</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1a56a5580ae151d1b7201e11fd04bed8.jpg" alt="Tomcat-localhost"></p>
+<p>D盘下blog文件夹中内容：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ab3ac58378336d818a7386d18e887eab.jpg" alt=""></p>
+<p><code>docBase=&quot;d:/blog&quot;</code> 指定了Web应用存放位置为D盘下blog文件夹中。<br><code>reloadable=&quot;true&quot;</code>表示当blog文件夹中文件有变化中，自动加载。<br>配置完毕启动Tomcat后就可以通过访问到blog文件夹中的内容。</p>
+<blockquote>
+<p><a href="http://localhost:8080/blog" target="_blank" rel="noopener">http://localhost:8080/blog</a></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5ca799c38a020dbd5ae476420537d3bc.jpg" alt=""></p>
+<p>注意：需要多个虚拟目录可以多建立几个配置文件，文件名不能相同。<br>注意：若想使用<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 访问项目则需要配置文件名为<code>ROOT.xml</code>。<br>注意：文件名blog.xml 和配置中d:/blog 没有关系，文件名可以写成其他，如blog111.xml，那么在访问时就要访问<a href="http://localhost:8080/blog111" target="_blank" rel="noopener">http://localhost:8080/blog111</a></p>
+<h3 id="Tomcat-的虚拟主机"><a href="#Tomcat-的虚拟主机" class="headerlink" title="Tomcat 的虚拟主机"></a>Tomcat 的虚拟主机</h3><p>首先我们先了解虚拟主机的用处，一个虚拟主机也就是一个网站。比如我们<code>只有一个服务器</code>，一个服务器上只有一个80端口，我们需要发布两个web项目，那么我们可以使用虚拟目录，把两个项目发布到两个不同的路径之下，但是如果我们有两个不同的域名需要把两个项目对应两个域名，我们就需要配置虚拟主机了。</p>
+<p>示例：两个域名<br>一个是<code>www.aaaa.com</code><br>一个是 <code>www.bbbb.com</code></p>
+<p>为了实验效果，我们配置C:\Windows\System32\drivers\etc\hosts 文件，添加两行映射。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1	www.aaaa.com</span><br><span class="line">127.0.0.1	www.bbbb.com</span><br></pre></td></tr></table></figure></p>
+<p>此时我们本机可以使用 localhost / <a href="http://www.aaaa.com" target="_blank" rel="noopener">www.aaaa.com</a> / <a href="http://www.bbbb.com" target="_blank" rel="noopener">www.bbbb.com</a> 进行访问。</p>
+<p>配置虚拟主机指定<a href="http://www.aaaa.com访问是的内容。" target="_blank" rel="noopener">www.aaaa.com访问是的内容。</a><br>1：在server.xml中Engine元素中添加一个host子元素<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">"www.aaaa.com"</span> <span class="attr">debug</span>=<span class="string">"0"</span> <span class="attr">appBase</span>=<span class="string">"d:/aaaa"</span> <span class="attr">unpackWARs</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag"><span class="attr">autoDeploy</span>=<span class="string">"true"</span> <span class="attr">xmlValidation</span>=<span class="string">"false"</span> <span class="attr">xmlNamespaceAware</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Logger</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.logger.FileLogger"</span> <span class="attr">directory</span>=<span class="string">"logs"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">prefix</span>=<span class="string">"aaaa_log."</span> <span class="attr">suffix</span>=<span class="string">".txt"</span> <span class="attr">timestamp</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Host</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中的</p>
+<ol>
+<li>name表示在访问的域名是<a href="http://www.aaaa.com时会使用此配置。" target="_blank" rel="noopener">www.aaaa.com时会使用此配置。</a></li>
+<li>appBase=”d:/aaaa”  指定了项目的发布路径。</li>
+</ol>
+<p>启动Tomcat后，此时在使用<a href="http://www.aaaa.com进行访问时候，会默认显示d:/aaaa/ROOT中的内容。" target="_blank" rel="noopener">www.aaaa.com进行访问时候，会默认显示d:/aaaa/ROOT中的内容。</a></p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c437877b962ffd9aac1f3beb2b9c074c.gif" alt=""></p>
+<p>如果存在 d:/aaaa/test，则可以通过<a href="http://www.aaaa.com:8080/test" target="_blank" rel="noopener">http://www.aaaa.com:8080/test</a>  进行访问。<br>此时test也就是<a href="http://www.aaaa.com的虚拟目录。" target="_blank" rel="noopener">www.aaaa.com的虚拟目录。</a><br>添加<a href="http://www.bbbb.com" target="_blank" rel="noopener">www.bbbb.com</a> 访问同上。</p>
+<h3 id="Tomcat-的单例多实例配置"><a href="#Tomcat-的单例多实例配置" class="headerlink" title="Tomcat 的单例多实例配置"></a>Tomcat 的单例多实例配置</h3><p>参考之前文章<br><a href="https://www.codingme.net/2018/08/develop/install-tomcat-many-instance/">Linux配置Tomcat的单机多实例</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/html-css/jquery-easing-anchor-animation/" rel="next" title="Jquery - 使用jquery-easing.js实现页面锚点平滑滚动">
+                <i class="fa fa-chevron-left"></i> Jquery - 使用jquery-easing.js实现页面锚点平滑滚动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/develop/web/web-base-03/" rel="prev" title="Web笔记（三）Servlet 的类与接口API">
+                Web笔记（三）Servlet 的类与接口API <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-介绍"><span class="nav-number">1.</span> <span class="nav-text">Tomcat 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-安装"><span class="nav-number">2.</span> <span class="nav-text">Tomcat 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-的默认端口"><span class="nav-number">3.</span> <span class="nav-text">Tomcat 的默认端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-的虚拟目录配置"><span class="nav-number">4.</span> <span class="nav-text">Tomcat 的虚拟目录配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动映射虚拟目录"><span class="nav-number">4.1.</span> <span class="nav-text">自动映射虚拟目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改server-xml-映射虚拟目录"><span class="nav-number">4.2.</span> <span class="nav-text">修改server.xml 映射虚拟目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在conf-Catalina-localhost-增加xml文件映射虚拟目录"><span class="nav-number">4.3.</span> <span class="nav-text">在conf /Catalina /localhost 增加xml文件映射虚拟目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-的虚拟主机"><span class="nav-number">5.</span> <span class="nav-text">Tomcat 的虚拟主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-的单例多实例配置"><span class="nav-number">6.</span> <span class="nav-text">Tomcat 的单例多实例配置</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

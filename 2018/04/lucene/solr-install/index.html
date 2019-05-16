@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="solr 基本介绍Apache Solr (读音: SOLer) 是一个开源的搜索服务器。Solr 使用 Java 语言开发，主要基于 HTTP 和 Apache Lucene 实现。Apache Solr 中存储的资源是以 Document 为对象进行存储的。每个文档由一系列的 Field 构成，每个 Field 表示资源的一个属性。Solr 中的每个 Document 需要有能唯一标识其自身的">
+<meta name="keywords" content="solr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solr7.3.0入门教程，部署Solr到Tomcat，配置Solr中文分词器">
+<meta property="og:url" content="https://www.codingme.net/2018/04/lucene/solr-install/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="solr 基本介绍Apache Solr (读音: SOLer) 是一个开源的搜索服务器。Solr 使用 Java 语言开发，主要基于 HTTP 和 Apache Lucene 实现。Apache Solr 中存储的资源是以 Document 为对象进行存储的。每个文档由一系列的 Field 构成，每个 Field 表示资源的一个属性。Solr 中的每个 Document 需要有能唯一标识其自身的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/fe144bc80396e60b15916c7e51aa7b13.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/52e69f0e2689f1c02fe0224e27b8c4cc.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1f414f595a368a2f1250a068c3f28c92.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/59449d149b6083c5f97b0e928c65661d.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/90dabacb5dbcf838003076e24c6ba71e.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a57faf42fa5e96435d4ffde6b8a66c0b.jpg">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solr7.3.0入门教程，部署Solr到Tomcat，配置Solr中文分词器">
+<meta name="twitter:description" content="solr 基本介绍Apache Solr (读音: SOLer) 是一个开源的搜索服务器。Solr 使用 Java 语言开发，主要基于 HTTP 和 Apache Lucene 实现。Apache Solr 中存储的资源是以 Document 为对象进行存储的。每个文档由一系列的 Field 构成，每个 Field 表示资源的一个属性。Solr 中的每个 Document 需要有能唯一标识其自身的">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/fe144bc80396e60b15916c7e51aa7b13.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/04/lucene/solr-install/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Solr7.3.0入门教程，部署Solr到Tomcat，配置Solr中文分词器 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/04/lucene/solr-install/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Solr7.3.0入门教程，部署Solr到Tomcat，配置Solr中文分词器
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-13 17:31:11" itemprop="dateCreated datePublished" datetime="2018-04-13T17:31:11+08:00">2018-04-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="solr-基本介绍"><a href="#solr-基本介绍" class="headerlink" title="solr 基本介绍"></a>solr 基本介绍</h3><p>Apache Solr (读音: SOLer) 是一个开源的搜索服务器。Solr 使用 Java 语言开发，主要基于 HTTP 和 Apache Lucene 实现。Apache Solr 中存储的资源是以 Document 为对象进行存储的。每个文档由一系列的 Field 构成，每个 Field 表示资源的一个属性。Solr 中的每个 Document 需要有能唯一标识其自身的属性，默认情况下这个属性的名字是 id，在 Schema 配置文件中使用：id进行描述。<br>Solr是一个高性能，采用Java开发，基于Lucene的全文搜索服务器。文档通过Http利用XML加到一个搜索集合中。查询该集合也是通过 http收到一个XML/JSON响应来实现。它的主要特性包括：高效、灵活的缓存功能，垂直搜索功能，高亮显示搜索结果，通过索引复制来提高可用性，提 供一套强大Data Schema来定义字段，类型和设置文本分析，提供基于Web的管理界面等。</p>
+<a id="more"></a>
+<h4 id="solr-名称来源"><a href="#solr-名称来源" class="headerlink" title="solr 名称来源"></a>solr 名称来源</h4><p>Search On Lucene Replication</p>
+<h4 id="solr-历史"><a href="#solr-历史" class="headerlink" title="solr 历史"></a>solr 历史</h4><p>2004年 CNET 开发 Solar，为 CNET 提供站内搜索服务<br>2006年1月捐献给 Apache ，成为 Apache 的孵化项目<br>一年后 Solr 孵化成熟，发布了1.2版，并成为 Lucene 的子项目<br>2010年6月，solr 发布了的1.4.1版，这是1.4的 bugfix 版本，1.4.1的solr使用的lucene是2.9版本的<br>solr 从1.4.x版本以后，为了保持和lucene同步的版本，solr直接进入3.0版本。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ol>
+<li><p>下载JDK8 安装且配置环境变量<br> 可以直接在<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">JDK官方网站</a>进行下载。<br> 安装完毕之后<a href="https://jingyan.baidu.com/article/c85b7a6414f2ee003bac95d5.html" target="_blank" rel="noopener">配置环境变量</a>。</p>
+</li>
+<li><p>下载Solr7.3.0并解压<br> 可以直接在<a href="https://lucene.apache.org/whoweare.html" target="_blank" rel="noopener">Solr官方网站</a>进行下载。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/fe144bc80396e60b15916c7e51aa7b13.jpg" alt="Solr下载"><br>​    <a href="http://mirrors.hust.edu.cn/apache/lucene/solr/" target="_blank" rel="noopener">http://mirrors.hust.edu.cn/apache/lucene/solr/</a></p>
+</li>
+<li><p>下载Tomcat 8或者 Tomcat 9 并解压<br>可以直接在<a href="https://tomcat.apache.org/download-90.cgi" target="_blank" rel="noopener">Tomcat官方网站</a>进行下载安装。<br><a href="https://tomcat.apache.org/download-90.cgi" target="_blank" rel="noopener">https://tomcat.apache.org/download-90.cgi</a></p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/52e69f0e2689f1c02fe0224e27b8c4cc.jpg" alt="Tomcat下载"></p>
+</li>
+</ol>
+<h3 id="部署Solr到Tomcat"><a href="#部署Solr到Tomcat" class="headerlink" title="部署Solr到Tomcat"></a>部署Solr到Tomcat</h3><p>说明：  我的解压路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Solr：D:\develop\solr-7.3.0</span><br><span class="line">#Tomcat：D:\webserver\apache-tomcat-9.0.1</span><br></pre></td></tr></table></figure></p>
+<h4 id="复制Solr文件到Tomcat"><a href="#复制Solr文件到Tomcat" class="headerlink" title="复制Solr文件到Tomcat"></a>复制Solr文件到Tomcat</h4><ol>
+<li>拷贝文件夹<br>D:\develop\solr-7.3.0\server\solr-webapp\webapp 到<br>D:\webserver\apache-tomcat-9.0.1\webapps\ 下，并且重命名为<code>solr7.3</code>  </li>
+<li>复制D:\develop\solr-7.3.0\server\lib\ext 下的所有Jar包到<br>D:\webserver\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\lib</li>
+<li>复制D:\develop\solr-7.3.0\dist下的<br> <code>solr-dataimporthandler-7.3.0.jar</code><br> <code>solr-dataimporthandler-extras-7.3.0.jar</code><br>到D:\webserver\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\lib</li>
+<li>复制D:\develop\solr-7.3.0\server\lib下的<code>metrics-</code>开头的五个Jar<br>到D:\webserver\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\lib</li>
+<li>复制D:\develop\solr-7.3.0\server\resources\log4j.properties到<br>D:\webserver\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\classes<h4 id="配置Solr-Home"><a href="#配置Solr-Home" class="headerlink" title="配置Solr Home"></a>配置Solr Home</h4></li>
+<li>新建文件夹D:\develop\solr-7.3.0-home，复制D:\develop\solr-7.3.0\server\solr下的所有内容到D:\develop\solr-7.3.0-home。</li>
+<li>打开D:\webserver\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\web.xml<br>在47行配置SolrHome，用于指定数据存放位置。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;env-entry&gt;</span><br><span class="line">  &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</span><br><span class="line">  &lt;env-entry-value&gt;D:\develop\solr-7.3.0-home&lt;/env-entry-value&gt;</span><br><span class="line">  &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</span><br><span class="line">&lt;/env-entry&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="关闭安全约束"><a href="#关闭安全约束" class="headerlink" title="关闭安全约束"></a>关闭安全约束</h4><p>注释掉D:\webserver\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\web.xml最下方的安全约束，让项目启动之后可以正常访问。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Get rid of error message --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">&lt;security-constraint&gt;</span></span><br><span class="line"><span class="comment">  &lt;web-resource-collection&gt;</span></span><br><span class="line"><span class="comment">    &lt;web-resource-name&gt;Disable TRACE&lt;/web-resource-name&gt;</span></span><br><span class="line"><span class="comment">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="comment">    &lt;http-method&gt;TRACE&lt;/http-method&gt;</span></span><br><span class="line"><span class="comment">  &lt;/web-resource-collection&gt;</span></span><br><span class="line"><span class="comment">  &lt;auth-constraint/&gt;</span></span><br><span class="line"><span class="comment">&lt;/security-constraint&gt;</span></span><br><span class="line"><span class="comment">&lt;security-constraint&gt;</span></span><br><span class="line"><span class="comment">  &lt;web-resource-collection&gt;</span></span><br><span class="line"><span class="comment">    &lt;web-resource-name&gt;Enable everything but TRACE&lt;/web-resource-name&gt;</span></span><br><span class="line"><span class="comment">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="comment">    &lt;http-method-omission&gt;TRACE&lt;/http-method-omission&gt;</span></span><br><span class="line"><span class="comment">  &lt;/web-resource-collection&gt;</span></span><br><span class="line"><span class="comment">&lt;/security-constraint&gt;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Tomcat启动访问"><a href="#Tomcat启动访问" class="headerlink" title="Tomcat启动访问"></a>Tomcat启动访问</h4><p>至此，Solr配置以及完成，启动Tomcat访问<br><a href="http://localhost:8080/solr7.3/index.html" target="_blank" rel="noopener">http://localhost:8080/solr7.3/index.html</a></p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1f414f595a368a2f1250a068c3f28c92.jpg" alt="Solr7.3首页">)</p>
+<h3 id="创建Solr-Core"><a href="#创建Solr-Core" class="headerlink" title="创建Solr Core"></a>创建Solr Core</h3><p>点击网页左侧菜单Core Admin<br>输入<br>​    name：blog<br>​    instanceDir：blog<br>点击<code>Add Core</code>，网页上方提示在D:\develop\solr-7.3.0-home\blog下无法找到solrconfig.xml：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error CREATEing SolrCore &apos;blog&apos;: Unable to create core [blog] Caused by: Can&apos;t find resource &apos;solrconfig.xml&apos; in classpath or &apos;D:\develop\solr-7.3.0-home\blog&apos;</span><br></pre></td></tr></table></figure>
+<p>我们复制官方给出的默认配置，复制<br>D:\develop\solr-7.3.0-home\configsets_default\conf<br>到D:\develop\solr-7.3.0-home\blog下，回到页面，再次点击<code>Add Core</code>，等待页面添加成功自动刷新。<br>此时，在SolrHome下的blog文件夹下生成了相关文件：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/59449d149b6083c5f97b0e928c65661d.jpg" alt="Solr core"></p>
+<h3 id="添加-Core-字段"><a href="#添加-Core-字段" class="headerlink" title="添加 Core 字段"></a>添加 Core 字段</h3><h4 id="在页面上添加"><a href="#在页面上添加" class="headerlink" title="在页面上添加"></a>在页面上添加</h4><p>打开<a href="http://localhost:8080/solr7.3/index.html选择左侧菜单`Core" target="_blank" rel="noopener">http://localhost:8080/solr7.3/index.html选择左侧菜单`Core</a> Selector<code>选择刚才添加的blog，接着选择下面的Schema。可以在出现的页面上填写字段信息name：title，field type：string，然后点击</code>Add Field`完成添加。<br><a href="https://blog.csdn.net/u011518678/article/details/51871925" target="_blank" rel="noopener">Solr中的Field、CopyField、DynamicField与其他Field</a></p>
+<h4 id="在配置文件中添加"><a href="#在配置文件中添加" class="headerlink" title="在配置文件中添加"></a>在配置文件中添加</h4><p>我们打开文件：<br>D:\develop\solr-7.3.0-home\blog\conf\managed-schema<br>搜索title关键词，搜索到如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;field name=&quot;title&quot; type=&quot;string&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可见，我们刚才在页面添加的字段信息最终会生成此条配置，因此，我们也可以拷贝这个配置更改name值为content就可以完成content字段的添加。</p>
+<p>配置完成之后点击页面<code>Core Admin</code>然后点击<code>Reload</code>刷新信息，我们就可以在Schema中查看到content字段。</p>
+<h3 id="添加-更新-查询数据"><a href="#添加-更新-查询数据" class="headerlink" title="添加/更新/查询数据"></a>添加/更新/查询数据</h3><p>在页面选择blog Core，选择Documents，在Document(s)中输入下面内容进行数据然后点击Submit Document添加数据，如果ID已经存在，则为更新。如果JSON中没有写ID字段，会随机生成ID。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;id&quot;: &quot;10000&quot;,</span><br><span class="line">  &quot;title&quot;: &quot;Sorl入门教程&quot;,</span><br><span class="line">  &quot;content&quot;: &quot;sorl下载，solr配置，solr启动&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提交之后可以看到成功添加信息的反馈。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Status: success</span><br><span class="line">Response:</span><br><span class="line">&#123;</span><br><span class="line">  &quot;responseHeader&quot;: &#123;</span><br><span class="line">    &quot;status&quot;: 0,</span><br><span class="line">    &quot;QTime&quot;: 4</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据已经成功添加，如果需要查询数据可以点击左侧<code>Query</code>，点击<code>Execute Query</code>查询出刚才添加的数据。</p>
+<h3 id="中文分词器的使用"><a href="#中文分词器的使用" class="headerlink" title="中文分词器的使用"></a>中文分词器的使用</h3><p>在已经运行的页面上，选择blog Core，然后选择<code>Analysis</code>，输入中国人民，字段类型选择<em>text</em>，点击<code>Analyse Values</code>可以看到没有中文分词器的结果：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/90dabacb5dbcf838003076e24c6ba71e.jpg" alt="没有分词器"></p>
+<p>下面使用中文分词器，下载ikanalyzer-solr6.5<br>解压将<code>IKAnalyzer.cfg.xml</code>以及<code>stopword.dic</code>解压到<br>\apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\classes  </p>
+<p>  解压将里面的两个jar包<code>ik-analyzer-solr5-5.x.jar</code>以及<code>solr-analyzer-ik-5.1.0.jar</code>解压到<br>  \apache-tomcat-9.0.1\webapps\solr7.3\WEB-INF\lib</p>
+<p>  打开刚才创建的blog core目录\solr-7.3.0-home\blog\conf，编辑managed-schema文件添加配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;fieldType name=&quot;text_ik&quot; class=&quot;solr.TextField&quot;&gt;</span><br><span class="line">  &lt;analyzer class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;</span><br><span class="line">&lt;/fieldType&gt;</span><br></pre></td></tr></table></figure>
+<p>在页面选择Core Admin -&gt;  blog -&gt; Reload 刷新配置，然后选择blog Core，然后选择<code>Analysis</code>，输入中国人民，字段类型选择text_ik，点击<code>Analyse Values</code>可以看到没有中文分词器的结果：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a57faf42fa5e96435d4ffde6b8a66c0b.jpg" alt="使用分词器"></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://lucene.apache.org/solr/guide/7_3/solr-tutorial.html" target="_blank" rel="noopener">Solr官方文档</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solr/" rel="tag"># solr</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/dp/pattern-singleton/" rel="next" title="设计模式 - 创建型模式之单例模式（Singleton Pattern）">
+                <i class="fa fa-chevron-left"></i> 设计模式 - 创建型模式之单例模式（Singleton Pattern）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/lucene/elasticsearch-base-curd/" rel="prev" title="全文搜索ElasticSearch（一）数据的增删改查">
+                全文搜索ElasticSearch（一）数据的增删改查 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#solr-基本介绍"><span class="nav-number">1.</span> <span class="nav-text">solr 基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solr-名称来源"><span class="nav-number">1.1.</span> <span class="nav-text">solr 名称来源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#solr-历史"><span class="nav-number">1.2.</span> <span class="nav-text">solr 历史</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署Solr到Tomcat"><span class="nav-number">3.</span> <span class="nav-text">部署Solr到Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制Solr文件到Tomcat"><span class="nav-number">3.1.</span> <span class="nav-text">复制Solr文件到Tomcat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Solr-Home"><span class="nav-number">3.2.</span> <span class="nav-text">配置Solr Home</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭安全约束"><span class="nav-number">3.3.</span> <span class="nav-text">关闭安全约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tomcat启动访问"><span class="nav-number">3.4.</span> <span class="nav-text">Tomcat启动访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Solr-Core"><span class="nav-number">4.</span> <span class="nav-text">创建Solr Core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-Core-字段"><span class="nav-number">5.</span> <span class="nav-text">添加 Core 字段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在页面上添加"><span class="nav-number">5.1.</span> <span class="nav-text">在页面上添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在配置文件中添加"><span class="nav-number">5.2.</span> <span class="nav-text">在配置文件中添加</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-更新-查询数据"><span class="nav-number">6.</span> <span class="nav-text">添加/更新/查询数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中文分词器的使用"><span class="nav-number">7.</span> <span class="nav-text">中文分词器的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

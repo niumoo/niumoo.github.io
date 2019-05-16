@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ElasticSearch采用Java编写，提供简单易用的RESTFul API。我们可以直接通过API接口进行操作。笔者使用的ElasticSearch版本：elasticsearch-6.3.0">
+<meta name="keywords" content="elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全文搜索ElasticSearch（一）数据的增删改查">
+<meta property="og:url" content="https://www.codingme.net/2018/04/lucene/elasticsearch-base-curd/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="ElasticSearch采用Java编写，提供简单易用的RESTFul API。我们可以直接通过API接口进行操作。笔者使用的ElasticSearch版本：elasticsearch-6.3.0">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3d90604a4a775e8ce0450bac9bc4234c.jpg">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="全文搜索ElasticSearch（一）数据的增删改查">
+<meta name="twitter:description" content="ElasticSearch采用Java编写，提供简单易用的RESTFul API。我们可以直接通过API接口进行操作。笔者使用的ElasticSearch版本：elasticsearch-6.3.0">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3d90604a4a775e8ce0450bac9bc4234c.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/04/lucene/elasticsearch-base-curd/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>全文搜索ElasticSearch（一）数据的增删改查 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/04/lucene/elasticsearch-base-curd/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">全文搜索ElasticSearch（一）数据的增删改查
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-16 00:44:28" itemprop="dateCreated datePublished" datetime="2018-04-16T00:44:28+08:00">2018-04-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3d90604a4a775e8ce0450bac9bc4234c.jpg" alt="Elasticsearch logo"></p>
+<p>ElasticSearch采用Java编写，提供简单易用的RESTFul API。我们可以直接通过API接口进行操作。<br>笔者使用的ElasticSearch版本：elasticsearch-6.3.0  </p>
+<a id="more"></a>
+<p>API基本格式 http://<ip>:<port>/&lt;索引&gt;/&lt;类型&gt;/&lt;文档id&gt;<br>常用的HTTP动词 GET/PUT/POST/DELETE<br><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api" target="_blank" rel="noopener">RESTFul资料</a></port></ip></p>
+<h2 id="索引创建"><a href="#索引创建" class="headerlink" title="索引创建"></a>索引创建</h2><h3 id="非结构化创建"><a href="#非结构化创建" class="headerlink" title="非结构化创建"></a>非结构化创建</h3><p>使用Head插件直接点击添加索引创建。<br>直接请求创建 $ curl -XPUT <a href="http://localhost:9200/book" target="_blank" rel="noopener">http://localhost:9200/book</a><br>​    </p>
+<h3 id="结构化创建"><a href="#结构化创建" class="headerlink" title="结构化创建"></a>结构化创建</h3><p>方式1：首先创建book索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT http://localhost:9200/book。</span><br></pre></td></tr></table></figure></p>
+<p>再添加novel类型以及定义结构。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/book/novel/_mappings</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"novel"</span>: &#123;</span><br><span class="line">    <span class="attr">"properties"</span>: &#123;</span><br><span class="line">      <span class="attr">"title"</span>: &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方式2：直接创建people结构化索引指定配置信息已经数据结构。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// 创建</span><br><span class="line">PUT http://localhost:9200/people</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"settings"</span>:&#123;</span><br><span class="line">		<span class="attr">"number_of_shards"</span>: <span class="number">3</span>,</span><br><span class="line">		<span class="attr">"number_of_replicas"</span>: <span class="number">1</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"mappings"</span>:&#123;</span><br><span class="line">		<span class="attr">"man"</span>:&#123;</span><br><span class="line">			<span class="attr">"properties"</span>:&#123;</span><br><span class="line">				<span class="attr">"name"</span>:&#123;</span><br><span class="line">					<span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">				&#125;,</span><br><span class="line">				<span class="attr">"country"</span>:&#123;</span><br><span class="line">					<span class="attr">"type"</span>:<span class="string">"keyword"</span></span><br><span class="line">				&#125;,</span><br><span class="line">				<span class="attr">"age"</span>:&#123;</span><br><span class="line">					<span class="attr">"type"</span>:<span class="string">"integer"</span></span><br><span class="line">				&#125;,</span><br><span class="line">				<span class="attr">"date"</span>:&#123;</span><br><span class="line">					<span class="attr">"type"</span>:<span class="string">"date"</span>,</span><br><span class="line">					<span class="attr">"format"</span>:<span class="string">"yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || epoch_millis"</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"woman"</span>:&#123;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"acknowledged"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"shards_acknowledged"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看索引信息"><a href="#查看索引信息" class="headerlink" title="查看索引信息"></a>查看索引信息</h3><p>查询一个索引是否为结构化索引，我们只需要查询索引信息，然后查看mappings属性是否有值，如果为空，则为非结构化索引，如果有相关的属性值，则是结构化索引。下面查看book索引信息：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">GET http://localhost:9200/book?pretty=true</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"book"</span>: &#123;</span><br><span class="line">        <span class="attr">"aliases"</span>: &#123;&#125;,</span><br><span class="line">        <span class="attr">"mappings"</span>: &#123;</span><br><span class="line">            <span class="attr">"novel"</span>: &#123;</span><br><span class="line">                <span class="attr">"properties"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: &#123;</span><br><span class="line">                        <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"settings"</span>: &#123;</span><br><span class="line">            <span class="attr">"index"</span>: &#123;</span><br><span class="line">                <span class="attr">"creation_date"</span>: <span class="string">"1523851142335"</span>,</span><br><span class="line">                <span class="attr">"number_of_shards"</span>: <span class="string">"5"</span>,</span><br><span class="line">                <span class="attr">"number_of_replicas"</span>: <span class="string">"1"</span>,</span><br><span class="line">                <span class="attr">"uuid"</span>: <span class="string">"nbQPVXqqR--eRy_1S3OZqw"</span>,</span><br><span class="line">                <span class="attr">"version"</span>: &#123;</span><br><span class="line">                    <span class="attr">"created"</span>: <span class="string">"5050199"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"provided_name"</span>: <span class="string">"book"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据插入"><a href="#数据插入" class="headerlink" title="数据插入"></a>数据插入</h2><h3 id="根据文档ID插入"><a href="#根据文档ID插入" class="headerlink" title="根据文档ID插入"></a>根据文档ID插入</h3><p>直接POST请求 http://<ip>:<port>/&lt;索引&gt;/&lt;类型&gt;/&lt;文档id&gt;<br>传入JSON数据就可以完成数据插入：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/people/man/1</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"name"</span>:<span class="string">"达西"</span>,</span><br><span class="line">	<span class="attr">"conuntry"</span>:<span class="string">"China"</span>,</span><br><span class="line">	<span class="attr">"age"</span>:<span class="number">24</span>,</span><br><span class="line">	<span class="attr">"date"</span>:<span class="string">"1994-11-01"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_index"</span>: <span class="string">"people"</span>,</span><br><span class="line">    <span class="attr">"_type"</span>: <span class="string">"man"</span>,</span><br><span class="line">    <span class="attr">"_id"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"_version"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">"result"</span>: <span class="string">"created"</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"created"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></port></ip></p>
+<h3 id="自动生成文档ID插入"><a href="#自动生成文档ID插入" class="headerlink" title="自动生成文档ID插入"></a>自动生成文档ID插入</h3><p>在发起POST请求的时候，不指定ID的值，ES会自动生成一个ID值。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/people/man</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"name"</span>:<span class="string">"超级玛丽"</span>,</span><br><span class="line">	<span class="attr">"conuntry"</span>:<span class="string">"China"</span>,</span><br><span class="line">	<span class="attr">"age"</span>:<span class="number">24</span>,</span><br><span class="line">	<span class="attr">"date"</span>:<span class="string">"1994-11-01"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_index"</span>: <span class="string">"people"</span>,</span><br><span class="line">    <span class="attr">"_type"</span>: <span class="string">"man"</span>,</span><br><span class="line">    "_id": "AWLNIi3-QcKhhHA2xN6t", // 自动生成的ID值</span><br><span class="line">    "_version": 1,</span><br><span class="line">    "result": "created",</span><br><span class="line">    "_shards": &#123;</span><br><span class="line">        "total": 2,</span><br><span class="line">        "successful": 1,</span><br><span class="line">        "failed": 0</span><br><span class="line">    &#125;,</span><br><span class="line">    "created": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据修改"><a href="#数据修改" class="headerlink" title="数据修改"></a>数据修改</h2><h3 id="直接修改"><a href="#直接修改" class="headerlink" title="直接修改"></a>直接修改</h3><p>修改people索引中类型为man的ID为1的文档的name字段值为“曹操”<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/people/man/1/_update</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"doc"</span>:&#123;</span><br><span class="line">		<span class="attr">"name"</span>:<span class="string">"曹操"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_index"</span>: <span class="string">"people"</span>,</span><br><span class="line">    <span class="attr">"_type"</span>: <span class="string">"man"</span>,</span><br><span class="line">    <span class="attr">"_id"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"_version"</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"result"</span>: <span class="string">"updated"</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>修改people索引中类型为man的ID为1的文档的age字段值为自增10。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/people/man/1/_update</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"script"</span>:&#123;</span><br><span class="line">		<span class="attr">"lang"</span>:<span class="string">"painless"</span>,</span><br><span class="line">		<span class="attr">"inline"</span>:<span class="string">"ctx._source.age+=10"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_index"</span>: <span class="string">"people"</span>,</span><br><span class="line">    <span class="attr">"_type"</span>: <span class="string">"man"</span>,</span><br><span class="line">    <span class="attr">"_id"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"_version"</span>: <span class="number">9</span>,</span><br><span class="line">    <span class="attr">"result"</span>: <span class="string">"updated"</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外一种方式<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/people/man/1/_update</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"script"</span>:&#123;</span><br><span class="line">		<span class="attr">"lang"</span>:<span class="string">"painless"</span>,</span><br><span class="line">		<span class="attr">"inline"</span>:<span class="string">"ctx._source.age=params.age"</span>,</span><br><span class="line">		<span class="attr">"params"</span>:&#123;</span><br><span class="line">			<span class="attr">"age"</span>:<span class="number">900</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"_index"</span>: <span class="string">"people"</span>,</span><br><span class="line">    <span class="attr">"_type"</span>: <span class="string">"man"</span>,</span><br><span class="line">    <span class="attr">"_id"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"_version"</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">"result"</span>: <span class="string">"updated"</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><h3 id="文档删除"><a href="#文档删除" class="headerlink" title="文档删除"></a>文档删除</h3><p>删除people索引中类型为man，ID为1的文档。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DELETE http://localhost:9200/people/man/1</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"found"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"_index"</span>: <span class="string">"people"</span>,</span><br><span class="line">    <span class="attr">"_type"</span>: <span class="string">"man"</span>,</span><br><span class="line">    <span class="attr">"_id"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"_version"</span>: <span class="number">11</span>,</span><br><span class="line">    <span class="attr">"result"</span>: <span class="string">"deleted"</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="索引删除"><a href="#索引删除" class="headerlink" title="索引删除"></a>索引删除</h3><p>删除people索引<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DELETE http://localhost:9200/people</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"acknowledged"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="基本查询"><a href="#基本查询" class="headerlink" title="基本查询"></a>基本查询</h2><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p>创建book索引，设置结构：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/book/novel/_mappings</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"novel"</span>:&#123;</span><br><span class="line">		<span class="attr">"properties"</span>:&#123;</span><br><span class="line">			<span class="attr">"title"</span>:&#123;</span><br><span class="line">				<span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">"author"</span>:&#123;</span><br><span class="line">				<span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">"word_count"</span>:&#123;</span><br><span class="line">				<span class="attr">"type"</span>:<span class="string">"integer"</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">"publish_date"</span>:&#123;</span><br><span class="line">				<span class="attr">"type"</span>:<span class="string">"date"</span>,</span><br><span class="line">				<span class="attr">"format"</span>:<span class="string">"yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || epoch_millis"</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"acknowledged"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>录入用于测试的数据：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"title"</span>:<span class="string">"超级玛丽秘籍"</span>,<span class="attr">"author"</span>:<span class="string">"王五"</span>,<span class="attr">"word_count"</span>:<span class="number">5000</span>,<span class="attr">"publish_date"</span>:<span class="string">"1994-11-01"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"title"</span>:<span class="string">"三国志"</span>,<span class="attr">"author"</span>:<span class="string">"陈寿"</span>,<span class="attr">"word_count"</span>:<span class="number">30000</span>,<span class="attr">"publish_date"</span>:<span class="string">"1995-11-01"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"title"</span>:<span class="string">"三国演绎"</span>,<span class="attr">"author"</span>:<span class="string">"罗贯中"</span>,<span class="attr">"word_count"</span>:<span class="number">30000</span>,<span class="attr">"publish_date"</span>:<span class="string">"1994-03-01"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"title"</span>:<span class="string">"玛丽与管道工"</span>,<span class="attr">"author"</span>:<span class="string">"玛丽"</span>,<span class="attr">"word_count"</span>:<span class="number">10000</span>,<span class="attr">"publish_date"</span>:<span class="string">"1994-03-01"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"title"</span>:<span class="string">"史记"</span>,<span class="attr">"author"</span>:<span class="string">"司马迁"</span>,<span class="attr">"word_count"</span>:<span class="number">20000</span>,<span class="attr">"publish_date"</span>:<span class="string">"1994-08-01"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"title"</span>:<span class="string">"如何蹦的更高"</span>,<span class="attr">"author"</span>:<span class="string">"玛丽"</span>,<span class="attr">"word_count"</span>:<span class="number">20000</span>,<span class="attr">"publish_date"</span>:<span class="string">"1994-08-01"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="全部查询"><a href="#全部查询" class="headerlink" title="全部查询"></a>全部查询</h3><p>查询book索引中类型为novel的所有文档信息。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">GET localhost:9200/book/novel/_search?pretty=true</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">  "took" : 80,  // 花费时间</span><br><span class="line">  "timed_out" : false,</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 5, </span><br><span class="line">    "successful" : 5,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "hits" : &#123;</span><br><span class="line">    "total" : 5,  //总条数</span><br><span class="line">    "max_score" : 1.0,</span><br><span class="line">    "hits" : [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"_index"</span> : <span class="string">"book"</span>,</span><br><span class="line">        <span class="attr">"_type"</span> : <span class="string">"novel"</span>,</span><br><span class="line">        <span class="attr">"_id"</span> : <span class="string">"AWLOAAZzQcKhhHA2xN6z"</span>,</span><br><span class="line">        "_score" : 1.0,  //评分</span><br><span class="line">        "_source" : &#123;</span><br><span class="line">          "title" : "超级玛丽秘籍",</span><br><span class="line">          "author" : "王五",</span><br><span class="line">          "word_count" : 5000,</span><br><span class="line">          "publish_date" : "1994-11-01"</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"_index"</span> : <span class="string">"book"</span>,</span><br><span class="line">        <span class="attr">"_type"</span> : <span class="string">"novel"</span>,</span><br><span class="line">        <span class="attr">"_id"</span> : <span class="string">"AWLOAEe5QcKhhHA2xN62"</span>,</span><br><span class="line">        <span class="attr">"_score"</span> : <span class="number">1.0</span>,</span><br><span class="line">        <span class="attr">"_source"</span> : &#123;</span><br><span class="line">          <span class="attr">"title"</span> : <span class="string">"玛丽与管道工"</span>,</span><br><span class="line">          <span class="attr">"author"</span> : <span class="string">"陈寿"</span>,</span><br><span class="line">          <span class="attr">"word_count"</span> : <span class="number">10000</span>,</span><br><span class="line">          <span class="attr">"publish_date"</span> : <span class="string">"1994-03-01"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"_index"</span> : <span class="string">"book"</span>,</span><br><span class="line">        <span class="attr">"_type"</span> : <span class="string">"novel"</span>,</span><br><span class="line">        <span class="attr">"_id"</span> : <span class="string">"AWLOAB8bQcKhhHA2xN60"</span>,</span><br><span class="line">        <span class="attr">"_score"</span> : <span class="number">1.0</span>,</span><br><span class="line">        <span class="attr">"_source"</span> : &#123;</span><br><span class="line">          <span class="attr">"title"</span> : <span class="string">"三国志"</span>,</span><br><span class="line">          <span class="attr">"author"</span> : <span class="string">"陈寿"</span>,</span><br><span class="line">          <span class="attr">"word_count"</span> : <span class="number">30000</span>,</span><br><span class="line">          <span class="attr">"publish_date"</span> : <span class="string">"1995-11-01"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"_index"</span> : <span class="string">"book"</span>,</span><br><span class="line">        <span class="attr">"_type"</span> : <span class="string">"novel"</span>,</span><br><span class="line">        <span class="attr">"_id"</span> : <span class="string">"AWLOADU4QcKhhHA2xN61"</span>,</span><br><span class="line">        <span class="attr">"_score"</span> : <span class="number">1.0</span>,</span><br><span class="line">        <span class="attr">"_source"</span> : &#123;</span><br><span class="line">          <span class="attr">"title"</span> : <span class="string">"三国演绎"</span>,</span><br><span class="line">          <span class="attr">"author"</span> : <span class="string">"罗贯中"</span>,</span><br><span class="line">          <span class="attr">"word_count"</span> : <span class="number">30000</span>,</span><br><span class="line">          <span class="attr">"publish_date"</span> : <span class="string">"1994-03-01"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"_index"</span> : <span class="string">"book"</span>,</span><br><span class="line">        <span class="attr">"_type"</span> : <span class="string">"novel"</span>,</span><br><span class="line">        <span class="attr">"_id"</span> : <span class="string">"AWLOAFiZQcKhhHA2xN63"</span>,</span><br><span class="line">        <span class="attr">"_score"</span> : <span class="number">1.0</span>,</span><br><span class="line">        <span class="attr">"_source"</span> : &#123;</span><br><span class="line">          <span class="attr">"title"</span> : <span class="string">"史记"</span>,</span><br><span class="line">          <span class="attr">"author"</span> : <span class="string">"司马迁"</span>,</span><br><span class="line">          <span class="attr">"word_count"</span> : <span class="number">20000</span>,</span><br><span class="line">          <span class="attr">"publish_date"</span> : <span class="string">"1994-08-01"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="精确查询"><a href="#精确查询" class="headerlink" title="精确查询"></a>精确查询</h3><p>查询book索引中类型为novel的ID为AWLOAFiZQcKhhHA2xN63的文档信息。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">GET localhost:9200/book/novel/AWLOAFiZQcKhhHA2xN63?pretty=true</span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"_index"</span> : <span class="string">"book"</span>,</span><br><span class="line">  <span class="attr">"_type"</span> : <span class="string">"novel"</span>,</span><br><span class="line">  <span class="attr">"_id"</span> : <span class="string">"AWLOAFiZQcKhhHA2xN63"</span>,</span><br><span class="line">  <span class="attr">"_version"</span> : <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"found"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"_source"</span> : &#123;</span><br><span class="line">    <span class="attr">"title"</span> : <span class="string">"史记"</span>,</span><br><span class="line">    <span class="attr">"author"</span> : <span class="string">"司马迁"</span>,</span><br><span class="line">    <span class="attr">"word_count"</span> : <span class="number">20000</span>,</span><br><span class="line">    <span class="attr">"publish_date"</span> : <span class="string">"1994-08-01"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="限制查询条数"><a href="#限制查询条数" class="headerlink" title="限制查询条数"></a>限制查询条数</h3><p>搜索从第一条开始的1条数据。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/book/novel/_search</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"query"</span>:&#123;</span><br><span class="line">		<span class="attr">"match_all"</span>:&#123;&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"from"</span>:<span class="number">1</span>,</span><br><span class="line">	<span class="attr">"size"</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"took"</span>: <span class="number">37</span>,</span><br><span class="line">    <span class="attr">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"hits"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"max_score"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"hits"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAEe5QcKhhHA2xN62"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"玛丽与管道工"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"陈寿"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">10000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-03-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="关键词排序查询"><a href="#关键词排序查询" class="headerlink" title="关键词排序查询"></a>关键词排序查询</h3><p>查询标题里含有“三国”的书籍，并且按出版日期降序排列。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/book/novel/_search</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"query"</span>:&#123;</span><br><span class="line">		<span class="attr">"match"</span>:&#123;</span><br><span class="line">			<span class="attr">"title"</span>:<span class="string">"三国"</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"sort"</span>:[</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">"publish_date"</span>:&#123;<span class="attr">"order"</span>:<span class="string">"desc"</span>&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"took"</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"hits"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">"max_score"</span>: <span class="number">0.34450945</span>,</span><br><span class="line">        <span class="attr">"hits"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAB8bQcKhhHA2xN60"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">0.34450945</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"三国志"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"陈寿"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1995-11-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOADU4QcKhhHA2xN61"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">0.34450945</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"三国演绎"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"罗贯中"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-03-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><p>类似于数据库中的分组查询，下面的例子演示按照书籍字数统计数据，按照发布时间统计数量。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/book/novel/_search</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"aggs"</span>:&#123;</span><br><span class="line">		<span class="attr">"group_by_word_count"</span>:&#123;</span><br><span class="line">			<span class="attr">"terms"</span>:&#123;</span><br><span class="line">				<span class="attr">"field"</span>:<span class="string">"word_count"</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"group_by_author"</span>:&#123;</span><br><span class="line">			<span class="attr">"terms"</span>:&#123;</span><br><span class="line">				<span class="attr">"field"</span>:<span class="string">"publish_date"</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"took"</span>: <span class="number">4</span>,</span><br><span class="line">    <span class="attr">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"hits"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"max_score"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"hits"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAAZzQcKhhHA2xN6z"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"超级玛丽秘籍"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"王五"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">5000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-11-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAEe5QcKhhHA2xN62"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"玛丽与管道工"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"陈寿"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">10000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-03-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAB8bQcKhhHA2xN60"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"三国志"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"陈寿"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1995-11-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOADU4QcKhhHA2xN61"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"三国演绎"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"罗贯中"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-03-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAFiZQcKhhHA2xN63"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"史记"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"司马迁"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">20000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-08-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"aggregations"</span>: &#123;</span><br><span class="line">        <span class="attr">"group_by_word_count"</span>: &#123;</span><br><span class="line">            <span class="attr">"doc_count_error_upper_bound"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"sum_other_doc_count"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"buckets"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">2</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">5000</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">1</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">10000</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">1</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">20000</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"group_by_author"</span>: &#123;</span><br><span class="line">            <span class="attr">"doc_count_error_upper_bound"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"sum_other_doc_count"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"buckets"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">762480000000</span>,</span><br><span class="line">                    <span class="attr">"key_as_string"</span>: <span class="string">"1994-03-01 00:00:00"</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">2</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">775699200000</span>,</span><br><span class="line">                    <span class="attr">"key_as_string"</span>: <span class="string">"1994-08-01 00:00:00"</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">1</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">783648000000</span>,</span><br><span class="line">                    <span class="attr">"key_as_string"</span>: <span class="string">"1994-11-01 00:00:00"</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">1</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"key"</span>: <span class="number">815184000000</span>,</span><br><span class="line">                    <span class="attr">"key_as_string"</span>: <span class="string">"1995-11-01 00:00:00"</span>,</span><br><span class="line">                    <span class="attr">"doc_count"</span>: <span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="统计查询"><a href="#统计查询" class="headerlink" title="统计查询"></a>统计查询</h3><p>聚合查询也可以用于查询统计信息，下面的例子演示统计书籍字数信息，统计书籍字数最小的字数信息。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:9200/book/novel/_search</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"aggs"</span>:&#123;</span><br><span class="line">		<span class="attr">"grades_word_count"</span>:&#123;</span><br><span class="line">			<span class="attr">"stats"</span>:&#123;</span><br><span class="line">				<span class="attr">"field"</span>:<span class="string">"word_count"</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"min_word_count"</span>:&#123;</span><br><span class="line">			<span class="attr">"min"</span>:&#123;</span><br><span class="line">				<span class="attr">"field"</span>:<span class="string">"word_count"</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">// 响应</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"took"</span>: <span class="number">44</span>,</span><br><span class="line">    <span class="attr">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"successful"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"hits"</span>: &#123;</span><br><span class="line">        <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="attr">"max_score"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"hits"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAAZzQcKhhHA2xN6z"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"超级玛丽秘籍"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"王五"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">5000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-11-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAEe5QcKhhHA2xN62"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"玛丽与管道工"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"陈寿"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">10000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-03-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAB8bQcKhhHA2xN60"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"三国志"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"陈寿"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1995-11-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOADU4QcKhhHA2xN61"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"三国演绎"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"罗贯中"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">30000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-03-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"_index"</span>: <span class="string">"book"</span>,</span><br><span class="line">                <span class="attr">"_type"</span>: <span class="string">"novel"</span>,</span><br><span class="line">                <span class="attr">"_id"</span>: <span class="string">"AWLOAFiZQcKhhHA2xN63"</span>,</span><br><span class="line">                <span class="attr">"_score"</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">"_source"</span>: &#123;</span><br><span class="line">                    <span class="attr">"title"</span>: <span class="string">"史记"</span>,</span><br><span class="line">                    <span class="attr">"author"</span>: <span class="string">"司马迁"</span>,</span><br><span class="line">                    <span class="attr">"word_count"</span>: <span class="number">20000</span>,</span><br><span class="line">                    <span class="attr">"publish_date"</span>: <span class="string">"1994-08-01"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"aggregations"</span>: &#123;</span><br><span class="line">        <span class="attr">"grades_word_count"</span>: &#123;</span><br><span class="line">            <span class="attr">"count"</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="attr">"min"</span>: <span class="number">5000</span>,</span><br><span class="line">            <span class="attr">"max"</span>: <span class="number">30000</span>,</span><br><span class="line">            <span class="attr">"avg"</span>: <span class="number">19000</span>,</span><br><span class="line">            <span class="attr">"sum"</span>: <span class="number">95000</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"min_word_count"</span>: &#123;</span><br><span class="line">            <span class="attr">"value"</span>: <span class="number">5000</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/index.html" target="_blank" rel="noopener">Elasticsearch Reference</a><br><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html" target="_blank" rel="noopener">Elasticsearch: 权威指南</a>  (低版本)</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/elasticsearch/" rel="tag"># elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/lucene/solr-install/" rel="next" title="Solr7.3.0入门教程，部署Solr到Tomcat，配置Solr中文分词器">
+                <i class="fa fa-chevron-left"></i> Solr7.3.0入门教程，部署Solr到Tomcat，配置Solr中文分词器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/lucene/elasticsearch-query/" rel="prev" title="全文搜索ElasticSearch（二）深入搜索">
+                全文搜索ElasticSearch（二）深入搜索 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引创建"><span class="nav-number">1.</span> <span class="nav-text">索引创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非结构化创建"><span class="nav-number">1.1.</span> <span class="nav-text">非结构化创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构化创建"><span class="nav-number">1.2.</span> <span class="nav-text">结构化创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看索引信息"><span class="nav-number">1.3.</span> <span class="nav-text">查看索引信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据插入"><span class="nav-number">2.</span> <span class="nav-text">数据插入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据文档ID插入"><span class="nav-number">2.1.</span> <span class="nav-text">根据文档ID插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动生成文档ID插入"><span class="nav-number">2.2.</span> <span class="nav-text">自动生成文档ID插入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据修改"><span class="nav-number">3.</span> <span class="nav-text">数据修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接修改"><span class="nav-number">3.1.</span> <span class="nav-text">直接修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本修改"><span class="nav-number">3.2.</span> <span class="nav-text">脚本修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">4.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档删除"><span class="nav-number">4.1.</span> <span class="nav-text">文档删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引删除"><span class="nav-number">4.2.</span> <span class="nav-text">索引删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本查询"><span class="nav-number">5.</span> <span class="nav-text">基本查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备"><span class="nav-number">5.1.</span> <span class="nav-text">数据准备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">6.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全部查询"><span class="nav-number">6.1.</span> <span class="nav-text">全部查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精确查询"><span class="nav-number">6.2.</span> <span class="nav-text">精确查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制查询条数"><span class="nav-number">6.3.</span> <span class="nav-text">限制查询条数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键词排序查询"><span class="nav-number">6.4.</span> <span class="nav-text">关键词排序查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合查询"><span class="nav-number">6.5.</span> <span class="nav-text">聚合查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计查询"><span class="nav-number">6.6.</span> <span class="nav-text">统计查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

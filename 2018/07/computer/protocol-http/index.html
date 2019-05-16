@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="HTTP的简介超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。">
+<meta name="keywords" content="协议,HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络协议之HTTP">
+<meta property="og:url" content="https://www.codingme.net/2018/07/computer/protocol-http/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="HTTP的简介超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c50b8c5ad942894b35ef8a30f552add4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5008f0a9cb84c78ffc040ef0464d10df.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae3fe2acba5a78462d247d03cccaa3ec.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6e442fc98cc8988ef631f7103f213b0b.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/09766111948104bd7ac918219cf7eedf.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7026e1d3c06ff8407683f0447073e406.jpg">
+<meta property="og:updated_time" content="2018-07-13T16:37:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络协议之HTTP">
+<meta name="twitter:description" content="HTTP的简介超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c50b8c5ad942894b35ef8a30f552add4.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/07/computer/protocol-http/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>网络协议之HTTP | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/07/computer/protocol-http/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络协议之HTTP
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-14 00:37:19" itemprop="dateCreated datePublished" datetime="2018-07-14T00:37:19+08:00">2018-07-14</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机/" itemprop="url" rel="index"><span itemprop="name">计算机</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- ![HTTP协议](https://raw.githubusercontent.com/niumoo/files/master/images/blog/fdda0fd46ee5b66d6307cf658b88edcd.jpg)
+-->
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c50b8c5ad942894b35ef8a30f552add4.jpg" alt="HTTP协议"></p>
+<h3 id="HTTP的简介"><a href="#HTTP的简介" class="headerlink" title="HTTP的简介"></a>HTTP的简介</h3><p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。</p>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5008f0a9cb84c78ffc040ef0464d10df.jpg" alt="Http协议图解"></p>
+<p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
+<p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。</p>
+<p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
+<h3 id="HTTP的特点"><a href="#HTTP的特点" class="headerlink" title="HTTP的特点"></a>HTTP的特点</h3><ol>
+<li>支持客户/服务器模式。</li>
+<li>简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。<br>由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</li>
+<li>灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</li>
+<li>无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</li>
+<li>无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</li>
+</ol>
+<h3 id="HTTP的URL-UniformResourceLocator"><a href="#HTTP的URL-UniformResourceLocator" class="headerlink" title="HTTP的URL(UniformResourceLocator)"></a>HTTP的URL(UniformResourceLocator)</h3><p>URL格式：</p>
+<blockquote>
+<p>　<a href="http://host[:port][abs_path]" target="_blank" rel="noopener">http://host[:port][abs_path]</a></p>
+</blockquote>
+<p><code>http</code>表示要通过HTTP协议来定位网络资源。<br><code>host</code>表示合法的Internet主机域名或IP地址（以点分十进制格式表示）；<br><code>port</code>用于指定一个端口号，拥有被请求资源的服务器主机监听该端口的TCP连接。<br>如果port是空，则使用<code>缺省的端口80</code>。当服务器的端口不是80的时候，需要显式指定端口号。<br><code>abs_path</code>指定请求资源的URI(Uniform Resource Identifier，统一资源定位符)，如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出。通常这个工作浏览器就帮我们完成了。</p>
+<h3 id="HTTP的请求消息Request"><a href="#HTTP的请求消息Request" class="headerlink" title="HTTP的请求消息Request"></a>HTTP的请求消息Request</h3><p>消息格式：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae3fe2acba5a78462d247d03cccaa3ec.jpg" alt="HTTP协议消息格式"></p>
+<p>先来看下HTTP的请求消息头：</p>
+<ul>
+<li>Accept: text/html,image/* 【浏览器告诉服务器，它支持的数据类型】</li>
+<li>Accept-Charset: ISO-8859-1 【浏览器告诉服务器，它支持哪种字符集】</li>
+<li>Accept-Encoding: gzip,compress 【浏览器告诉服务器，它支持的压缩格式】</li>
+<li>Accept-Language: en-us,zh-cn 【浏览器告诉服务器，它的语言环境】</li>
+<li>Host: <a href="http://www.codingme.net:80【浏览器告诉服务器，它的想访问哪台主机】">www.codingme.net:80【浏览器告诉服务器，它的想访问哪台主机】</a></li>
+<li>If-Modified-Since: Tue, 11 Jul 2000 18:23:51 GMT【浏览器告诉服务器，缓存数据的时间】</li>
+<li>Referer: <a href="http://www.codingme.net/index.jsp【浏览器告诉服务器，客户机是从那个页面来的—反盗链】">http://www.codingme.net/index.jsp【浏览器告诉服务器，客户机是从那个页面来的—反盗链】</a></li>
+<li>8.User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)【浏览器告诉服务器，浏览器的内核是什么】</li>
+<li>Cookie【浏览器告诉服务器，带来的Cookie是什么】</li>
+<li>Connection: close/Keep-Alive 【浏览器告诉服务器，请求完后是断开链接还是保持链接】</li>
+<li>Date: Tue, 11 Jul 2000 18:23:51 GMT【浏览器告诉服务器，请求的时间</li>
+</ul>
+<p>使用Chrome请求网址进行观察：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6e442fc98cc8988ef631f7103f213b0b.jpg" alt=""><br>Chrome请求信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.8</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Cookie:JSESSIONID=2A40A51EDDE663C840A2D03B7587D660; Hm_lvt_1b51c3ea9a3e7b1a2bc55df97ab4efd3=1500964170,1500976171,1500994669,1501056813; Hm_lpvt_1b51c3ea9a3e7b1a2bc55df97ab4efd3=1501056816</span><br><span class="line">Host:blog.codingme.net</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3080.5 Safari/537.36</span><br></pre></td></tr></table></figure></p>
+<h3 id="HTTP的响应消息Response"><a href="#HTTP的响应消息Response" class="headerlink" title="HTTP的响应消息Response"></a>HTTP的响应消息Response</h3><p>一个完整的HTTP响应应该包含四个部分：</p>
+<ol>
+<li>一个状态行【用于描述服务器对请求的处理结果。】</li>
+<li>多个消息头【用于描述服务器的基本信息，以及数据的描述，服务器通过这些数据的描述信息，可以通知客户端如何处理等一会儿它回送的数据】</li>
+<li>一个空行</li>
+<li>实体内容【服务器向客户端回送的数据】</li>
+</ol>
+<p>响应消息头的详细解释：</p>
+<ul>
+<li>Location: <a href="http://www.codingme.net/index.jsp">http://www.codingme.net/index.jsp</a> 【服务器告诉浏览器要跳转到哪个页面】</li>
+<li>Server:apache tomcat【服务器告诉浏览器，服务器的型号是什么】</li>
+<li>Content-Encoding: gzip 【服务器告诉浏览器数据压缩的格式】</li>
+<li>Content-Length: 80 【服务器告诉浏览器回送数据的长度】</li>
+<li>Content-Language: zh-cn 【服务器告诉浏览器，服务器的语言环境】</li>
+<li>Content-Type: text/html; charset=GB2312 【服务器告诉浏览器，回送数据的类型】</li>
+<li>Last-Modified: Tue, 11 Jul 2000 18:23:51 GMT【服务器告诉浏览器该资源上次更新时间】</li>
+<li>Refresh: 1;url=<a href="http://www.codingme.net【服务器告诉浏览器要定时刷新】" target="_blank" rel="noopener">http://www.codingme.net【服务器告诉浏览器要定时刷新】</a></li>
+<li>Content-Disposition: attachment; filename=aaa.zip【服务器告诉浏览器以下载方式打开数据】</li>
+<li>Transfer-Encoding: chunked 【服务器告诉浏览器数据以分块方式回送】</li>
+<li>Set-Cookie:SS=Q0=5Lb_nQ; path=/search【服务器告诉浏览器要保存Cookie】</li>
+<li>Expires: -1【服务器告诉浏览器不要设置缓存】</li>
+<li>Cache-Control: no-cache 【服务器告诉浏览器不要设置缓存】</li>
+<li>Pragma: no-cache 【服务器告诉浏览器不要设置缓存】</li>
+<li>Connection: close/Keep-Alive 【服务器告诉浏览器连接方式】</li>
+<li>Date: Tue, 11 Jul 2000 18:23:51 GMT【服务器告诉浏览器回送数据的时间】</li>
+</ul>
+<p>Chrome请求网址<a href="http://bing.codingme.net" target="_blank" rel="noopener">http://bing.codingme.net</a>  抓包展示;<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/09766111948104bd7ac918219cf7eedf.jpg" alt=""></p>
+<h3 id="HTTP的状态码"><a href="#HTTP的状态码" class="headerlink" title="HTTP的状态码"></a>HTTP的状态码</h3><p>状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:</p>
+<p>1xx：指示信息–表示请求已接收，继续处理</p>
+<p>2xx：成功–表示请求已被成功接收、理解、接受</p>
+<p>3xx：重定向–要完成请求必须进行更进一步的操作</p>
+<p>4xx：客户端错误–请求有语法错误或请求无法实现</p>
+<p>5xx：服务器端错误–服务器未能实现合法的请求</p>
+<p>常见状态码：</p>
+<ul>
+<li>200 OK                        //客户端请求成功</li>
+<li>400 Bad Request               //客户端请求有语法错误，不能被服务器所理解</li>
+<li>401 Unauthorized              //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 </li>
+<li>403 Forbidden                 //服务器收到请求，但是拒绝提供服务</li>
+<li>404 Not Found                 //请求资源不存在，eg：输入了错误的URL</li>
+<li>500 Internal Server Error     //服务器发生不可预期的错误</li>
+<li>503 Server Unavailable        //服务器当前不能处理客户端的请求，一段时间后可能恢复正常</li>
+</ul>
+<p>详情可以查看<a href="http://kb.cnblogs.com/page/168720/" target="_blank" rel="noopener">更多状态码</a></p>
+<h3 id="HTTP的请求方法（动作）"><a href="#HTTP的请求方法（动作）" class="headerlink" title="HTTP的请求方法（动作）"></a>HTTP的请求方法（动作）</h3><p>HTTP协议中定义了8中方法来表明不同的动作</p>
+<ol>
+<li>OPTIONS<br>返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性</li>
+<li>HEAD<br>向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。</li>
+<li>GET<br>向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在Web Application中，其中一个原因是GET可能会被网络蜘蛛等随意访问。Loadrunner中对应get请求函数：web_link和web_url</li>
+<li>POST<br>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form</li>
+<li>PUT<br>向指定资源位置上传其最新内容</li>
+<li>DELETE<br>请求服务器删除Request-URL所标识的资源</li>
+<li>TRACE<br>回显服务器收到的请求，主要用于测试或诊断</li>
+<li>CONNECT<br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</li>
+</ol>
+<h3 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h3><p>HTTP使用TCP进行输出传输，在建立TCP连接时会进行三次握手。</p>
+<p>所谓三次握手（Three-Way Handshake）即建立TCP连接，就是指建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。在socket编程中，这一过程由客户端执行connect来触发，整个流程如下图所示：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7026e1d3c06ff8407683f0447073e406.jpg" alt="TCP三次握手"></p>
+<ol>
+<li>建立连接时，客户端发送SYN包（SYN=i）到服务器，并进入到SYN-SEND状态，等待服务器确认</li>
+<li>服务器收到SYN包，必须确认客户的SYN（ack=i+1）,同时自己也发送一个SYN包（SYN=k）,即SYN+ACK包，此时服务器进入SYN-RECV状态</li>
+<li>客户端收到服务器的SYN+ACK包，向服务器发送确认报ACK（ack=k+1）,此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手，客户端与服务器开始传送数据。</li>
+</ol>
+<h3 id="HTTP协议工作流程"><a href="#HTTP协议工作流程" class="headerlink" title="HTTP协议工作流程"></a>HTTP协议工作流程</h3><p>以访问网站为例，在回车之后所发生的动作：</p>
+<ol>
+<li>浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址;</li>
+<li>解析出 IP 地址后，根据该 IP 地址和默认端口 80，和服务器建立TCP连接;</li>
+<li>浏览器发出读取文件(URL 中域名后面部分对应的文件)的HTTP 请求，该请求报文作为 TCP 三次握手的第三个报文的数据发送给服务器;</li>
+<li>服务器对浏览器请求作出响应，并把对应的 html 文本发送给浏览器;</li>
+<li>释放 TCP连接;</li>
+<li>浏览器将该 html 文本并显示内容; 　</li>
+</ol>
+<h3 id="GET请求和POST请求的区别"><a href="#GET请求和POST请求的区别" class="headerlink" title="GET请求和POST请求的区别"></a>GET请求和POST请求的区别</h3><p>使用Chrome浏览器进行GET请求测试：</p>
+<blockquote>
+<p>Request URL:<a href="http://localhost:8888/01-web_servlet/loginServlet?username=zxy&amp;password=123" target="_blank" rel="noopener">http://localhost:8888/01-web_servlet/loginServlet?username=zxy&amp;password=123</a><br>Request Method:GET<br>Status Code:200<br>Remote Address:[::1]:8888<br>Referrer Policy:no-referrer-when-downgrade</p>
+</blockquote>
+<p>使用Chrome浏览器进行POST请求测试：</p>
+<blockquote>
+<p>Request URL:<a href="http://localhost:8888/01-web_servlet/loginServlet" target="_blank" rel="noopener">http://localhost:8888/01-web_servlet/loginServlet</a><br>Request Method:POST<br>Status Code:200<br>Remote Address:[::1]:8888<br>Referrer Policy:no-referrer-when-downgrade</p>
+</blockquote>
+<p>由测试可以看到GET和POST最明显的区别就是</p>
+<ol>
+<li>GET携带的参数传递置于URL中以?分割URL和传输数据，多个参数用&amp;连接，如果数据是英文字母/数字，原样发送，如果是空格，转换为+，如果是中文/其他字符，则直接把字符串用BASE64加密，<code>不安全</code>，<br>POST把提交的数据放置在是HTTP包的包体中。因此，GET提交的数据会在地址栏中显示出来，而<code>POST</code>提交，地址栏<code>不会改变</code></li>
+<li>网上搜索得到如下区别</li>
+<li>GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.</li>
+<li>GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。</li>
+<li>GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.</li>
+<li>GET产生一个TCP数据包;POST产生两个TCP数据包。</li>
+</ol>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/协议/" rel="tag"># 协议</a>
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/linux/install-nginx/" rel="next" title="在CentOS7下Nginx的简单使用">
+                <i class="fa fa-chevron-left"></i> 在CentOS7下Nginx的简单使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/develop/install-tomcat-many-instance/" rel="prev" title="Linux配置Tomcat的单机多实例">
+                Linux配置Tomcat的单机多实例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的简介"><span class="nav-number">1.</span> <span class="nav-text">HTTP的简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的特点"><span class="nav-number">2.</span> <span class="nav-text">HTTP的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的URL-UniformResourceLocator"><span class="nav-number">3.</span> <span class="nav-text">HTTP的URL(UniformResourceLocator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的请求消息Request"><span class="nav-number">4.</span> <span class="nav-text">HTTP的请求消息Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的响应消息Response"><span class="nav-number">5.</span> <span class="nav-text">HTTP的响应消息Response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的状态码"><span class="nav-number">6.</span> <span class="nav-text">HTTP的状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的请求方法（动作）"><span class="nav-number">7.</span> <span class="nav-text">HTTP的请求方法（动作）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的三次握手"><span class="nav-number">8.</span> <span class="nav-text">TCP的三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议工作流程"><span class="nav-number">9.</span> <span class="nav-text">HTTP协议工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET请求和POST请求的区别"><span class="nav-number">10.</span> <span class="nav-text">GET请求和POST请求的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

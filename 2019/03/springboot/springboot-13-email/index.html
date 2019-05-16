@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="我们这个时代，邮件服务不管是对于工作上的交流，还是平时的各种邮件通知，都是一个十分重要的存在。Java 从很早时候就可以通过 Java mail 支持邮件服务。Spring 更是对 Java mail 进行了进一步的封装，抽象出了 JavaMailSender. 后来随着 Springboot 的出现，理所当然的出现了 spring-boot-starter-mail. 不管怎么说，每次的封装都让">
+<meta name="keywords" content="Springboot,邮件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot 系列（十三）使用邮件服务">
+<meta property="og:url" content="https://www.codingme.net/2019/03/springboot/springboot-13-email/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="我们这个时代，邮件服务不管是对于工作上的交流，还是平时的各种邮件通知，都是一个十分重要的存在。Java 从很早时候就可以通过 Java mail 支持邮件服务。Spring 更是对 Java mail 进行了进一步的封装，抽象出了 JavaMailSender. 后来随着 Springboot 的出现，理所当然的出现了 spring-boot-starter-mail. 不管怎么说，每次的封装都让">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/00a2b4768bf601da67118c0acb347876.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/87989c22d455e3d428811562649c840d.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/e391dbce4b614779ae9a024908ef0275.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/147b7f68d12e0080b408a581414fb92a.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/0ab42e65ae35c7970d7954bf5a985a79.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a676fadf6b40195c7de746adff0700bc.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/8244d50efe797cfa3ceb14aab7b7b461.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2626549-1bc0b5997f750867?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Springboot 系列（十三）使用邮件服务">
+<meta name="twitter:description" content="我们这个时代，邮件服务不管是对于工作上的交流，还是平时的各种邮件通知，都是一个十分重要的存在。Java 从很早时候就可以通过 Java mail 支持邮件服务。Spring 更是对 Java mail 进行了进一步的封装，抽象出了 JavaMailSender. 后来随着 Springboot 的出现，理所当然的出现了 spring-boot-starter-mail. 不管怎么说，每次的封装都让">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/00a2b4768bf601da67118c0acb347876.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2019/03/springboot/springboot-13-email/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Springboot 系列（十三）使用邮件服务 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/03/springboot/springboot-13-email/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Springboot 系列（十三）使用邮件服务
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-12 00:20:22" itemprop="dateCreated datePublished" datetime="2019-03-12T00:20:22+08:00">2019-03-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/00a2b4768bf601da67118c0acb347876.jpg" alt="桌面生活（来自网络）">我们这个时代，邮件服务不管是对于工作上的交流，还是平时的各种邮件通知，都是一个十分重要的存在。Java 从很早时候就可以通过 Java mail 支持邮件服务。Spring 更是对 Java mail 进行了进一步的封装，抽象出了 <code>JavaMailSender</code>. 后来随着 Springboot 的出现，理所当然的出现了 <code>spring-boot-starter-mail</code>. 不管怎么说，每次的封装都让使用变得越来越简单。<br><a id="more"></a></p>
+<h2 id="Springboot-mail-依赖"><a href="#Springboot-mail-依赖" class="headerlink" title="Springboot mail 依赖"></a>Springboot mail 依赖</h2><p>创建 Springboot 项目不提，先看一下总体目录结构。<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/87989c22d455e3d428811562649c840d.jpg" alt="项目结构"></p>
+<p>直接引入 Springboot 邮件服务所需的依赖。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- 邮件服务 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- Thymeleaf 模版，用于发送模版邮件 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Springboot-mail-配置"><a href="#Springboot-mail-配置" class="headerlink" title="Springboot mail 配置"></a>Springboot mail 配置</h2><p>使用邮件服务需要配置自己可以使用的邮箱信息，一般需要配置发送协议 SMTP、邮箱帐号（本次以126邮箱为例）、邮箱密码以及编码格式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.126.com</span><br><span class="line">spring.mail.port=25</span><br><span class="line"># 你的邮箱地址</span><br><span class="line">spring.mail.username=niumoo@126.com </span><br><span class="line"># 你的授权码（126 和 163 以及 qq 邮箱 都需要授权码登录，没有授权码的直接登录网页版邮箱设置里设置）</span><br><span class="line">spring.mail.password=password</span><br><span class="line">spring.mail.default-encoding=UTF-8</span><br></pre></td></tr></table></figure></p>
+<h2 id="Springboot-mail-文本邮件"><a href="#Springboot-mail-文本邮件" class="headerlink" title="Springboot mail 文本邮件"></a>Springboot mail 文本邮件</h2><p>文本邮件是最简单也是最基础的一种邮件，使用 Spring 封装的 <code>JavaMailSender</code> 直接发送就可以了。</p>
+<p>创建 <code>MailService</code> 类，注入 <code>JavaMailSender</code> 用于发送邮件，使用 <code>@Value(&quot;${spring.mail.username}&quot;)</code> 绑定配置文件中的参数用于设置邮件发送的来邮箱。使用 <code>@Service</code> 注解把 <code>MailService</code> 注入到 Spring 容器，使用 <code>Lombok</code> 的 <code>@Slf4j</code> 引入日志。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 邮件服务</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/3/10 21:45</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MailService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.mail.username&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String from;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender mailSender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送简单文本邮件</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subject</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> content</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendSimpleTextMail</span><span class="params">(String to, String subject, String content)</span> </span>&#123;</span><br><span class="line">        SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setTo(to);</span><br><span class="line">        message.setSubject(subject);</span><br><span class="line">        message.setText(content);</span><br><span class="line">        message.setFrom(from);</span><br><span class="line">        mailSender.send(message);</span><br><span class="line">        log.info(<span class="string">"【文本邮件】成功发送！to=&#123;&#125;"</span>, to);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建 Springboot 的单元测试类测试文本邮件，实验中的收信人为了方便，都设置成了自己的邮箱。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MailServiceTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MailService mailService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TemplateEngine templateEngine;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendSimpleTextMailTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String to = <span class="string">"niumoo@126.com"</span>;</span><br><span class="line">        String subject = <span class="string">"Springboot 发送简单文本邮件"</span>;</span><br><span class="line">        String content = <span class="string">"&lt;p&gt;第一封 Springboot 简单文本邮件&lt;/p&gt;"</span>;</span><br><span class="line">        mailService.sendSimpleTextMail(to, subject, content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行单元测试，测试文本邮件的发送。</p>
+<p>PS：如果运行报出异常 <code>AuthenticationFailedException: 535 Error</code>. 一般都是用户名和密码有误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Caused by: javax.mail.AuthenticationFailedException: 535 Error: authentication failed</span><br><span class="line"></span><br><span class="line">	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:965)</span><br><span class="line">	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:876)</span><br><span class="line">	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:780)</span><br><span class="line">	at javax.mail.Service.connect(Service.java:366)</span><br><span class="line">	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:517)</span><br><span class="line">	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:436)</span><br><span class="line">	... 34 more</span><br></pre></td></tr></table></figure></p>
+<p>正常运行输出成功发送的日志。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-03-11 23:35:14.743  INFO 13608 --- [           main] n.codingme.boot.service.MailServiceTest  : Started MailServiceTest in 3.964 seconds (JVM running for 5.749)</span><br><span class="line">2019-03-11 23:35:24.718  INFO 13608 --- [           main] net.codingme.boot.service.MailService    : 【文本邮件】成功发送！to=niumoo@126.com</span><br></pre></td></tr></table></figure></p>
+<p>查看邮箱中的收信。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/e391dbce4b614779ae9a024908ef0275.jpg" alt="文本邮件"></p>
+<p>文本邮件正常收到，同时可见文本邮件中的 HTML 标签也不会被解析。</p>
+<h2 id="Springboot-mail-HTML-邮件"><a href="#Springboot-mail-HTML-邮件" class="headerlink" title="Springboot mail HTML 邮件"></a>Springboot mail HTML 邮件</h2><p>在上面的 <code>MailService</code> 类里新加一个方法 <code>sendHtmlMail</code>，用于测试 HTML 邮件。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发送 HTML 邮件</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> to</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> subject</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> content</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> MessagingException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendHtmlMail</span><span class="params">(String to, String subject, String content)</span> <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    MimeMessage message = mailSender.createMimeMessage();</span><br><span class="line">    MimeMessageHelper messageHelper = <span class="keyword">new</span> MimeMessageHelper(message, <span class="keyword">true</span>);</span><br><span class="line">    messageHelper.setFrom(from);</span><br><span class="line">    messageHelper.setTo(to);</span><br><span class="line">    messageHelper.setSubject(subject);</span><br><span class="line">    <span class="comment">// true 为 HTML 邮件</span></span><br><span class="line">    messageHelper.setText(content, <span class="keyword">true</span>);</span><br><span class="line">    mailSender.send(message);</span><br><span class="line">    log.info(<span class="string">"【HTML 邮件】成功发送！to=&#123;&#125;"</span>, to);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在测试方法中增加 HTML 邮件测试方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendHtmlMailTest</span><span class="params">()</span> <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    String to = <span class="string">"niumoo@126.com"</span>;</span><br><span class="line">    String subject = <span class="string">"Springboot 发送 HTML 邮件"</span>;</span><br><span class="line">    String content = <span class="string">"&lt;h2&gt;Hi~&lt;/h2&gt;&lt;p&gt;第一封 Springboot HTML 邮件&lt;/p&gt;"</span>;</span><br><span class="line">    mailService.sendHtmlMail(to, subject, content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行单元测试，查看收信情况。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/147b7f68d12e0080b408a581414fb92a.jpg" alt="HTML 邮件"></p>
+<p>HTML 邮件正常收到，HTML 标签也被解析成对应的样式。</p>
+<h2 id="Springboot-mail-附件邮件"><a href="#Springboot-mail-附件邮件" class="headerlink" title="Springboot mail 附件邮件"></a>Springboot mail 附件邮件</h2><p>在上面的 <code>MailService</code> 类里新加一个方法 <code>sendAttachmentMail</code>，用于测试 附件邮件。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发送带附件的邮件</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> to</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> subject</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> content</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> fileArr</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAttachmentMail</span><span class="params">(String to, String subject, String content, String... fileArr)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    MimeMessage mimeMessage = mailSender.createMimeMessage();</span><br><span class="line">    MimeMessageHelper messageHelper = <span class="keyword">new</span> MimeMessageHelper(mimeMessage, <span class="keyword">true</span>);</span><br><span class="line">    messageHelper.setFrom(from);</span><br><span class="line">    messageHelper.setTo(to);</span><br><span class="line">    messageHelper.setSubject(subject);</span><br><span class="line">    messageHelper.setText(content, <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加附件</span></span><br><span class="line">    <span class="keyword">for</span> (String filePath : fileArr) &#123;</span><br><span class="line">        FileSystemResource fileResource = <span class="keyword">new</span> FileSystemResource(<span class="keyword">new</span> File(filePath));</span><br><span class="line">        <span class="keyword">if</span> (fileResource.exists()) &#123;</span><br><span class="line">            String filename = fileResource.getFilename();</span><br><span class="line">            messageHelper.addAttachment(filename, fileResource);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mailSender.send(mimeMessage);</span><br><span class="line">    log.info(<span class="string">"【附件邮件】成功发送！to=&#123;&#125;"</span>, to);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在测试方法中增加附件邮件测试方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAttachmentTest</span><span class="params">()</span> <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    String to = <span class="string">"niumoo@126.com"</span>;</span><br><span class="line">    String subject = <span class="string">"Springboot 发送 HTML 附件邮件"</span>;</span><br><span class="line">    String content = <span class="string">"&lt;h2&gt;Hi~&lt;/h2&gt;&lt;p&gt;第一封 Springboot HTML 附件邮件&lt;/p&gt;"</span>;</span><br><span class="line">    String filePath = <span class="string">"pom.xml"</span>;</span><br><span class="line">    mailService.sendAttachmentMail(to, subject, content, filePath, filePath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行单元测试，查看收信情况。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/0ab42e65ae35c7970d7954bf5a985a79.jpg" alt="附件邮件"></p>
+<p>带附件的邮件正常收到，多个附件的实现方式同理。</p>
+<h2 id="Springboot-mail-图片邮件"><a href="#Springboot-mail-图片邮件" class="headerlink" title="Springboot mail 图片邮件"></a>Springboot mail 图片邮件</h2><p>图片邮件和其他的邮件方式略有不同，图片邮件需要先在内容中定义好图片的位置并出给一个记录 ID ，然后在把图片加到邮件中的对于的 ID 位置。</p>
+<p>在上面的 <code>MailService</code> 类里新加一个方法 <code>sendImgMail</code>，用于测试 附件邮件。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 发送带图片的邮件</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> to</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> subject</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> content</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> imgMap</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendImgMail</span><span class="params">(String to, String subject, String content, Map&lt;String, String&gt; imgMap)</span></span></span><br><span class="line"><span class="function">     <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">     MimeMessage mimeMessage = mailSender.createMimeMessage();</span><br><span class="line">     MimeMessageHelper messageHelper = <span class="keyword">new</span> MimeMessageHelper(mimeMessage, <span class="keyword">true</span>);</span><br><span class="line">     messageHelper.setFrom(from);</span><br><span class="line">     messageHelper.setTo(to);</span><br><span class="line">     messageHelper.setSubject(subject);</span><br><span class="line">     messageHelper.setText(content, <span class="keyword">true</span>);</span><br><span class="line">     <span class="comment">// 添加图片</span></span><br><span class="line">     <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : imgMap.entrySet()) &#123;</span><br><span class="line">         FileSystemResource fileResource = <span class="keyword">new</span> FileSystemResource(<span class="keyword">new</span> File(entry.getValue()));</span><br><span class="line">         <span class="keyword">if</span> (fileResource.exists()) &#123;</span><br><span class="line">             String filename = fileResource.getFilename();</span><br><span class="line">             messageHelper.addInline(entry.getKey(), fileResource);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     mailSender.send(mimeMessage);</span><br><span class="line">     log.info(<span class="string">"【图片邮件】成功发送！to=&#123;&#125;"</span>, to);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在测试方法中增加图片邮件测试方法，测试方法中使用的 apple.png 是项目里的一个图片。可以看上面的项目结构。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendImgTest</span><span class="params">()</span> <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    String to = <span class="string">"niumoo@126.com"</span>;</span><br><span class="line">    String subject = <span class="string">"Springboot 发送 HTML 图片邮件"</span>;</span><br><span class="line">    String content =</span><br><span class="line">        <span class="string">"&lt;h2&gt;Hi~&lt;/h2&gt;&lt;p&gt;第一封 Springboot HTML 图片邮件&lt;/p&gt;&lt;br/&gt;&lt;img src=\"cid:img01\" /&gt;&lt;img src=\"cid:img02\" /&gt;"</span>;</span><br><span class="line">    String imgPath = <span class="string">"apple.png"</span>;</span><br><span class="line">    Map&lt;String, String&gt; imgMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    imgMap.put(<span class="string">"img01"</span>, imgPath);</span><br><span class="line">    imgMap.put(<span class="string">"img02"</span>, imgPath);</span><br><span class="line">    mailService.sendImgMail(to, subject, content, imgMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行单元测试，查看收信情况。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a676fadf6b40195c7de746adff0700bc.jpg" alt="图片邮件"></p>
+<p>两个图片正常显示在邮件里。</p>
+<h2 id="Springboot-mail-模版邮件"><a href="#Springboot-mail-模版邮件" class="headerlink" title="Springboot mail 模版邮件"></a>Springboot mail 模版邮件</h2><p>模版邮件的用处很广泛，像经常收到的注册成功邮件或者是操作通知邮件等都是模版邮件，模版邮件往往只需要更改其中的几个变量。Springboot 中的模版邮件首选需要选择一款模版引擎，在引入依赖的时候已经增加了模版引擎 <code>Thymeleaf</code>.</p>
+<p>模版邮件首先需要一个邮件模版，我们在 <code>Templates</code> 下新建一个 <code>HTML</code> 文件 <code>RegisterSuccess.html</code>. 其中的 username 是给我们自定义的。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>注册成功通知<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>[[$&#123;username&#125;]]，您好!</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    新的公钥已添加到你的账户:<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    标题: HP-WIN10 <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    如果公钥无法使用，你可以在这里重新添加： SSH Keys</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在邮件服务 <code>MailService</code> 中注入模版引擎,然后编写邮件模版发送代码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> TemplateEngine templateEngine;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发送模版邮件</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> to</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> subject</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> paramMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> template</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> MessagingException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendTemplateMail</span><span class="params">(String to, String subject, Map&lt;String, Object&gt; paramMap, String template)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    Context context = <span class="keyword">new</span> Context();</span><br><span class="line">    <span class="comment">// 设置变量的值</span></span><br><span class="line">    context.setVariables(paramMap);</span><br><span class="line">    String emailContent = templateEngine.process(template, context);</span><br><span class="line">    sendHtmlMail(to, subject, emailContent);</span><br><span class="line">    log.info(<span class="string">"【模版邮件】成功发送！paramsMap=&#123;&#125;，template=&#123;&#125;"</span>, paramMap, template);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在单元单元测试中增加模版邮件测试方法，然后发送邮件测试。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendTemplateMailTest</span><span class="params">()</span> <span class="keyword">throws</span> MessagingException </span>&#123;</span><br><span class="line">    String to = <span class="string">"niumoo@126.com"</span>;</span><br><span class="line">    String subject = <span class="string">"Springboot 发送 模版邮件"</span>;</span><br><span class="line">    Map&lt;String, Object&gt; paramMap = <span class="keyword">new</span> HashMap();</span><br><span class="line">    paramMap.put(<span class="string">"username"</span>, <span class="string">"Darcy"</span>);</span><br><span class="line">    mailService.sendTemplateMail(to, subject, paramMap, <span class="string">"RegisterSuccess"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>查看收信情况。</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/8244d50efe797cfa3ceb14aab7b7b461.jpg" alt="模版邮件"></p>
+<p>可以发现模版邮件已经正常发送了。</p>
+<h2 id="Springboot-mail-补充"><a href="#Springboot-mail-补充" class="headerlink" title="Springboot mail 补充"></a>Springboot mail 补充</h2><p>上面的例子中，是 Springboot 邮件服务的基本用法，代码也有很多重复，和实际的使用情况相比还有很多不足，比如缺少<code>异常处理机制</code>，在发送失败时的<code>重试机制</code>也没有，实际情况中邮件服务往往对实时性不高，多说情况下会用于<code>异步请求</code>。</p>
+<p>文章相关代码已经上传 Github <a href="https://github.com/niumoo/springboot/tree/master/springboot-mail" target="_blank" rel="noopener">Spring Boot 相关整合 - 邮件服务</a>。</p>
+<p>&lt;完&gt;<br>本文原发于个人博客：<a href="https://www.codingme.net">https://www.codingme.net</a> 转载请注明出处。<br><img src="http://upload-images.jianshu.io/upload_images/2626549-1bc0b5997f750867?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号"></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Springboot/" rel="tag"># Springboot</a>
+          
+            <a href="/tags/邮件/" rel="tag"># 邮件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/springboot/springboot-12-data-mybatis-page/" rel="next" title="Springboot 系列（十二）使用 Mybatis 集成 pagehelper 分页插件和 mapper 插件">
+                <i class="fa fa-chevron-left"></i> Springboot 系列（十二）使用 Mybatis 集成 pagehelper 分页插件和 mapper 插件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/springboot/springboot-14-https/" rel="prev" title="Springboot 系列（十四）启用 HTTPS 服务">
+                Springboot 系列（十四）启用 HTTPS 服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+              
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-依赖"><span class="nav-number">1.</span> <span class="nav-text">Springboot mail 依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-配置"><span class="nav-number">2.</span> <span class="nav-text">Springboot mail 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-文本邮件"><span class="nav-number">3.</span> <span class="nav-text">Springboot mail 文本邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-HTML-邮件"><span class="nav-number">4.</span> <span class="nav-text">Springboot mail HTML 邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-附件邮件"><span class="nav-number">5.</span> <span class="nav-text">Springboot mail 附件邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-图片邮件"><span class="nav-number">6.</span> <span class="nav-text">Springboot mail 图片邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-模版邮件"><span class="nav-number">7.</span> <span class="nav-text">Springboot mail 模版邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-mail-补充"><span class="nav-number">8.</span> <span class="nav-text">Springboot mail 补充</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

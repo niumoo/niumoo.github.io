@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Web应用程序的工作原理大多数的Web应用程序结构都是采用最为流行的B/S软件开发体系结构，将Web应用程序部署在Web服务器上，只要Web服务器启动，用户就可以通过客户端浏览器发送HTTP请求到Web服务器，此时运行在Web服务器上对应的Web应用程序将处理客户端请求，处理完成后做出响应。 Web应用程序工作原理图如下：">
+<meta name="keywords" content="Tomcat,web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web笔记（一） Web 简介与开发环境搭建">
+<meta property="og:url" content="https://www.codingme.net/2018/08/develop/web/web-base-01/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="Web应用程序的工作原理大多数的Web应用程序结构都是采用最为流行的B/S软件开发体系结构，将Web应用程序部署在Web服务器上，只要Web服务器启动，用户就可以通过客户端浏览器发送HTTP请求到Web服务器，此时运行在Web服务器上对应的Web应用程序将处理客户端请求，处理完成后做出响应。 Web应用程序工作原理图如下：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/2a80764098b039c156a354df120d12f9.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae2daaf8a3849968ec40589cdcc54f4b.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5479a7ba9d098838d3e0fee1d2f05877.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/869cfe4d5dc8a32e1e1b7f7723587a53.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6eee55ca7cc387416c7f0bcc4fa245f9.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/8d9b6b2f556a6305d8d20a194aba1869.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/00aba424b3e589bc32e556f2c2409566.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/0e5978714a480e71652775e9819e46db.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c360b946bd1e0805f38fb3057683eb9e.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/aec15cfa216538721861005372b29b45.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1f3a7bd37a8abc15e8e85c1963d7f951.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/597f7b796de57cfae5b774f93a66709b.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/4741b851105cb98eeeba23234936bd11.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/78f64a263de3943d92aa14e019673308.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a679a296bfc9d79297f11199958cf153.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/57549829bfef115af813a93c64751e4c.jpg">
+<meta property="og:updated_time" content="2018-08-14T21:03:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web笔记（一） Web 简介与开发环境搭建">
+<meta name="twitter:description" content="Web应用程序的工作原理大多数的Web应用程序结构都是采用最为流行的B/S软件开发体系结构，将Web应用程序部署在Web服务器上，只要Web服务器启动，用户就可以通过客户端浏览器发送HTTP请求到Web服务器，此时运行在Web服务器上对应的Web应用程序将处理客户端请求，处理完成后做出响应。 Web应用程序工作原理图如下：">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/2a80764098b039c156a354df120d12f9.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/08/develop/web/web-base-01/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Web笔记（一） Web 简介与开发环境搭建 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/develop/web/web-base-01/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web笔记（一） Web 简介与开发环境搭建
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-15 05:03:59" itemprop="dateCreated datePublished" datetime="2018-08-15T05:03:59+08:00">2018-08-15</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Web应用程序的工作原理"><a href="#Web应用程序的工作原理" class="headerlink" title="Web应用程序的工作原理"></a>Web应用程序的工作原理</h3><p>大多数的Web应用程序结构都是采用最为流行的B/S软件开发体系结构，将Web应用程序部署在Web服务器上，只要Web服务器启动，用户就可以通过客户端浏览器发送<a href="http://www.codingme.net/post/java-web-01">HTTP</a>请求到Web服务器，此时运行在Web服务器上对应的Web应用程序将处理客户端请求，处理完成后做出响应。</p>
+<p>Web应用程序工作原理图如下：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/2a80764098b039c156a354df120d12f9.jpg" alt="Web应用程序工作原理"><br><a id="more"></a></p>
+<h3 id="Web应用开发技术"><a href="#Web应用开发技术" class="headerlink" title="Web应用开发技术"></a>Web应用开发技术</h3><p>Web应用开发技术又分为客户端开发技术，服务器开发技术。<br>客户端开发技术：</p>
+<ol>
+<li>HTML</li>
+<li>CSS</li>
+<li>JavaScript<br>…</li>
+</ol>
+<p>服务器开发技术：</p>
+<ol>
+<li>PHP</li>
+<li>ASP.NET</li>
+<li>Servlet</li>
+<li>JSP<br>…</li>
+</ol>
+<p>两个概念：<br><code>静态页面</code>：类似于HTML这种单纯的客户端页面，在每次访问的时候得到的信息都是相同的吗吗，和后台没有任何交互，它是实际存在的，无需经过服务器的编译，直接加载到客户浏览器上显示出来。我们称之为静态页面。</p>
+<p><code>动态页面</code>：相对静态页面，显示的内容可以随着时间、环境或者数据库操作的结果而发生改变的。我们称之为动态页面。</p>
+<h3 id="Web-服务器"><a href="#Web-服务器" class="headerlink" title="Web 服务器"></a>Web 服务器</h3><p>进行Java Web开发环境的搭建，首先我们需要了解下Web服务器。<br>WEB服务器也称为WWW(WORLD WIDE WEB)服务器，主要功能是提供网上信息浏览服务，Web服务器可以解析HTTP协议。当Web服务器接收到一个HTTP请求,会返回一个HTTP响应,例如送回一个HTML页面。为了处理一个请求Web服务器可以响应一个静态页面或图片，进行页面跳转或者把动态响应的产生委托给一些其它的程序例如CGI脚本，JSP脚本，servlets，ASP脚本，服务器端JavaScript，或者一些其它的服务器端技术。<br>关于HTTP协议详细信息可以查看<a href="https://www.codingme.net/2018/07/computer/protocol-http/">网络协议之HTTP</a></p>
+<p>几种常见的Web服务器。</p>
+<ol>
+<li>Resin<br>Resin是CAUCHO公司的产品，是一个非常流行的application server，对servlet和JSP提供了良好的支持，性能也比较优良，resin自身采用JAVA语言开发。</li>
+<li>JBoss<br>是一个基于J2EE的开放源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB 1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</li>
+<li>WebSphere<br>WebSphere 是 IBM 的软件平台。它包含了编写、运行和监视全天候的工业强度的随需应变 Web 应用程序和跨平台、跨产品解决方案所需要的整个中间件基础设施，如服务器、服务和工具。WebSphere 提供了可靠、灵活和健壮的软件。</li>
+<li>WebLogic<br>WebLogic是美国Oracle公司出品的一个application server，确切的说是一个基于JAVAEE架构的中间件，WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。</li>
+<li>Tomcat<br>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，Tomcat 5支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</li>
+</ol>
+<h3 id="安装与配置JDK"><a href="#安装与配置JDK" class="headerlink" title="安装与配置JDK"></a>安装与配置JDK</h3><p>Java web开发首先我们需要配置web服务器，这样我们才能通过web服务器部署发布web项目，才可以进行访问，这里选择Tomcat作为web服务器，Tomcat基于运行基于Jre环境，因此我们在配置Tomcat 之前需要配置Java环境。</p>
+<p>jdk的下载与安装这里不说，只顺便说一下win下环境变量的配置。</p>
+<ol>
+<li>配置环境变量 ：右键我的电脑  →  属性→  高级系统设置  → 环境变量</li>
+<li>在系统变量里新建JAVA_HOME 变量，值为JDK安装路径</li>
+<li><p>新建<code>classpath</code>变量，值为：</p>
+<pre><code>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar
+</code></pre></li>
+<li><p>修改PATH变量值，在值后添加：</p>
+<pre><code>%JAVA_HOME%\bin；%JAVA_HOME%\jre\bin
+</code></pre></li>
+</ol>
+<p>配置完毕后运行命令java -version有版本信息打印说明配置成功<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Microsoft Windows [版本 <span class="number">10</span>.<span class="number">0</span>.<span class="number">15063</span>]</span><br><span class="line">(c) <span class="number">2017</span> Microsoft Corporation。保留所有权利。</span><br><span class="line"></span><br><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Niu</span>&gt;<span class="title">java</span> -<span class="title">version</span></span></span><br><span class="line"><span class="function"><span class="title">java</span> <span class="title">version</span> "1.8.0<span class="title">_111</span>"</span></span><br><span class="line"><span class="function"><span class="title">Java</span>(<span class="title">TM</span>) <span class="title">SE</span> <span class="title">Runtime</span> <span class="title">Environment</span> (<span class="title">build</span> 1.8.0<span class="title">_111</span>-<span class="title">b14</span>)</span></span><br><span class="line"><span class="function"><span class="title">Java</span> <span class="title">HotSpot</span>(<span class="title">TM</span>) 64-<span class="title">Bit</span> <span class="title">Server</span> <span class="title">VM</span> (<span class="title">build</span> 25.111-<span class="title">b14</span>, <span class="title">mixed</span> <span class="title">mode</span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">Niu</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="安装与启动Tomcat"><a href="#安装与启动Tomcat" class="headerlink" title="安装与启动Tomcat"></a>安装与启动Tomcat</h3><p>Tomcat是免费的开源软件，可在直接在官方网站下载。<br><a href="http://tomcat.apache.org/" target="_blank" rel="noopener">http://tomcat.apache.org/</a><br>1.可以直接在左侧选择版本：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae2daaf8a3849968ec40589cdcc54f4b.jpg" alt="enter image description here"></p>
+<p>2.选择版本后可以在下方进行下载，可以选择下载安装版或者解压版，这里选择了解压版<br>tar.gz文件是Linux操作系统下的安装版本<br>exe文件是Windows系统下的安装版本<br>zip文件是Windows系统下的压缩版本</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5479a7ba9d098838d3e0fee1d2f05877.jpg" alt="enter image description here"></p>
+<p>3.下载完成后解压缩，得到Tomcat目录，</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/869cfe4d5dc8a32e1e1b7f7723587a53.jpg" alt="Tomca目录"></p>
+<p>4.可以在%Tomcat%\conf\server.xml中修改默认端口号(默认为8080)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">URIEncoding</span>=<span class="string">"UTF-8"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5.配置完毕后可以运行%Tomcat%\bin\startup.sh进行启动</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6eee55ca7cc387416c7f0bcc4fa245f9.jpg" alt="Tomcat启动"></p>
+<p>6.浏览器访问<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 进行测试</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/8d9b6b2f556a6305d8d20a194aba1869.jpg" alt="Tomcat访问测试"></p>
+<h4 id="Eclipse中使用Tomcat"><a href="#Eclipse中使用Tomcat" class="headerlink" title="Eclipse中使用Tomcat"></a>Eclipse中使用Tomcat</h4><p>点击菜单：Window → Prefences → Server → Runtime Environments<br>点击左边Add按钮，选择Apache，选择Tomcat版本，点击NEXT</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/00aba424b3e589bc32e556f2c2409566.jpg" alt="Eclipse添加Tomcat"></p>
+<p>至此，Java Web集成开发环境配置完成，可以在Eclipse中Server面板中新建Tomcat Server进行启动。</p>
+<p>新建Server:</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/0e5978714a480e71652775e9819e46db.jpg" alt="新建Server"></p>
+<p>完成创建：</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c360b946bd1e0805f38fb3057683eb9e.jpg" alt="完成server创建"></p>
+<p>完成创建之后可以在新建的server上右键选择start进行启动，启动效果如同双击startup.bat，console控制台会同步显示启动信息。</p>
+<h3 id="web项目开发"><a href="#web项目开发" class="headerlink" title="web项目开发"></a>web项目开发</h3><p>在环境搭建完成之后，我们应该使用这个环境进行Web项目的开发。这里使用一个简单的例子，来演示如何使用Eclipse开发并且部署一个Web项目。</p>
+<h4 id="创建web项目"><a href="#创建web项目" class="headerlink" title="创建web项目"></a>创建web项目</h4><p>首先我们打开Eclipse，点击菜单File -&gt; new -&gt; project 新建项目</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/aec15cfa216538721861005372b29b45.jpg" alt="新建项目here"></p>
+<p>选择Web Project项目进行创建</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1f3a7bd37a8abc15e8e85c1963d7f951.jpg" alt="创建项目"></p>
+<p>填写项目名称等信息</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/597f7b796de57cfae5b774f93a66709b.jpg" alt="enter image description here"></p>
+<p>点击两次Next之后，创建web.xm信息，完成项目创建</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/4741b851105cb98eeeba23234936bd11.jpg" alt="创建web.xml"></p>
+<p>查看项目目录结构<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/78f64a263de3943d92aa14e019673308.jpg" alt="web项目目录结构"></p>
+<p>为了实验效果，我们在WebContent下创建一个index.html文件，编写Hello web内容进行部署演示。<br>WebContent 上右键 NEW - &gt;File - &gt;输入文件名index.html完成文件创建。<br>编写内容：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Web test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h3</span>&gt;</span>Hello web<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="部署web项目"><a href="#部署web项目" class="headerlink" title="部署web项目"></a>部署web项目</h4><p>在eclipse中使用Tomcat进行启动项目<br>在已经创建完毕的Tomcat server上右键添加项目，然后进行启动即可</p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a679a296bfc9d79297f11199958cf153.gif" alt="在Eclipse使用Tomcat启动Web项目 here"></p>
+<h4 id="访问web项目"><a href="#访问web项目" class="headerlink" title="访问web项目"></a>访问web项目</h4><p>可以看到项目启动在8080端口，启动完毕，此时可以通过浏览器进行项目访问。</p>
+<p><a href="http://localhost:8080/web-Test/index.html" target="_blank" rel="noopener">http://localhost:8080/web-Test/index.html</a></p>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/57549829bfef115af813a93c64751e4c.jpg" alt="访问测试"></p>
+<p>此时，在Eclipse中创建部署启动一个Web项目已经完成。</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/develop/install-tomcat-many-instance/" rel="next" title="Linux配置Tomcat的单机多实例">
+                <i class="fa fa-chevron-left"></i> Linux配置Tomcat的单机多实例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/html-css/css-mac-window/" rel="prev" title="CSS - 使用CSS实现Mac窗口效果">
+                CSS - 使用CSS实现Mac窗口效果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web应用程序的工作原理"><span class="nav-number">1.</span> <span class="nav-text">Web应用程序的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web应用开发技术"><span class="nav-number">2.</span> <span class="nav-text">Web应用开发技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-服务器"><span class="nav-number">3.</span> <span class="nav-text">Web 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装与配置JDK"><span class="nav-number">4.</span> <span class="nav-text">安装与配置JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装与启动Tomcat"><span class="nav-number">5.</span> <span class="nav-text">安装与启动Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse中使用Tomcat"><span class="nav-number">5.1.</span> <span class="nav-text">Eclipse中使用Tomcat</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web项目开发"><span class="nav-number">6.</span> <span class="nav-text">web项目开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建web项目"><span class="nav-number">6.1.</span> <span class="nav-text">创建web项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署web项目"><span class="nav-number">6.2.</span> <span class="nav-text">部署web项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问web项目"><span class="nav-number">6.3.</span> <span class="nav-text">访问web项目</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="心血来潮，在笔记本安装了Ubuntu 18 用于日常学习，于是有了下面的安装记录。 Gnome-Tweak-Toolgnome-tweak-tool可以打开隐藏的设置，可以详细的对系统进行配置，以及安装主题和扩展等功能。 1234567// 安装sudo apt install gnome-tweak-tool// 安装扩展sudo apt install gnome-shell-extensi">
+<meta name="keywords" content="ubuntu,软件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu18 的超详细常用软件安装">
+<meta property="og:url" content="https://www.codingme.net/2018/11/linux/start-ubuntu/index.html">
+<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:description" content="心血来潮，在笔记本安装了Ubuntu 18 用于日常学习，于是有了下面的安装记录。 Gnome-Tweak-Toolgnome-tweak-tool可以打开隐藏的设置，可以详细的对系统进行配置，以及安装主题和扩展等功能。 1234567// 安装sudo apt install gnome-tweak-tool// 安装扩展sudo apt install gnome-shell-extensi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/877fecc7f272598c29084c2a621df2c1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7bcdeb5f8902fd0be6662bbb6397de32.png">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.047Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu18 的超详细常用软件安装">
+<meta name="twitter:description" content="心血来潮，在笔记本安装了Ubuntu 18 用于日常学习，于是有了下面的安装记录。 Gnome-Tweak-Toolgnome-tweak-tool可以打开隐藏的设置，可以详细的对系统进行配置，以及安装主题和扩展等功能。 1234567// 安装sudo apt install gnome-tweak-tool// 安装扩展sudo apt install gnome-shell-extensi">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/877fecc7f272598c29084c2a621df2c1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.codingme.net/2018/11/linux/start-ubuntu/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Ubuntu18 的超详细常用软件安装 | 雪漫士兵的网络日志</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">三尺微命，一介书生</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-springboot">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/11/linux/start-ubuntu/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雪漫士兵"/>
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
+      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu18 的超详细常用软件安装
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-16 09:51:11" itemprop="dateCreated datePublished" datetime="2018-11-16T09:51:11+08:00">2018-11-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/877fecc7f272598c29084c2a621df2c1.png" alt="Ubuntu-desktop"></p>
+<p>心血来潮，在笔记本安装了Ubuntu 18 用于日常学习，于是有了下面的安装记录。</p>
+<h2 id="Gnome-Tweak-Tool"><a href="#Gnome-Tweak-Tool" class="headerlink" title="Gnome-Tweak-Tool"></a>Gnome-Tweak-Tool</h2><p>gnome-tweak-tool可以打开隐藏的设置，可以详细的对系统进行配置，以及安装主题和扩展等功能。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 安装</span><br><span class="line">sudo apt install gnome-tweak-tool</span><br><span class="line">// 安装扩展</span><br><span class="line">sudo apt install gnome-shell-extensions</span><br><span class="line">alt+f2 r 回车</span><br><span class="line">// 安装浏览器扩展工具</span><br><span class="line">sudo apt install chrome-gnome-shell</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="N卡驱动异常"><a href="#N卡驱动异常" class="headerlink" title="N卡驱动异常"></a>N卡驱动异常</h2><h3 id="开机关机异常"><a href="#开机关机异常" class="headerlink" title="开机关机异常"></a>开机关机异常</h3><p>因为使用了N卡<code>开源</code>驱动，<code>N卡驱动</code>和ubuntu系统的兼容性存在问题，有时会导致无法开机，开机循环登录，关机注销卡死等一系列问题，如果你也碰到这样的问题，可以继续向下看。笔者在使用过程中需要同样问题，升级驱动无果之后决定直接禁用掉N卡驱动。</p>
+<p>开机先进入登录页面，<code>CTRL+ALT+F2</code>进入命令行模式。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// purge（彻底删除软件和配置）</span><br><span class="line">sudo apt-get purge nvidia-*</span><br><span class="line">// 进入 /配置文件/自动载入模块(类似windows系统下的服务)配置文件</span><br><span class="line">cd /etc/modprobe.d/</span><br><span class="line">// 使用vim 编辑（不存在会新建）一个叫blacklist-nouveau.conf的文件</span><br><span class="line">sudo vim blacklist-nouveau.conf</span><br><span class="line">// 在编辑模式下，按i(insert)进入编辑模式，输入</span><br><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset=0</span><br><span class="line">// 按一次esc退出编辑模式，再按一次“冒号”，输入wq（保存并退出）</span><br><span class="line">// 重置内核引导</span><br><span class="line">sudo update-initramfs -u</span><br><span class="line">// 重启ubuntu</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<p>重启之后就可以正常登录进桌面了，但是笔者发现当连接多个显示器的时候，不能进行扩展显示，应该是没有N卡驱动影响到的，如果没有多个显示，那么可以就此停止折腾了。</p>
+<h3 id="安装N卡驱动"><a href="#安装N卡驱动" class="headerlink" title="安装N卡驱动"></a>安装N卡驱动</h3><p>无奈有两个显示器，不用起来还是有点不舒服的，因此有了下面的操作，安装nvidia官方驱动。</p>
+<p>把 nouveau 驱动加入黑名单</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">sudo nano /etc/modprobe.d/blacklist-nouveau.conf</span></span><br></pre></td></tr></table></figure>
+<p>在文件 blacklist-nouveau.conf 中加入如下内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">blacklist lbm-nouveau</span><br><span class="line">options nouveau modeset=0</span><br><span class="line">alias nouveau off</span><br><span class="line">alias lbm-nouveau off</span><br></pre></td></tr></table></figure></p>
+<p>禁用 nouveau 内核模块<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"><span class="built_in">echo</span> options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo update-initramfs -u</span></span><br></pre></td></tr></table></figure></p>
+<p>可以用lsmod看看禁止成功没有<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure></p>
+<p>然后开始安装Nvidia驱动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:graphics-drivers/ppa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo ubuntu-drivers autoinstall</span><br></pre></td></tr></table></figure></p>
+<p>重启<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nvidia-cuda-toolkit gcc-6</span><br><span class="line">nvcc --version</span><br></pre></td></tr></table></figure></p>
+<p>用lsmod看看驱动安装成功没有<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nvidia</span><br></pre></td></tr></table></figure></p>
+<p>安装cuda-toolkit，介绍可以参考 <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-toolkit</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nvidia-cuda-toolkit gcc-6</span><br><span class="line">nvcc --version</span><br></pre></td></tr></table></figure></p>
+<h2 id="纸飞机Shadowsocks"><a href="#纸飞机Shadowsocks" class="headerlink" title="纸飞机Shadowsocks"></a>纸飞机Shadowsocks</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt install shadowsocks</span><br><span class="line">// 自行编写配置文件 /etc/shadowsocks.json</span><br><span class="line">// 启动</span><br><span class="line">sslocal -c /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+<h2 id="JDK环境变量"><a href="#JDK环境变量" class="headerlink" title="JDK环境变量"></a>JDK环境变量</h2><p>JDK下载解压此处不说。环境变量配置如下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/home/niu/develop/program/jdk1.8.0_191</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/home/niu/develop/program/jdk1.8.0_191</span><br><span class="line">export JRE_HOME=/home/niu/develop/program/jdk1.8.0_191/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<h2 id="IDEA图标"><a href="#IDEA图标" class="headerlink" title="IDEA图标"></a>IDEA图标</h2><p>IDEA下载解压此处不说。</p>
+<p>/usr/share/applications目录下，如果我们要创建桌面快捷方式，需要在该目录下创建一个名为“idea.desktop”的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Name=IdeaIU</span><br><span class="line">Comment=IdeaIU</span><br><span class="line">Exec=env JAVA_HOME=/home/niu/develop/program/jdk1.8.0_191 /home/niu/develop/program/idea-IU-182.4892.20/bin/idea.sh</span><br><span class="line">Icon=/home/niu/develop/program/idea-IU-182.4892.20/bin/idea.png</span><br><span class="line">Terminal=false</span><br><span class="line">Type=Application</span><br><span class="line">Categories=Application;Development;</span><br></pre></td></tr></table></figure>
+<h2 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -</span><br><span class="line">echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install sublime-text</span><br></pre></td></tr></table></figure>
+<h2 id="字体YaHeiConsolas"><a href="#字体YaHeiConsolas" class="headerlink" title="字体YaHeiConsolas"></a>字体YaHeiConsolas</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.mycode.net.cn/wp-content/uploads/2015/07/YaHeiConsolas.tar.gz</span><br><span class="line">tar -zxvf YaHeiConsolas.tar.gz</span><br><span class="line">sudo mkdir -p /usr/share/fonts/YaHeiConsolas</span><br><span class="line">sudo cp YaHeiConsolas.ttf /usr/share/fonts/YaHeiConsolas</span><br><span class="line">cd /usr/share/fonts/YaHeiConsolas</span><br><span class="line">sudo chmod 644 YaHeiConsolas.ttf</span><br><span class="line">sudo mkfontscale</span><br><span class="line">sudo mkfontdir</span><br><span class="line">sudo fc-cache -fv</span><br></pre></td></tr></table></figure>
+<h2 id="SecureCRT"><a href="#SecureCRT" class="headerlink" title="SecureCRT"></a>SecureCRT</h2><p>直接到官网注册下载。下载完毕之后可以试用30天。</p>
+<p>下面是注册信息的生成，可能不适用于最新版本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  software sudo perl securecrt_linux_crack.pl /usr/bin/SecureCRT</span><br><span class="line">crack successful</span><br><span class="line"></span><br><span class="line">License:</span><br><span class="line"></span><br><span class="line">	Name:		xiaobo_l</span><br><span class="line">	Company:	www.boll.me</span><br><span class="line">	Serial Number:	03-94-294583</span><br><span class="line">	License Key:	ABJ11G 85V1F9 NENFBK RBWB5W ABH23Q 8XBZAC 324TJJ KXRE5D</span><br><span class="line">	Issue Date:	04-20-2017</span><br></pre></td></tr></table></figure>
+<h2 id="mysql5-7"><a href="#mysql5-7" class="headerlink" title="mysql5.7"></a>mysql5.7</h2><h3 id="安装Mysql5-7"><a href="#安装Mysql5-7" class="headerlink" title="安装Mysql5.7"></a>安装Mysql5.7</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装mysql服务</span></span><br><span class="line">sudo apt-get install mysql-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装客户端</span></span><br><span class="line">sudo apt install mysql-client</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装依赖</span></span><br><span class="line">sudo apt install libmysqlclient-dev</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检查状态</span></span><br><span class="line">sudo netstat -tap | grep mysql</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>mysql5.7安装完成后普通用户不能进mysql，原因：root的plugin被修改成了auth_socket，用密码登陆的plugin应该是mysql_native_password，直接用root权限登录就不用密码,修改root密码和登录验证方式。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> root权限进入mysql</span></span><br><span class="line">sudo mysql</span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> select user, plugin from mysql.user;</span></span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">| user             | plugin                |</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">| root             | auth_socket           |</span><br><span class="line">| mysql.session    | mysql_native_password |</span><br><span class="line">| mysql.sys        | mysql_native_password |</span><br><span class="line">| debian-sys-maint | mysql_native_password |</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> update mysql.user <span class="built_in">set</span> authentication_string=PASSWORD(<span class="string">'123456'</span>), plugin=<span class="string">'mysql_native_password'</span> <span class="built_in">where</span> user=<span class="string">'root'</span>;</span></span><br><span class="line">Query OK, 1 row affected, 1 warning (0.01 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 1</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> flush privileges;</span></span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">exit</span></span></span><br><span class="line">Bye</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启mysql</span></span><br><span class="line">niu@ubuntu:~$ sudo /etc/init.d/mysql restart</span><br><span class="line">[ ok ] Restarting mysql (via systemctl): mysql.service.</span><br></pre></td></tr></table></figure>
+<h3 id="远程登录mysql"><a href="#远程登录mysql" class="headerlink" title="远程登录mysql"></a>远程登录mysql</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改配置文件，注释掉<span class="built_in">bind</span>-address = 127.0.0.1</span></span><br><span class="line">niu@ubuntu:~$ sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf </span><br><span class="line">niu@ubuntu:~$ mysql -uroot -p</span><br><span class="line">Enter password: </span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> grant all on *.* to root@<span class="string">'%'</span> identified by <span class="string">'123456'</span> with grant option;</span></span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> flush privileges;</span></span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash">  <span class="built_in">exit</span></span></span><br><span class="line">Bye</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启mysql</span></span><br><span class="line">niu@ubuntu:~$ sudo /etc/init.d/mysql restart</span><br></pre></td></tr></table></figure>
+<h2 id="安装typora"><a href="#安装typora" class="headerlink" title="安装typora"></a>安装typora</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// or run:</span><br><span class="line">// sudo apt-key adv --keyserver keyserver.ubuntu.com--recv-keys BA300B7755AFCFAE</span><br><span class="line">wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -</span><br><span class="line">// add Typora's repository</span><br><span class="line">sudo add-apt-repository 'deb https://typora.io/linux ./'</span><br><span class="line">sudo apt-get update</span><br><span class="line">// install typora</span><br><span class="line">sudo apt-get install typora</span><br></pre></td></tr></table></figure>
+<h2 id="邮件客户端"><a href="#邮件客户端" class="headerlink" title="邮件客户端"></a>邮件客户端</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/nylas/nylas-mail/releases/download/2.0.14/NylasMail-2.0.14.deb</span><br><span class="line">sudo dpkg -i NylasMail-2.0.14.deb</span><br><span class="line">sudo apt-get -f install</span><br></pre></td></tr></table></figure>
+<p>安装之后发现要连接服务器，但是服务器报错，且了解到需要收费，因此放弃。</p>
+<p>改用mailspring，界面好评，使用一天之后发现在邮件很多的时候会卡顿，还会出现服务器连接不上的情况，且没有设置pop3的地方，只有imap设置。因此放弃。</p>
+<p>最后改用大名鼎鼎TｈunderBird。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install thunderbird-locale-uk thunderbird-locale-vi thunderbird-locale-zh-cn</span><br></pre></td></tr></table></figure>
+<h2 id="安装搜狗拼音输入法"><a href="#安装搜狗拼音输入法" class="headerlink" title="安装搜狗拼音输入法"></a>安装搜狗拼音输入法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 卸载自带的中文输入法</span><br><span class="line">sudo apt remove 'ibus*'</span><br><span class="line">// 安装fcitx输入法配置框架</span><br><span class="line">sudo apt install fcitx-bin fcitx-table</span><br><span class="line">// 在设置语言中，选择语言输入框架为fcitx，应用到整个系统。</span><br><span class="line">// 下载搜狗拼音linux版本</span><br><span class="line">https://pinyin.sogou.com/linux/</span><br><span class="line">// 搜狗拼音的官方安装教程,可以参考，也就是说先安装fcitx框架，然后安装输入法</span><br><span class="line">//https://pinyin.sogou.com/linux/help.php</span><br><span class="line">// 双击安装</span><br></pre></td></tr></table></figure>
+<p>卸载搜狗拼音。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get  remove  sogoupinyin</span><br><span class="line">sudo apt-get  purge  sogoupinyin</span><br><span class="line">sudo apt-get autoremove</span><br></pre></td></tr></table></figure>
+<h2 id="VLC播放器"><a href="#VLC播放器" class="headerlink" title="VLC播放器"></a>VLC播放器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安装解码器</span><br><span class="line">sudo apt-get install ubuntu-restricted-extras </span><br><span class="line">安装VLC</span><br><span class="line">sudo apt-get install vlc browser-plugin-vlc</span><br></pre></td></tr></table></figure>
+<h2 id="点击任务栏图表最小化"><a href="#点击任务栏图表最小化" class="headerlink" title="点击任务栏图表最小化"></a>点击任务栏图表最小化</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'</span><br></pre></td></tr></table></figure>
+<h2 id="QQ-TIM-迅雷"><a href="#QQ-TIM-迅雷" class="headerlink" title="QQ TIM 迅雷"></a>QQ TIM 迅雷</h2><p>Linux下QQ，TIM 一直体验不好，庆幸发现了目前体验最好的deepin 移植版。<br>直接看<a href="https://github.com/wszqkzqk/deepin-wine-ubuntu" target="_blank" rel="noopener">链接</a></p>
+<h2 id="wine程序图标放到顶部"><a href="#wine程序图标放到顶部" class="headerlink" title="wine程序图标放到顶部"></a>wine程序图标放到顶部</h2><p>使用这个功能需要先安装gnome-tweak-tool以及gnome-shell-extensions</p>
+<p><a href="https://extensions.gnome.org/extension/1031/topicons/" target="_blank" rel="noopener">https://extensions.gnome.org/extension/1031/topicons/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TopIcons Plus</span><br><span class="line">Applications Menu</span><br></pre></td></tr></table></figure>
+<h2 id="登录页面背景"><a href="#登录页面背景" class="headerlink" title="登录页面背景"></a>登录页面背景</h2><p>18.04登录背景相关的配置是用css的：/etc/alternatives/gdm3.css。如果你熟悉CSS规则， 可以很方便的编写出自己喜欢的登录页面样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//找到默认的这个部分</span><br><span class="line"><span class="selector-tag">lockDialogGroup</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#2c001e</span> <span class="built_in">url</span>(resource:///org/gnome/shell/theme/noise-texture.png);</span><br><span class="line">  <span class="attribute">background-repeat</span>: repeat; </span><br><span class="line">&#125;</span><br><span class="line">//改为</span><br><span class="line"><span class="selector-tag">lockDialogGroup</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#2c001e</span> <span class="built_in">url</span>(file:///usr/share/backgrounds/mypicture.jpg); </span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">background-size</span>: cover;</span><br><span class="line">  <span class="attribute">background-position</span>: center; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7bcdeb5f8902fd0be6662bbb6397de32.png" alt="Ubuntu-desktop"></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="https://raw.githubusercontent.com/niumoo/files/master/images/web/wechat.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;"/>
+  <div>欢迎扫一扫关注公众号，与我联系</div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+            <a href="/tags/软件/" rel="tag"># 软件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/io/io3-nio/" rel="next" title="IO通信模型（三）多路复用IO">
+                <i class="fa fa-chevron-left"></i> IO通信模型（三）多路复用IO
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/io/mq-introduction/" rel="prev" title="消息队列中间件（一）介绍">
+                消息队列中间件（一）介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
+                alt="雪漫士兵"/>
+            
+              <p class="site-author-name" itemprop="name">雪漫士兵</p>
+              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gnome-Tweak-Tool"><span class="nav-number">1.</span> <span class="nav-text">Gnome-Tweak-Tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N卡驱动异常"><span class="nav-number">2.</span> <span class="nav-text">N卡驱动异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开机关机异常"><span class="nav-number">2.1.</span> <span class="nav-text">开机关机异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装N卡驱动"><span class="nav-number">2.2.</span> <span class="nav-text">安装N卡驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纸飞机Shadowsocks"><span class="nav-number">3.</span> <span class="nav-text">纸飞机Shadowsocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK环境变量"><span class="nav-number">4.</span> <span class="nav-text">JDK环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA图标"><span class="nav-number">5.</span> <span class="nav-text">IDEA图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sublime-Text-3"><span class="nav-number">6.</span> <span class="nav-text">Sublime Text 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体YaHeiConsolas"><span class="nav-number">7.</span> <span class="nav-text">字体YaHeiConsolas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SecureCRT"><span class="nav-number">8.</span> <span class="nav-text">SecureCRT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql5-7"><span class="nav-number">9.</span> <span class="nav-text">mysql5.7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Mysql5-7"><span class="nav-number">9.1.</span> <span class="nav-text">安装Mysql5.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程登录mysql"><span class="nav-number">9.2.</span> <span class="nav-text">远程登录mysql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装typora"><span class="nav-number">10.</span> <span class="nav-text">安装typora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邮件客户端"><span class="nav-number">11.</span> <span class="nav-text">邮件客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装搜狗拼音输入法"><span class="nav-number">12.</span> <span class="nav-text">安装搜狗拼音输入法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VLC播放器"><span class="nav-number">13.</span> <span class="nav-text">VLC播放器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点击任务栏图表最小化"><span class="nav-number">14.</span> <span class="nav-text">点击任务栏图表最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QQ-TIM-迅雷"><span class="nav-number">15.</span> <span class="nav-text">QQ TIM 迅雷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wine程序图标放到顶部"><span class="nav-number">16.</span> <span class="nav-text">wine程序图标放到顶部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录页面背景"><span class="nav-number">17.</span> <span class="nav-text">登录页面背景</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '2b4c7322297fdf10f81c',
+    clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+    repo: 'git-comments',
+    owner: 'niumoo',
+    admin: ['niumoo'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
