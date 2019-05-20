@@ -96,22 +96,22 @@
 
 
 
-  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言   由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。 1. Spring Boot 介绍Spring">
+  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。 1. Spring Boot 介绍Spring Bo">
 <meta name="keywords" content="Springboot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Springboot 系列（一）Spring Boot 入门篇">
 <meta property="og:url" content="https://www.codingme.net/2019/01/springboot/springboot01-quick-start/index.html">
 <meta property="og:site_name" content="雪漫士兵的网络日志">
-<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言   由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。 1. Spring Boot 介绍Spring">
+<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。 1. Spring Boot 介绍Spring Bo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2626549-a29354ccc74f5792.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2626549-f6c15aca93b10703.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2626549-c82aefb5192cbefb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-14T16:25:23.123Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a60be3362289ed4d901bae342a685f84.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/8b8a006da0df292015c9895b337a3ba4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/f8d782a2b291c6e082c116f5792088bb.png">
+<meta property="og:updated_time" content="2019-05-20T16:26:48.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot 系列（一）Spring Boot 入门篇">
-<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言   由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。 1. Spring Boot 介绍Spring">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2626549-a29354ccc74f5792.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。 1. Spring Boot 介绍Spring Bo">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a60be3362289ed4d901bae342a685f84.png">
 
 
 
@@ -421,7 +421,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+                <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
               
             
           </span>
@@ -476,8 +476,7 @@
         <blockquote>
 <p>注意：本 Spring Boot 系列文章基于 Spring Boot 版本 <strong>v2.1.1.RELEASE</strong> 进行学习分析，版本不同可能会有细微差别。</p>
 </blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div align="center"><img src="https://upload-images.jianshu.io/upload_images/2626549-a29354ccc74f5792.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></div> 
-
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/a60be3362289ed4d901bae342a685f84.png" alt=""></p>
 <p>由于 J2EE 的开发变得笨重，繁多的配置，错乱的依赖管理，低下的开发效率，复杂的部署流程，第三方技术的集成难度较大等。同时随着复杂项目的演进，微服务分布式架构思想逐渐进入开发者的视野。</p>
 <h2 id="1-Spring-Boot-介绍"><a href="#1-Spring-Boot-介绍" class="headerlink" title="1. Spring Boot 介绍"></a>1. Spring Boot 介绍</h2><p><code>Spring Boot</code> 提供了一组工具只需要极少的配置就可以快速的构建并启动基于 Spring 的应用程序。解决了传统 Spring 开发需要配置大量配置文件的痛点，同时 <code>Spring Boot</code> 对于第三方库设置了合理的默认值，可以快速的构建起应用程序。当然 <code>Spring Boot</code> 也可以轻松的自定义各种配置，无论是在开发的初始阶段还是投入生成的后期阶段。</p>
 <a id="more"></a>
@@ -508,8 +507,7 @@
 <p>第一次编译需要下载需要的依赖，耗时会比较长，编译完成之后紧接着可以看到 Spring 的启动标志。这时 Spring Boot 的 web程序已经运行在8080端口了。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -s localhost:8080</span></span><br><span class="line">Greetings from Spring Boot!</span><br></pre></td></tr></table></figure>
 <h2 id="5-Spring-Boot-开发"><a href="#5-Spring-Boot-开发" class="headerlink" title="5. Spring Boot 开发"></a>5. Spring Boot 开发</h2><p>下面手动编写一个 Spring Boot 入门案例，快速的开发一个 web mvc 应用。<br>项目结构如下：</p>
-<div align="center"><img src="https://upload-images.jianshu.io/upload_images/2626549-f6c15aca93b10703.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Spring boot 项目结构"></div> 
-
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/8b8a006da0df292015c9895b337a3ba4.png" alt="Spring boot 项目结构"></p>
 <h3 id="5-1-依赖项"><a href="#5-1-依赖项" class="headerlink" title="5.1 依赖项"></a>5.1 依赖项</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>spring-boot-starter-parent</code> 是Spring Boot 的核心依赖，它里面定义了各种在开发中会用到的第三方 jar  的版本信息，因此我们在引入其他的 Spring Boot 为我们封装的启动器的时候都不在需要指定版本信息。如果我们需要自定义版本信息，可以直接覆盖版本属性值即可。</p>
 <p><code>spring-boot-starter-web</code>  提供 web 以及 MVC 和 validator 等web开发框架的支持。</p>
@@ -534,8 +532,7 @@
 <h3 id="5-3-控制器"><a href="#5-3-控制器" class="headerlink" title="5.3 控制器"></a>5.3 控制器</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Greetings from Spring Boot!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>@RestController</code> 是 <code>@RestController</code> 与 <code>@ResponseBody</code> 的结合体。</p>
 <h3 id="5-4-访问测试"><a href="#5-4-访问测试" class="headerlink" title="5.4 访问测试"></a>5.4 访问测试</h3><p>直接启动 <code>HelloApplication.java</code> 类就可以在控制台看到启动输出，然后访问8080端口查看启动是否正常。</p>
-<div align="center"><img src="https://upload-images.jianshu.io/upload_images/2626549-c82aefb5192cbefb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Spring boot 项目结构"></div> 
-
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/f8d782a2b291c6e082c116f5792088bb.png" alt="Spring boot 项目结构"></p>
 <p>经过上面的例子，已经使用 Spring Boot 快速的创建了一个 web 应用并进行了简单的访问测试。</p>
 <h2 id="6-Spring-Boot-单元测试"><a href="#6-Spring-Boot-单元测试" class="headerlink" title="6. Spring Boot 单元测试"></a>6. Spring Boot 单元测试</h2><p>结合上面提到的 Spring Boot 启动器知识，Spring Boot 已经为我们提供了丰富的第三方框架，测试框架也不例外。</p>
 <p>导入单元测试依赖。</p>
@@ -855,24 +852,6 @@
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           

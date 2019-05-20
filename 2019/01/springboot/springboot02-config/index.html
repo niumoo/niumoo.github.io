@@ -96,21 +96,21 @@
 
 
 
-  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言   不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 application.properties,也有可能是appl">
+  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 application.properties,也有可能是applic">
 <meta name="keywords" content="Springboot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Springboot 系列（二）Spring Boot 配置文件">
 <meta property="og:url" content="https://www.codingme.net/2019/01/springboot/springboot02-config/index.html">
 <meta property="og:site_name" content="雪漫士兵的网络日志">
-<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言   不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 application.properties,也有可能是appl">
+<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 application.properties,也有可能是applic">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2626549-88300780e01c5d1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2626549-ae5d07c48f67f2ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-14T16:25:23.127Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/dc649482e7380cbe546f92550cef3c51.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/69bca4a567c0c6a4d5d2434812eb65b7.png">
+<meta property="og:updated_time" content="2019-05-20T16:26:48.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot 系列（二）Spring Boot 配置文件">
-<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言   不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 application.properties,也有可能是appl">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2626549-88300780e01c5d1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 application.properties,也有可能是applic">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/dc649482e7380cbe546f92550cef3c51.png">
 
 
 
@@ -420,7 +420,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+                <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
               
             
           </span>
@@ -475,8 +475,7 @@
         <blockquote>
 <p>注意：本 Spring Boot 系列文章基于 Spring Boot 版本 <strong>v2.1.1.RELEASE</strong> 进行学习分析，版本不同可能会有细微差别。</p>
 </blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div align="center"><img src="https://upload-images.jianshu.io/upload_images/2626549-88300780e01c5d1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></div> 
-
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/dc649482e7380cbe546f92550cef3c51.png" alt=""></p>
 <p>不管是通过官方提供的方式获取 Spring Boot 项目，还是通过 IDEA 快速的创建 Spring Boot 项目，我们都会发现在 resource 有一个配置文件 <code>application.properties</code>,也有可能是<code>application.yml</code>.这个文件也就是 Spring Boot 的配置文件。</p>
 <a id="more"></a>
 <h2 id="1-YAML-文件"><a href="#1-YAML-文件" class="headerlink" title="1. YAML 文件"></a>1. YAML 文件</h2><p>在 <code>Spring Boot</code> 中，官方推荐使用 <code>properties</code> 或者 <code>YAML</code> 文件来完成配置，对于 <code>YAML</code> 文件格式还不了解的可以查看官方的具体格式，这里只做简单介绍。  </p>
@@ -523,8 +522,7 @@
 <p>编写单元测试代码测试代码查看属性绑定是否成功。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.codingme.boot.domain.Person;</span><br><span class="line"><span class="keyword">import</span> net.codingme.boot.domain.PersonValue;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@AutoConfigureMockMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MockMvc mvc;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Person person;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PersonValue personValue;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模拟请求测试</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetHello</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        mvc.perform(MockMvcRequestBuilders.get(<span class="string">"/"</span>).accept(MediaType.APPLICATION_JSON))</span><br><span class="line">                .andExpect(status().isOk())</span><br><span class="line">                .andExpect(content().string(<span class="string">"Greetings from Spring Boot!"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试<span class="doctag">@ConfigurationProperties</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPersion</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试<span class="doctag">@Value</span> 引入配置值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPersionValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(personValue);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行发现数据已经正常绑定。</p>
-<div align="center"><img src="https://upload-images.jianshu.io/upload_images/2626549-ae5d07c48f67f2ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单元测试"></div> 
-
+<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/69bca4a567c0c6a4d5d2434812eb65b7.png" alt="单元测试"></p>
 <p>通过上面的示例，也可以发现 <code>@ConfigurationProperties</code> 和 <code>@Value</code>的区别。</p>
 <table>
 <thead>
@@ -896,24 +894,6 @@
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           

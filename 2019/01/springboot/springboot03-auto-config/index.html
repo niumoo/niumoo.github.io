@@ -96,21 +96,21 @@
 
 
 
-  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言  关于配置文件可以配置的内容，在 Spring Boot 官方网站已经提供了完整了配置示例和解释。 可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现">
+  <meta name="description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 关于配置文件可以配置的内容，在 Spring Boot 官方网站已经提供了完整了配置示例和解释。 可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现的">
 <meta name="keywords" content="Springboot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Springboot 系列（三）Spring Boot 自动配置">
 <meta property="og:url" content="https://www.codingme.net/2019/01/springboot/springboot03-auto-config/index.html">
 <meta property="og:site_name" content="雪漫士兵的网络日志">
-<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言  关于配置文件可以配置的内容，在 Spring Boot 官方网站已经提供了完整了配置示例和解释。 可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现">
+<meta property="og:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 关于配置文件可以配置的内容，在 Spring Boot 官方网站已经提供了完整了配置示例和解释。 可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2626549-e38b6d344d19cb76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/90be321394ddff7aa6dfdc9910888fda.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/26371673/50733348-ec781400-11c6-11e9-8f0d-01797d797d69.png">
-<meta property="og:updated_time" content="2019-05-14T16:25:23.131Z">
+<meta property="og:updated_time" content="2019-05-20T16:26:48.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot 系列（三）Spring Boot 自动配置">
-<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言  关于配置文件可以配置的内容，在 Spring Boot 官方网站已经提供了完整了配置示例和解释。 可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2626549-e38b6d344d19cb76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="注意：本 Spring Boot 系列文章基于 Spring Boot 版本 v2.1.1.RELEASE 进行学习分析，版本不同可能会有细微差别。  前言 关于配置文件可以配置的内容，在 Spring Boot 官方网站已经提供了完整了配置示例和解释。 可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现的">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/90be321394ddff7aa6dfdc9910888fda.png">
 
 
 
@@ -420,7 +420,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
+                <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
               
             
           </span>
@@ -475,8 +475,7 @@
         <blockquote>
 <p>注意：本 Spring Boot 系列文章基于 Spring Boot 版本 <strong>v2.1.1.RELEASE</strong> 进行学习分析，版本不同可能会有细微差别。</p>
 </blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div align="center"><img src="https://upload-images.jianshu.io/upload_images/2626549-e38b6d344d19cb76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></div>
-
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/90be321394ddff7aa6dfdc9910888fda.png" alt=""></p>
 <p>关于配置文件可以配置的内容，在 <a href="https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/htmlsingle/#common-application-properties" target="_blank" rel="noopener">Spring Boot 官方网站</a>已经提供了完整了配置示例和解释。</p>
 <p>可以这么说，Spring Boot 的一大精髓就是自动配置，为开发省去了大量的配置时间，可以更快的融入业务逻辑的开发，那么自动配置是怎么实现的呢？<br><a id="more"></a></p>
 <h2 id="1-SpringBootApplication"><a href="#1-SpringBootApplication" class="headerlink" title="1.  @SpringBootApplication"></a>1.  <code>@SpringBootApplication</code></h2><p>跟着 Spring Boot 的启动类的注解 <code>@SpringBootApplication</code> 进行源码跟踪，寻找自动配置的原理。</p>
@@ -490,8 +489,7 @@
 <p><code>getAutoConfigurationEntry</code> 会筛选出有效的自动配置类。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> AutoConfigurationEntry <span class="title">getAutoConfigurationEntry</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			AutoConfigurationMetadata autoConfigurationMetadata,</span></span></span><br><span class="line"><span class="function"><span class="params">			AnnotationMetadata annotationMetadata)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!isEnabled(annotationMetadata)) &#123;</span><br><span class="line">			<span class="keyword">return</span> EMPTY_ENTRY;</span><br><span class="line">		&#125;</span><br><span class="line">		AnnotationAttributes attributes = getAttributes(annotationMetadata);</span><br><span class="line">		List&lt;String&gt; configurations = getCandidateConfigurations(annotationMetadata,</span><br><span class="line">				attributes);</span><br><span class="line">		configurations = removeDuplicates(configurations);</span><br><span class="line">		Set&lt;String&gt; exclusions = getExclusions(annotationMetadata, attributes);</span><br><span class="line">		checkExcludedClasses(configurations, exclusions);</span><br><span class="line">		configurations.removeAll(exclusions);</span><br><span class="line">		configurations = filter(configurations, autoConfigurationMetadata);</span><br><span class="line">		fireAutoConfigurationImportEvents(configurations, exclusions);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> AutoConfigurationEntry(configurations, exclusions);</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> List&lt;String&gt; <span class="title">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata,</span></span></span><br><span class="line"><span class="function"><span class="params">			AnnotationAttributes attributes)</span> </span>&#123;</span><br><span class="line">		List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(</span><br><span class="line">				getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());</span><br><span class="line">		Assert.notEmpty(configurations,</span><br><span class="line">				<span class="string">"No auto configuration classes found in META-INF/spring.factories. If you "</span></span><br><span class="line">						+ <span class="string">"are using a custom packaging, make sure that file is correct."</span>);</span><br><span class="line">		<span class="keyword">return</span> configurations;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <p>下图是 DEBUG 模式下筛选之后的结果，因为我只添加了 web 模块，所以只有 web 相关的自动配置。</p>
-<div align="center"><img src="https://user-images.githubusercontent.com/26371673/50733348-ec781400-11c6-11e9-8f0d-01797d797d69.png" alt="筛选过后的自动配置"></div> 
-
+<p><img src="https://user-images.githubusercontent.com/26371673/50733348-ec781400-11c6-11e9-8f0d-01797d797d69.png" alt="筛选过后的自动配置"></p>
 <h2 id="3-xxxAutoConfiguration-与-xxxProperties"><a href="#3-xxxAutoConfiguration-与-xxxProperties" class="headerlink" title="3. xxxAutoConfiguration 与 xxxProperties"></a>3. xxxAutoConfiguration 与 xxxProperties</h2><p>在上面的 debug 里，我们看到了成功加载的自动配置，目前只看到了配置类，却还没有发现自动配置值，随便选择一个 <code>AutoConfiguration</code> 查看源码。</p>
 <p>这里选择了 <code>ServletWebServerFactoryAutoConfiguration</code>.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@AutoConfigureOrder</span>(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="line"><span class="comment">//判断当前项目有没有这个类</span></span><br><span class="line"><span class="comment">//CharacterEncodingFilter；SpringMVC中进行乱码解决的过滤器；</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(ServletRequest.class)</span><br><span class="line"><span class="comment">//Spring底层@Conditional注解（Spring注解版），根据不同的条件，如果</span></span><br><span class="line"><span class="comment">//满足指定的条件，整个配置类里面的配置就会生效； 判断当前应用是否是web应用，如果是，当前配置类生效</span></span><br><span class="line"><span class="meta">@ConditionalOnWebApplication</span>(type = Type.SERVLET)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(ServerProperties.class)</span><br><span class="line"><span class="meta">@Import</span>(&#123; ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar.class,</span><br><span class="line">		ServletWebServerFactoryConfiguration.EmbeddedTomcat.class,</span><br><span class="line">		ServletWebServerFactoryConfiguration.EmbeddedJetty.class,</span><br><span class="line">		ServletWebServerFactoryConfiguration.EmbeddedUndertow.class &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletWebServerFactoryAutoConfiguration</span> </span>&#123;</span><br></pre></td></tr></table></figure>
@@ -873,24 +871,6 @@
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.coderops.net/" title="http://www.coderops.net/" rel="noopener" target="_blank">cmdpops</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://bing.codingme.net" title="http://bing.codingme.net" rel="noopener" target="_blank">必应壁纸</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           
