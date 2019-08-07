@@ -1,6 +1,6 @@
 /* global NexT, CONFIG */
 
-$(document).ready(function() {
+$(document).on('DOMContentLoaded', function() {
 
   var sidebarInner = $('.sidebar-inner');
   var sidebarOffset = CONFIG.sidebar.offset || 12;
@@ -20,19 +20,13 @@ $(document).ready(function() {
   function initAffix() {
     var headerOffset = getHeaderOffset();
     var footerOffset = getFooterOffset();
-    var sidebarHeight = $('#sidebar').height() + NexT.utils.getSidebarb2tHeight();
-    var contentHeight = $('#content').height();
 
-    // Not affix if sidebar taller than content (to prevent bottom jumping).
-    if (headerOffset + sidebarHeight < contentHeight) {
-      sidebarInner.affix({
-        offset: {
-          top   : headerOffset - sidebarOffset,
-          bottom: footerOffset
-        }
-      });
-      sidebarInner.affix('checkPosition');
-    }
+    sidebarInner.affix({
+      offset: {
+        top   : headerOffset - sidebarOffset,
+        bottom: footerOffset
+      }
+    });
 
     $('#sidebar').css({ 'margin-top': headerOffset, 'margin-left': 'auto' });
   }

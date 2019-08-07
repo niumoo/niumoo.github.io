@@ -1,6 +1,6 @@
 /* global instantsearch, CONFIG */
 
-$(document).ready(function() {
+$(document).on('DOMContentLoaded', function() {
   var algoliaSettings = CONFIG.algolia;
   var isAlgoliaSettingsValid = algoliaSettings.applicationID
                             && algoliaSettings.apiKey
@@ -37,18 +37,12 @@ $(document).ready(function() {
       templates  : {
         item: function(data) {
           var link = data.permalink ? data.permalink : CONFIG.root + data.path;
-          return (
-            '<a href="' + link + '" class="algolia-hit-item-link">'
-          + data._highlightResult.title.value
-          + '</a>'
-          );
+          return `<a href="${link}" class="algolia-hit-item-link">${data._highlightResult.title.value}</a>`;
         },
         empty: function(data) {
-          return (
-            '<div id="algolia-hits-empty">'
-          + algoliaSettings.labels.hits_empty.replace(/\$\{query}/, data.query)
-          + '</div>'
-          );
+          return `<div id="algolia-hits-empty">
+              ${algoliaSettings.labels.hits_empty.replace(/\$\{query}/, data.query)}
+            </div>`;
         }
       },
       cssClasses: {
@@ -63,13 +57,11 @@ $(document).ready(function() {
           var stats = algoliaSettings.labels.hits_stats
             .replace(/\$\{hits}/, data.nbHits)
             .replace(/\$\{time}/, data.processingTimeMS);
-          return (
-            stats
-            + '<span class="algolia-powered">'
-            + '  <img src="' + CONFIG.root + 'images/algolia_logo.svg" alt="Algolia" />'
-            + '</span>'
-            + '<hr />'
-          );
+          return `${stats}
+            <span class="algolia-powered">
+              <img src="${CONFIG.root}images/algolia_logo.svg" alt="Algolia"/>
+            </span>
+            <hr/>`;
         }
       }
     }),
@@ -99,16 +91,23 @@ $(document).ready(function() {
   $('.popup-trigger').on('click', function(e) {
     e.stopPropagation();
     $('body')
-      .append('<div class="search-popup-overlay algolia-pop-overlay"></div>')
+      .append('<div class="algolia-pop-overlay"></div>')
       .css('overflow', 'hidden');
     $('.popup').toggle();
     $('#algolia-search-input').find('input').focus();
   });
 
-  $('.popup-btn-close').click(function() {
+  function onPopupClose() {
     $('.popup').hide();
     $('.algolia-pop-overlay').remove();
     $('body').css('overflow', '');
-  });
+  }
+  $('.popup-btn-close').click(onPopupClose);
 
+  $(document).on('keyup', function(event) {
+    var shouldDismissSearchPopup = event.which === 27 && $('.search-popup').is(':visible');
+    if (shouldDismissSearchPopup) {
+      onPopupClose();
+    }
+  });
 });

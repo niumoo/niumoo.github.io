@@ -4,134 +4,95 @@
 
 
 
-
-
-
-
-
-
-
-  
-
-
 <html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222"/>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.7.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
+  <link rel="mask-icon" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
-
-<link rel="stylesheet" href="/css/main.css?v=7.1.0"/>
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0">
-
-
-  <link rel="mask-icon" href="https://raw.githubusercontent.com/niumoo/files/master/images/web/fav-code.png?v=7.1.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
+<script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
     fancybox: false,
-    fastclick: false,
+    mediumzoom: false,
     lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    pangu: false,
     algolia: {
       applicationID: '',
       apiKey: '',
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
     }
   };
 </script>
 
-
-  
-
-
-
-
   <meta name="description" content="种一棵树，最好的时间是十年前，其次是现在">
 <meta name="keywords" content="codingme,java web,springboot,jvm,微服务,高并发,多线程,技术博客">
 <meta property="og:type" content="website">
-<meta property="og:title" content="雪漫士兵的网络日志">
+<meta property="og:title" content="雪漫士兵">
 <meta property="og:url" content="https://www.codingme.net/page/3/index.html">
-<meta property="og:site_name" content="雪漫士兵的网络日志">
+<meta property="og:site_name" content="雪漫士兵">
 <meta property="og:description" content="种一棵树，最好的时间是十年前，其次是现在">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="雪漫士兵的网络日志">
+<meta name="twitter:title" content="雪漫士兵">
 <meta name="twitter:description" content="种一棵树，最好的时间是十年前，其次是现在">
+  <link rel="alternate" href="/atom.xml" title="雪漫士兵" type="application/atom+xml">
+  <link rel="canonical" href="https://www.codingme.net/page/3/">
 
 
-
-  <link rel="alternate" href="/atom.xml" title="雪漫士兵的网络日志" type="application/atom+xml"/>
-
-
-
-  
-  
-  <link rel="canonical" href="https://www.codingme.net/page/3/"/>
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
   };
 </script>
 
-  <title>雪漫士兵的网络日志</title>
+  <title>雪漫士兵</title>
   
-
-
-
-
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130656610-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-130656610-1');
+    }
+  </script>
 
 
   <script>
@@ -143,7 +104,6 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
-
 
 
 
@@ -179,33 +139,22 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
-    
 
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">雪漫士兵的网络日志</span>
+        <span class="site-title">雪漫士兵</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-    
+        <h1 class="site-subtitle" itemprop="description">三尺微命，一介书生</h1>
       
-        <p class="site-subtitle">三尺微命，一介书生</p>
-      
-    
-    
   </div>
 
   <div class="site-nav-toggle">
@@ -218,113 +167,77 @@
 </div>
 
 
-
 <nav class="site-nav">
   
-    <ul id="menu" class="menu">
+  <ul id="menu" class="menu">
+      
+      
       
         
-        
-        
-          
-          <li class="menu-item menu-item-home">
-
-    
-    
+        <li class="menu-item menu-item-home">
+      
     
       
     
 
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
+      
+      
+      
         
-        
-        
-          
-          <li class="menu-item menu-item-tags">
-
-    
-    
+        <li class="menu-item menu-item-tags">
+      
     
       
     
 
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">32</span></a>
 
   </li>
+      
+      
+      
         
-        
-        
-          
-          <li class="menu-item menu-item-categories">
-
-    
-    
+        <li class="menu-item menu-item-categories">
+      
     
       
     
 
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
+      
+      
+      
         
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
+        <li class="menu-item menu-item-archives">
+      
     
       
     
 
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">40</span></a>
 
   </li>
+      
+      
+      
         
-        
-        
-          
-          <li class="menu-item menu-item-springboot">
-
-    
-    
+        <li class="menu-item menu-item-springboot">
+      
     
       
     
 
-    
-
-    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br/>Springboot</a>
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br>Springboot</a>
 
   </li>
+  </ul>
 
-      
-      
-    </ul>
-  
-
-  
-
-  
 </nav>
-
-
-
-  
-
-
-
 </div>
     </header>
 
@@ -334,107 +247,70 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          
             
 
-          
-          <div id="content" class="content">
+          <div id="content" class="content page-home">
             
   <section id="posts" class="posts-expand">
-    
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/10/io/io2-nio/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/10/io/io2-nio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/10/io/io2-nio/" class="post-title-link" itemprop="url">IO通信模型（二）同步非阻塞模式NIO（NonBlocking IO）</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/10/io/io2-nio/" class="post-title-link" itemprop="url">IO通信模型（二）同步非阻塞模式NIO（NonBlocking IO）</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-10-25 08:08:08" itemprop="dateCreated datePublished" datetime="2018-10-25T08:08:08+08:00">2018-10-25</time>
+            </span>
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
-              
+              </span>
             
-          </span>
-
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/IO通信/" itemprop="url" rel="index"><span itemprop="name">IO通信</span></a></span>
 
@@ -445,22 +321,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -468,10 +331,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7da0bf510061ea2cd6b104262bd340f7.jpg" alt=""></p>
 <h3 id="同步非阻塞模式（NonBlocking-IO）"><a href="#同步非阻塞模式（NonBlocking-IO）" class="headerlink" title="同步非阻塞模式（NonBlocking IO）"></a>同步非阻塞模式（NonBlocking IO）</h3><p>在非阻塞模式中，发出Socket的<code>accept()</code>和<code>read()</code>操作时，如果内核中的数据还没有准备好，那么它并不会阻塞用户进程，而是立刻返回一个信息。也就是说进程发起一个read操作后，并不需要一直阻塞等待，而是马上就得到了一个结果。<br>
           <!--noindex-->
@@ -488,31 +347,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -520,101 +360,66 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/10/io/io1-bio/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/10/io/io1-bio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/10/io/io1-bio/" class="post-title-link" itemprop="url">IO通信模型（一）同步阻塞模式BIO（Blocking IO）</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/10/io/io1-bio/" class="post-title-link" itemprop="url">IO通信模型（一）同步阻塞模式BIO（Blocking IO）</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-10-23 17:44:42" itemprop="dateCreated datePublished" datetime="2018-10-23T17:44:42+08:00">2018-10-23</time>
+            </span>
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
-              
+              </span>
             
-          </span>
-
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/IO通信/" itemprop="url" rel="index"><span itemprop="name">IO通信</span></a></span>
 
@@ -625,22 +430,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -648,10 +440,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/fe0a011dcd86762f98eecdedfad9eb6d.jpg" alt=""></p>
 <h3 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h3><p><strong>阻塞IO</strong> 和<strong>非阻塞IO</strong> 这两个概念是程序级别的。主要描述的是程序请求操作系统IO操作后，如果IO资源没有准备好，那么程序该如何处理的问题：前者等待；后者继续执行（但是使用线程一直轮询，直到有IO资源准备好了）。</p>
 <p><strong>同步IO</strong> 和 <strong>异步IO</strong>，这两个概念是操作系统级别的。主要描述的是操作系统在收到程序请求IO操作后，如果IO资源没有准备好，该如何响应程序的问题：前者不响应，直到IO资源准备好以后；后者返回一个标记（好让程序和自己知道以后的数据往哪里通知），当IO资源准备好以后，再用事件机制返回给程序。<br>
@@ -669,31 +457,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -701,101 +470,66 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/10/lucene/elasticsearch-head/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/10/lucene/elasticsearch-head/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/10/lucene/elasticsearch-head/" class="post-title-link" itemprop="url">全文搜索ElasticSearch（三）Head插件的安装与使用</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/10/lucene/elasticsearch-head/" class="post-title-link" itemprop="url">全文搜索ElasticSearch（三）Head插件的安装与使用</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-10-12 19:14:17" itemprop="dateCreated datePublished" datetime="2018-10-12T19:14:17+08:00">2018-10-12</time>
+            </span>
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
-              
+              </span>
             
-          </span>
-
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a></span>
 
@@ -806,22 +540,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -829,10 +550,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/36fc267332d7fa3aeb1a49fb651c48bc.png" alt="Chrome head安装"></p>
 <h3 id="elasticsearch-head-介绍"><a href="#elasticsearch-head-介绍" class="headerlink" title="elasticsearch-head 介绍"></a>elasticsearch-head 介绍</h3><p><code>elasticsearch-head</code>是一个用于浏览器和与<code>elasticsearch</code>进行交互的Web前端程序。 <code>elasticsearch-head</code>是托管在github上的，可以自由的下载安装使用。</p>
 <p>GitHub地址：<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">https://github.com/mobz/elasticsearch-head</a><br>
@@ -850,31 +567,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -882,85 +580,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-05/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/develop/web/web-base-05/" class="post-title-link" itemprop="url">Web笔记（五）Servlet 的生命周期</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/09/develop/web/web-base-05/" class="post-title-link" itemprop="url">Web笔记（五）Servlet 的生命周期</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-09-06 20:35:44" itemprop="dateCreated datePublished" datetime="2018-09-06T20:35:44+08:00">2018-09-06</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
 
@@ -971,22 +638,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -994,10 +648,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p>Servlet的声明周期是由servlet的容器（web服务器）来控制的，通过简单的概括可以分为4步：  </p>
 <p>Servlet类加载 → 实例化Servlet → Servlet提供服务 → 销毁Servlet。  </p>
 <ol>
@@ -1019,31 +669,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -1051,85 +682,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-04/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/develop/web/web-base-04/" class="post-title-link" itemprop="url">Web笔记（四）Servlet 程序开发</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/09/develop/web/web-base-04/" class="post-title-link" itemprop="url">Web笔记（四）Servlet 程序开发</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-09-04 20:35:44" itemprop="dateCreated datePublished" datetime="2018-09-04T20:35:44+08:00">2018-09-04</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
 
@@ -1140,22 +740,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -1163,10 +750,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <h3 id="Servlet-的编写"><a href="#Servlet-的编写" class="headerlink" title="Servlet 的编写"></a>Servlet 的编写</h3><p>Servlet本质上是一个Java类，创建一个Servlet很简单，就是定义一个Java类，这个类继承自<code>javax.servlet.http.HttpServlet</code>类，覆盖其中的doGet和doPost方法，在doGet和doPost中编写处理请求的代码。<br>由于 Servlet 不是 Java 平台标准版的组成部分，所以必须添加jar包：<code>servlet-api.jar</code><br>可以在Tomcat下lib目录下找到，也可自行下载添加。在创建Web项目的时候如果有选择Tomcat ，则会自动添加，如何创建一个web项目并部署到Tomcat，可以参考之前文章。<br><a href="https://www.codingme.net/2018/08/develop/web/web-base-01/">Web笔记（一） Web 简介与开发环境搭建
 </a><br>
           <!--noindex-->
@@ -1183,31 +766,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -1215,85 +779,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-03/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/develop/web/web-base-03/" class="post-title-link" itemprop="url">Web笔记（三）Servlet 的类与接口API</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/09/develop/web/web-base-03/" class="post-title-link" itemprop="url">Web笔记（三）Servlet 的类与接口API</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-09-01 09:58:35" itemprop="dateCreated datePublished" datetime="2018-09-01T09:58:35+08:00">2018-09-01</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
 
@@ -1304,22 +837,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -1327,10 +847,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <h3 id="Servlet-介绍"><a href="#Servlet-介绍" class="headerlink" title="Servlet 介绍"></a>Servlet 介绍</h3><p>Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。<br>使用 Servlet，您可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页。<br>Java Servlet 通常情况下与使用 CGI（Common Gateway Interface，公共网关接口）实现的程序可以达到异曲同工的效果。但是相比于 CGI，Servlet 有以下几点优势：</p>
 <ul>
 <li>性能明显更好。</li>
@@ -1352,31 +868,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -1384,85 +881,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/develop/web/web-base-02/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/develop/web/web-base-02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/develop/web/web-base-02/" class="post-title-link" itemprop="url">Web笔记（二）Tomcat 使用总结</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/08/develop/web/web-base-02/" class="post-title-link" itemprop="url">Web笔记（二）Tomcat 使用总结</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-08-23 09:12:31" itemprop="dateCreated datePublished" datetime="2018-08-23T09:12:31+08:00">2018-08-23</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
 
@@ -1473,22 +939,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -1496,10 +949,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/84e22fa4d78bc3eb8ed5109a0beb21f8.jpg" alt=""></p>
 <h3 id="Tomcat-介绍"><a href="#Tomcat-介绍" class="headerlink" title="Tomcat 介绍"></a>Tomcat 介绍</h3><p>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache HTTP服务器混淆，Apache HTTP服务器是一个用C语言实现的HTTPWeb服务器；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。（摘录自<a href="https://zh.wikipedia.org/wiki/Apache_Tomcat" target="_blank" rel="noopener">Wiki</a>）(<a href="http://tomcat.apache.org/" target="_blank" rel="noopener">Apache Tomcat</a>)<br>
           <!--noindex-->
@@ -1516,31 +965,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -1548,85 +978,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/html-css/jquery-easing-anchor-animation/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/html-css/jquery-easing-anchor-animation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/html-css/jquery-easing-anchor-animation/" class="post-title-link" itemprop="url">Jquery - 使用jquery-easing.js实现页面锚点平滑滚动</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/08/html-css/jquery-easing-anchor-animation/" class="post-title-link" itemprop="url">Jquery - 使用jquery-easing.js实现页面锚点平滑滚动</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-08-19 08:48:03" itemprop="dateCreated datePublished" datetime="2018-08-19T08:48:03+08:00">2018-08-19</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
 
@@ -1637,22 +1036,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -1660,10 +1046,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <h3 id="使用jquery-easing-js实现页面锚点平滑滚动"><a href="#使用jquery-easing-js实现页面锚点平滑滚动" class="headerlink" title="使用jquery-easing.js实现页面锚点平滑滚动"></a>使用jquery-easing.js实现页面锚点平滑滚动</h3><p>使用<a href="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js" title="jquery easing.js" target="_blank" rel="noopener">jquery easing.js</a>可以实现多动动画效果。<br>jquery easing.js中定义了很多种不同的动画效果，动画速度和时间的关系图可以参考此图：</p>
 <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/f81d0b4842589fcbd4d085cdd7cd64b1.jpg" alt=""><br>
           <!--noindex-->
@@ -1680,31 +1062,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -1712,85 +1075,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/html-css/css-mac-window/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/html-css/css-mac-window/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/html-css/css-mac-window/" class="post-title-link" itemprop="url">CSS - 使用CSS实现Mac窗口效果</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/08/html-css/css-mac-window/" class="post-title-link" itemprop="url">CSS - 使用CSS实现Mac窗口效果</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-08-15 05:42:55" itemprop="dateCreated datePublished" datetime="2018-08-15T05:42:55+08:00">2018-08-15</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
 
@@ -1801,22 +1133,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -1824,10 +1143,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p>来不及了，直接贴代码。</p>
 <h3 id="HTML代码"><a href="#HTML代码" class="headerlink" title="HTML代码"></a>HTML代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"user-bio"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"user-bio-top"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"circle-red"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"circle-yellow"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"circle-green"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"user-bio-body"</span>&gt;</span></span><br><span class="line">		Wait,i know you<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		keep hungry keep foolish<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		苍苍之天不可得久视，堂堂之地不可得久履，道此绝矣！<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">		告后世及其孙子，忽忽锡锡，恐见故里，毋负天地，<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		更亡更在，去如舍庐，下敦闾里！人固当死，慎毋敢佞。</span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -1844,31 +1159,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -1876,85 +1172,54 @@
   
   </article>
 
-
     
       
-
-  
-
-  
-  
-  
-
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/develop/web/web-base-01/"/>
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/08/develop/web/web-base-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵"/>
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在"/>
-      <meta itemprop="image" content="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"/>
+      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵的网络日志"/>
+      <meta itemprop="name" content="雪漫士兵">
     </span>
-
-    
       <header class="post-header">
 
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/develop/web/web-base-01/" class="post-title-link" itemprop="url">Web笔记（一） Web 简介与开发环境搭建</a>
+          <h2 class="post-title" itemprop="name headline">
               
+              <a href="/2018/08/develop/web/web-base-01/" class="post-title-link" itemprop="url">Web笔记（一） Web 简介与开发环境搭建</a>
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-08-15 05:03:59" itemprop="dateCreated datePublished" datetime="2018-08-15T05:03:59+08:00">2018-08-15</time>
-            
-
-            
-          </span>
-
+            </span>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web开发/" itemprop="url" rel="index"><span itemprop="name">Web开发</span></a></span>
 
@@ -1965,22 +1230,9 @@
           
 
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -1988,10 +1240,6 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <h3 id="Web应用程序的工作原理"><a href="#Web应用程序的工作原理" class="headerlink" title="Web应用程序的工作原理"></a>Web应用程序的工作原理</h3><p>大多数的Web应用程序结构都是采用最为流行的B/S软件开发体系结构，将Web应用程序部署在Web服务器上，只要Web服务器启动，用户就可以通过客户端浏览器发送<a href="http://www.codingme.net/post/java-web-01">HTTP</a>请求到Web服务器，此时运行在Web服务器上对应的Web应用程序将处理客户端请求，处理完成后做出响应。</p>
 <p>Web应用程序工作原理图如下：</p>
 <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/2a80764098b039c156a354df120d12f9.jpg" alt="Web应用程序工作原理"><br>
@@ -2009,31 +1257,12 @@
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
-      
     </footer>
   </div>
   
@@ -2041,22 +1270,19 @@
   
   </article>
 
-
     
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
-
 
 
           </div>
           
 
         </div>
-        
           
   
   <div class="sidebar-toggle">
@@ -2070,215 +1296,188 @@
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
-      
-
-      
-
       <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
+
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="https://raw.githubusercontent.com/niumoo/files/master/images/web/apple.png"
-                alt="雪漫士兵"/>
-            
-              <p class="site-author-name" itemprop="name">雪漫士兵</p>
-              <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
-          </div>
+    <img class="site-author-image" itemprop="image"
+      src="/images/head.jpg"
+      alt="雪漫士兵">
+  <p class="site-author-name" itemprop="name">雪漫士兵</p>
+  <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
 
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">41</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
 
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                      <a href="/categories/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">10</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                      <a href="/tags/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
 
         </div>
       </div>
-
-      
-
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
   </aside>
-  
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
@@ -2289,27 +1488,31 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
-
-  
-
-  
 </div>
-
-
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
-
-
-
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
 
 
 
@@ -2323,96 +1526,26 @@
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
 
-    
-
-    
-
-    
   </div>
 
   
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-
-  
-
-
-  <script src="/js/utils.js?v=7.1.0"></script>
-
-  <script src="/js/motion.js?v=7.1.0"></script>
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
 
 
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
 
-  
-  
 
-
-  <script src="/js/affix.js?v=7.1.0"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
 
 
 
-  
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.1.0"></script>
-
-
-  
-
-  
-
-  
-
-  
 
 
 
@@ -2421,7 +1554,29 @@
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
@@ -2429,25 +1584,9 @@
 
   
 
-  
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+    
 
 </body>
 </html>
