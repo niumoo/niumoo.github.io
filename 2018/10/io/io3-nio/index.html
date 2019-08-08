@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="多路复用IO从非阻塞同步IO的介绍中可以发现，为每一个接入创建一个线程在请求很多的情况下不那么适用了，因为这会渐渐耗尽服务器的资源，人们也都意识到了这个 问题，因此终于有人发明了IO多路复用。最大的特点就是不需要开那么多的线程和进程。多路复用IO是指使用一个线程来检查多个文件描述符（Socket）的就绪状态，比如调用select和poll函数，传入多个文件描述符，如果有一个文件描述符就绪，则返回">
-<meta name="keywords" content="IO,NIO,非阻塞">
+<meta name="keywords" content="IO,非阻塞,NIO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IO通信模型（三）多路复用IO">
 <meta property="og:url" content="https://www.codingme.net/2018/10/io/io3-nio/index.html">
@@ -479,9 +479,9 @@
         <div class="post-tags">
             <a href="/tags/IO/" rel="tag"># IO</a>
           
-            <a href="/tags/NIO/" rel="tag"># NIO</a>
-          
             <a href="/tags/非阻塞/" rel="tag"># 非阻塞</a>
+          
+            <a href="/tags/NIO/" rel="tag"># NIO</a>
           
         </div>
         <div class="post-nav">
