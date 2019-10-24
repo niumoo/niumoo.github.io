@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>未读代码</title>
   
-  <subtitle>三尺微命，一介书生</subtitle>
+  <subtitle>专注Java</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.codingme.net/"/>
