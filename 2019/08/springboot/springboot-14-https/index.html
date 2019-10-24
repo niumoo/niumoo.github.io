@@ -4,17 +4,17 @@
 
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="generator" content="Hexo 3.7.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
-  <link rel="mask-icon" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="mask-icon" href="/assets/webinfo/head-fav.jpg?v=7.3.0" color="#222">
 
 <link rel="stylesheet" href="/css/main.css?v=7.3.0">
 
@@ -26,7 +26,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '7.3.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
@@ -60,17 +60,17 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Springboot 系列（十四）迅速启用 HTTPS 加密你的网站">
 <meta property="og:url" content="https://www.codingme.net/2019/08/springboot/springboot-14-https/index.html">
-<meta property="og:site_name" content="雪漫士兵">
+<meta property="og:site_name" content="未读代码">
 <meta property="og:description" content="1. 获取 HTTPS 证书正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 keytool 生成 HTTPS 证书。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3f4682d8b6eaa6ac7bf29eae9f9d5109.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/29a658a7761aa462cb80e1e34e5b0017.png">
-<meta property="og:updated_time" content="2019-08-08T06:26:04.648Z">
+<meta property="og:updated_time" content="2019-10-21T23:45:12.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot 系列（十四）迅速启用 HTTPS 加密你的网站">
 <meta name="twitter:description" content="1. 获取 HTTPS 证书正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 keytool 生成 HTTPS 证书。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3f4682d8b6eaa6ac7bf29eae9f9d5109.png">
-  <link rel="alternate" href="/atom.xml" title="雪漫士兵" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2019/08/springboot/springboot-14-https/">
 
 
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title>Springboot 系列（十四）迅速启用 HTTPS 加密你的网站 | 雪漫士兵</title>
+  <title>Springboot 系列（十四）迅速启用 HTTPS 加密你的网站 | 未读代码</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130656610-1"></script>
   <script>
@@ -153,7 +153,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">雪漫士兵</span>
+        <span class="site-title">未读代码</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -197,7 +197,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">32</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">35</span></a>
 
   </li>
       
@@ -210,7 +210,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
 
   </li>
       
@@ -223,7 +223,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
 
   </li>
       
@@ -267,13 +267,13 @@
     <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/08/springboot/springboot-14-https/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵">
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
-      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="未读代码">
+      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
+      <meta itemprop="image" content="/assets/webinfo/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="name" content="未读代码">
     </span>
       <header class="post-header">
 
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-08 14:26:04" itemprop="dateModified" datetime="2019-08-08T14:26:04+08:00">2019-08-08</time>
+                <time title="修改时间：2019-10-22 07:45:12" itemprop="dateModified" datetime="2019-10-22T07:45:12+08:00">2019-10-22</time>
               </span>
             
           
@@ -353,11 +353,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Https 接口控制类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/4/20 22:59</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpsController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello HTTPS"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>启动之后可以通过 <a href="https://localhost/hello" target="_blank" rel="noopener">https://localhost/hello</a> 进行访问了。</p>
 <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/29a658a7761aa462cb80e1e34e5b0017.png" alt="HTTPS 访问测试"></p>
-<p>当然，由于是自己生成的证书，会提示不安全，继续访问即可，如果是正常申请或者购买的证书就不会有这个问题的。</p>
+<p>当然，由于是自己生成的证书，会提示不安全，继续访问即可，如果是正常申请或者购买的证书就不会有这个问题的，文末有免费的 CA 证书申请方式。</p>
 <h2 id="4-HTTP-跳转-HTTPS"><a href="#4-HTTP-跳转-HTTPS" class="headerlink" title="4. HTTP 跳转 HTTPS"></a>4. HTTP 跳转 HTTPS</h2><p>在上面的测试里，HTTPS 已经可以访问了，但是 HTTP 却不能访问，大多数情况下在启用了 HTTPS 之后，都会希望 HTTP 的请求会自动跳转到 HTTPS，这个在 Springboot 里自然也是可以实现的。我们只需要写一个配置类把 HTTP 请求直接转发到 HTTPS 即可。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * HTTP 强制跳转 HTTPS</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/4/21 17:47</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Http2Https</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sslPort;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.http-port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> httpPort;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactory <span class="title">servletContainerFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatServletWebServerFactory tomcat = <span class="keyword">new</span> TomcatServletWebServerFactory() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">postProcessContext</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint securityConstraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                securityConstraint.setUserConstraint(<span class="string">"CONFIDENTIAL"</span>);</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                securityConstraint.addCollection(collection);</span><br><span class="line">                context.addConstraint(securityConstraint);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Connector connector = <span class="keyword">new</span> Connector(<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span>);</span><br><span class="line">        connector.setScheme(<span class="string">"http"</span>);</span><br><span class="line">        connector.setPort(httpPort);</span><br><span class="line">        connector.setRedirectPort(sslPort);</span><br><span class="line">        tomcat.addAdditionalTomcatConnectors(connector);</span><br><span class="line">        <span class="keyword">return</span> tomcat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>再次启动之后，使用 <a href="http://localhost/hello" target="_blank" rel="noopener">http://localhost/hello</a> 访问会自动跳转到 <a href="https://localhost/hello" target="_blank" rel="noopener">https://localhost/hello</a>.</p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>如果需要申请免费证书，可以在腾讯云上免费申请，请参考：</p>
+<h2 id="5-免费证书申请"><a href="#5-免费证书申请" class="headerlink" title="5. 免费证书申请"></a>5. 免费证书申请</h2><p>如果需要申请免费证书，可以在腾讯云上免费申请，请参考：</p>
 <ul>
 <li><a href="https://cloud.tencent.com/document/product/400/6813#.E8.8E.B7.E5.8F.96.E8.AF.81.E4.B9.A6" target="_blank" rel="noopener">免费版 DV SSL 证书申请</a>。</li>
 </ul>
@@ -376,41 +376,16 @@
     
     
       <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="/images/weixin-public.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;">
-  <div>🚀 欢迎关注公众号，获取独家整理的学习资料!</div>
+  <img id="wechat_subscriber_qcode" src="/assets/webinfo/weixin-public.jpg" alt="未读代码 wechat" style="width: 200px; max-width: 100%;">
+  <div>🚀 关注公众号回复【资源】获取精心整理的 Java知识&面试 pdf。</div>
 </div>
 
-    
-      <div>
-        <div id="reward-container">
-  <div>打赏一个鸡腿 🍗</div>
-  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-        
-      
-      <div style="display: inline-block">
-        <img src="/images/wechat.png" alt="雪漫士兵 微信支付">
-        <p>微信支付</p>
-      </div>
-        
-      
-      <div style="display: inline-block">
-        <img src="/images/alipay.png" alt="雪漫士兵 支付宝">
-        <p>支付宝</p>
-      </div>
-
-  </div>
-</div>
-
-      </div>
       <div>
         
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>雪漫士兵</li>
+    <strong>本文作者： </strong>未读代码</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     <a href="https://www.codingme.net/2019/08/springboot/springboot-14-https/" title="Springboot 系列（十四）迅速启用 HTTPS 加密你的网站">https://www.codingme.net/2019/08/springboot/springboot-14-https/</a>
@@ -441,6 +416,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/10/develop/idea-skill/" rel="prev" title="抛弃Eclipse，投入IDEA 的独孤求败江湖">
+                抛弃Eclipse，投入IDEA 的独孤求败江湖 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -488,17 +467,17 @@
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
-      src="/images/head.jpg"
-      alt="雪漫士兵">
-  <p class="site-author-name" itemprop="name">雪漫士兵</p>
-  <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+      src="/assets/webinfo/head.jpg"
+      alt="未读代码">
+  <p class="site-author-name" itemprop="name">未读代码</p>
+  <div class="site-description motion-element" itemprop="description">有风有雨是常态，风雨无阻是心态，风雨兼程是状态。</div>
 </div>
   <nav class="site-state motion-element">
       <div class="site-state-item site-state-posts">
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -533,7 +512,9 @@
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -612,7 +593,13 @@
         
           
         
-        <span class="site-state-item-count">31</span>
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -664,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取-HTTPS-证书"><span class="nav-text">1. 获取 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置-HTTPS-证书"><span class="nav-text">2. 配置 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试-HTTPS-证书"><span class="nav-text">3. 测试 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HTTP-跳转-HTTPS"><span class="nav-text">4. HTTP 跳转 HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-text">附录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取-HTTPS-证书"><span class="nav-text">1. 获取 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置-HTTPS-证书"><span class="nav-text">2. 配置 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试-HTTPS-证书"><span class="nav-text">3. 测试 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HTTP-跳转-HTTPS"><span class="nav-text">4. HTTP 跳转 HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-免费证书申请"><span class="nav-text">5. 免费证书申请</span></a></li></ol></div>
             
 
           </div>
@@ -693,11 +680,11 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+  <span class="author" itemprop="copyrightHolder">未读代码</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
 
         
 <div class="busuanzi-count">
@@ -730,6 +717,7 @@
 
   <script src="/js/affix.js?v=7.3.0"></script>
   <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
 
 
 <script src="/js/next-boot.js?v=7.3.0"></script>

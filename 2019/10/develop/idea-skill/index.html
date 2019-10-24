@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.7.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="mask-icon" href="/assets/webinfo/head-fav.jpg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="“工欲善其事，必先利其器”出处：孔子《论语》  两年了，这是我的 IDEA 实用技巧总结，从前我是一个 Eclipse 忠实用户，直到某天我用上了  IntelliJ IDEA ，Eclipse 开始在硬盘躺尸…….  IDEA 是一个非常好用的工具，它的语法十分智能，当你写了一段不怎么聪明（很傻）的代码时候，它会告诉你有更优的写法；当你掌握了常用的快捷键后，开发效率提升 N 倍；当你熟练使用">
+<meta name="keywords" content="idea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抛弃Eclipse，投入IDEA 的独孤求败江湖">
+<meta property="og:url" content="https://www.codingme.net/2019/10/develop/idea-skill/index.html">
+<meta property="og:site_name" content="未读代码">
+<meta property="og:description" content="“工欲善其事，必先利其器”出处：孔子《论语》  两年了，这是我的 IDEA 实用技巧总结，从前我是一个 Eclipse 忠实用户，直到某天我用上了  IntelliJ IDEA ，Eclipse 开始在硬盘躺尸…….  IDEA 是一个非常好用的工具，它的语法十分智能，当你写了一段不怎么聪明（很傻）的代码时候，它会告诉你有更优的写法；当你掌握了常用的快捷键后，开发效率提升 N 倍；当你熟练使用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571750577728.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571756048466.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571756766101.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571762835305.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571788672930.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571762204121.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571763565635.png">
+<meta property="og:image" content="https://www.codingme.net/assets/idea-skill/1571763587951.png">
+<meta property="og:updated_time" content="2019-10-23T12:36:53.554Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="抛弃Eclipse，投入IDEA 的独孤求败江湖">
+<meta name="twitter:description" content="“工欲善其事，必先利其器”出处：孔子《论语》  两年了，这是我的 IDEA 实用技巧总结，从前我是一个 Eclipse 忠实用户，直到某天我用上了  IntelliJ IDEA ，Eclipse 开始在硬盘躺尸…….  IDEA 是一个非常好用的工具，它的语法十分智能，当你写了一段不怎么聪明（很傻）的代码时候，它会告诉你有更优的写法；当你掌握了常用的快捷键后，开发效率提升 N 倍；当你熟练使用">
+<meta name="twitter:image" content="https://www.codingme.net/assets/idea-skill/1571750577728.png">
+  <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
+  <link rel="canonical" href="https://www.codingme.net/2019/10/develop/idea-skill/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>抛弃Eclipse，投入IDEA 的独孤求败江湖 | 未读代码</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130656610-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-130656610-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未读代码</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">三尺微命，一介书生</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">35</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-springboot">
+      
+    
+      
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br>Springboot</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/10/develop/idea-skill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="未读代码">
+      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
+      <meta itemprop="image" content="/assets/webinfo/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未读代码">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">抛弃Eclipse，投入IDEA 的独孤求败江湖
+
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-23 01:01:01 / 修改时间：20:36:53" itemprop="dateCreated datePublished" datetime="2019-10-23T01:01:01+08:00">2019-10-23</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/生产工具/" itemprop="url" rel="index"><span itemprop="name">生产工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p> “工欲善其事，必先利其器”<br>出处：孔子《论语》</p>
+</blockquote>
+<p>两年了，这是我的 IDEA <strong>实用技巧</strong>总结，从前我是一个 Eclipse 忠实用户，直到某天我用上了  <strong>IntelliJ IDEA</strong> ，Eclipse 开始在硬盘躺尸…….</p>
+<p><img src="/assets/idea-skill/1571750577728.png" alt="IDEA 启动"></p>
+<p><strong>IDEA</strong> 是一个非常好用的工具，它的语法十分智能，当你写了一段不怎么聪明（很傻）的代码时候，它会告诉你有更优的写法；当你掌握了常用的快捷键后，开发效率提升 N 倍；当你熟练使用时候，编码速度与编码质量都有质的飞跃。<br><a id="more"></a><br>那么说了那么多，到底在哪里才能买到呢？哦不，到底怎么使用呢？</p>
+<h2 id="1-窗口切换-凌波微步"><a href="#1-窗口切换-凌波微步" class="headerlink" title="1.   窗口切换 - 凌波微步"></a>1.   窗口切换 - 凌波微步</h2><blockquote>
+<p>「凌波微步」乃是一门极上乘的轻功身法，所以列于卷轴之末，以易经八八六十四卦为基础，使用者按特定顺序踏着卦象方位行进，从第一步到最后一步正好行走一个大圈。此步法精妙异常。<br>出处：金庸《天龙八部》。</p>
+</blockquote>
+<p>IDEA 中的 “凌波微步” 恰好就是这么一圈常用窗口，均匀分布在编辑窗口周围，且配以方便的快捷键，切换起来十分的迅速。</p>
+<p><img src="/assets/idea-skill/1571756048466.png" alt="IDEA 窗口"></p>
+<p>在实际的开发过程中，窗口切换的操作是很频繁的，下面的几个快捷键必不可少。</p>
+<p>快捷键：</p>
+<ul>
+<li><p><strong>ALT +１</strong>显示/隐藏文件窗口⭐。</p>
+</li>
+<li><p><strong>ALT + 2</strong>显示/隐藏收藏窗口  。</p>
+</li>
+<li><p><strong>ALT + 4</strong> 显示/隐藏运行窗口   。</p>
+</li>
+<li><p><strong>ALT + 6</strong>显示/隐藏Todo窗口  。</p>
+</li>
+<li><p><strong>ALT + 7</strong>显示/隐藏类结构窗口。</p>
+</li>
+</ul>
+<h2 id="2-项目切换-来而不往"><a href="#2-项目切换-来而不往" class="headerlink" title="2. 项目切换 - 来而不往"></a>2. 项目切换 - 来而不往</h2><blockquote>
+<p>往而不来，非礼也；来而不往，亦非礼也。<br>出处: 《<a href="https://baike.baidu.com/item/礼记" target="_blank" rel="noopener">礼记</a>·<a href="https://baike.baidu.com/item/曲礼" target="_blank" rel="noopener">曲礼</a>上》</p>
+</blockquote>
+<p><img src="/assets/idea-skill/1571756766101.png" alt="窗口切换"></p>
+<p>开发当中很多时候会同时打开多个项目，如果这时候你还傻傻的点击窗口切换窗口，无疑效率低下，点来点去之间影响了敲击键盘的快感。既然同时打开了多个项目窗口，作为窗口邻居都不能自由来往有点不尽人意。</p>
+<p>快捷键：</p>
+<ul>
+<li>上一个项目窗口 <strong>CTRL + ALT + [。</strong></li>
+<li>上一个项目窗口 <strong>CTRL + ALT + ]</strong>。</li>
+</ul>
+<h2 id="3-文件定位-来去自如"><a href="#3-文件定位-来去自如" class="headerlink" title="3. 文件定位 - 来去自如"></a>3. 文件定位 - 来去自如</h2><blockquote>
+<p> 身如不系之舟，一任流任坎止；心似既灰之木，何妨刀割香涂？来去自如乎。<br>出处：战国·庄子《庄子·列御寇》 </p>
+</blockquote>
+<p>文件定位是<strong>非常常用</strong>的操作。</p>
+<ul>
+<li><strong>CTRL + N</strong> 搜索 Java 类文件⭐。</li>
+<li><p><strong>CTRL + SHIFT + N</strong> 搜索所有文件。</p>
+</li>
+<li><p><strong>CTRL + E</strong> 打开最近浏览文件  ，再次 <strong>CTRL + E</strong> 可以只显示更改的文件。</p>
+</li>
+<li><strong>CTRL + SHIFT + E</strong> 打开最近浏览文件 ，再次 <strong>CTRL + SHIFT + E</strong> 可以只显示更改的文件。</li>
+<li><strong>SHIFT + 鼠标左键</strong>，关闭文件。</li>
+</ul>
+<h2 id="4-代码定位-百步穿杨"><a href="#4-代码定位-百步穿杨" class="headerlink" title="4. 代码定位 - 百步穿杨"></a>4. 代码定位 - 百步穿杨</h2><blockquote>
+<p> 楚有养由基者，善射；去柳叶百步而射之，百发百中。<br> 出处： 《战国策 · 西周策》 </p>
+</blockquote>
+<p>用过 Eclipse 的想必都知道 Eclipse 的文本搜索速度是多么缓慢，多个项目搜索时候，看着那缓慢的进度条，仿佛在虚度生命。而 <strong>IDEA</strong> 速度保证让你第一次使用时就为之惊叹。毫秒级的响应速度（自动忽略CPU 百分百，手动滑稽），智能的搜索模式，不要太舒服。</p>
+<p>那么又说了那么多，到底该怎么用呢？</p>
+<p><strong>超级常用</strong>快捷键：</p>
+<ul>
+<li><strong>CTRL + SHIFT + F</strong> 项目代码全文搜索⭐。</li>
+<li><strong>CTRL + SHIFT + ALT + N</strong> 搜索函数，自动模糊匹配，十分强大。</li>
+<li><strong>CTRL + W</strong> 万能选中快捷键，爱不释手，多层嵌套时非常好用⭐。</li>
+</ul>
+<h2 id="5-代码操作-出神入化"><a href="#5-代码操作-出神入化" class="headerlink" title="5. 代码操作 - 出神入化"></a>5. 代码操作 - 出神入化</h2><blockquote>
+<p> 我不曾出声，他连忙答应。金圣叹：‘真正出神入化之笔’<br>出处： 元·王实甫《西厢记》</p>
+</blockquote>
+<p>基本的代码操作在日常开发中才是用的最多的，小小的快捷键让我们的开发舒适感不断爬升。低调低调，都是基本操作。</p>
+<ul>
+<li><strong>ALT + ENTER</strong> 万能智能键，强大到无法自拔⭐。</li>
+<li><strong>CTRL + ALT + L</strong> 代码格式化⭐。</li>
+<li><strong>CTRL + SHIFT + R</strong> 项目全文代码查找与替换⭐。</li>
+<li><strong>SHIFT + F6</strong> 重构 - 重命名⭐。</li>
+<li><strong>iter + Tab</strong> 生成 增强for 循环⭐。</li>
+<li><strong>itar + Tab</strong> 生成 for 循环。</li>
+<li><strong>psvm + Tab</strong> 生成 main 方法。</li>
+<li><strong>sout + Tab</strong> 生成 System.out.println()。</li>
+<li><strong>CTRL + F</strong> 查找文本。</li>
+<li><strong>CTRL + R</strong> 替换文本。</li>
+<li><strong>CTRL + D</strong> 复制行。</li>
+<li><strong>CTRL + X</strong> 剪切行。</li>
+<li><strong>CTRL + Y</strong> 删除行。</li>
+<li><strong>CTRL + /</strong>  行注释或取消行注释。</li>
+<li><strong>CTRL + SHIFT + /</strong> 块注释或取消块注释。</li>
+<li><strong>CTRL + SHIFT + ENTER</strong>  自动补上结尾分号，或者补上结尾花括号{}。</li>
+<li><strong>CTRL + U</strong> 大小写切换。</li>
+</ul>
+<h2 id="6-惊世骇俗-深藏不露"><a href="#6-惊世骇俗-深藏不露" class="headerlink" title="6. 惊世骇俗 - 深藏不露"></a>6. 惊世骇俗 - 深藏不露</h2><p>不得不说， <strong>IDEA</strong> 用起来更加舒服的地方就是它总能想你所想，在使用的过程中，经常发现意料之外的惊喜功能。</p>
+<h3 id="6-1-集成插件"><a href="#6-1-集成插件" class="headerlink" title="6.1  集成插件"></a>6.1  集成插件</h3><p><img src="/assets/idea-skill/1571762835305.png" alt="IDEA 插件"></p>
+<p>一个好用的插件可以让开发事半功倍， IDEA 支持丰富的插件扩展，不管是有助于代码开发类插件，还是帮助分析类插件，还是小工具插件，亦或是主题插件等，都十分丰富，常常你在开发中因为某个问题举步维艰，可能你缺少的只是一款趁手的插件。</p>
+<p>下面仅仅列举我常用的几款插件，更多插件可以自行探索。</p>
+<ol>
+<li><strong>A8Translate</strong> ，一款翻译工具，英语不够，工具来凑。</li>
+<li><strong>Eclipse Code Formatter</strong> ，可以结合阿里代码格式化文件进行格式化。</li>
+<li><strong>Lombok</strong> ，Lombok 注解支持。</li>
+<li><strong>Maven Helper</strong> ，Maven 依赖处理。</li>
+</ol>
+<h3 id="6-2-Rest-Client"><a href="#6-2-Rest-Client" class="headerlink" title="6.2 Rest Client"></a>6.2 Rest Client</h3><p>当你想简单的测试某个接口调用响应情况时候，不必打开你的 postman，<strong>IDEA</strong> 已经默认为你集成了 Rest Client 测试工具。可以 <strong>CTRL+ SHIFT + A</strong> 然后搜索 <strong>restful</strong>。</p>
+<h3 id="6-3-剪切板历史"><a href="#6-3-剪切板历史" class="headerlink" title="6.3 剪切板历史"></a>6.3 剪切板历史</h3><p>听说你拷贝了一串代码，又拷贝了一串代码，尴尬，之前的拷贝丢失了。莫慌， <strong>IDEA</strong> 想你所想，内置了粘贴板历史。只需要使用快捷键  <strong>CTRL + SHIFT + V</strong> 即可。</p>
+<p><img src="/assets/idea-skill/1571788672930.png" alt="剪切板历史"></p>
+<h3 id="6-4-JSON-格式化"><a href="#6-4-JSON-格式化" class="headerlink" title="6.4 JSON 格式化"></a>6.4 JSON 格式化</h3><p>当控制台打印了JSON 字符串时，可以右键格式化显示，对于 JSON 响应的接口调用测试时候十分好用。</p>
+<p><img src="/assets/idea-skill/1571762204121.png" alt="JSON 格式化"></p>
+<h3 id="6-5-演示模式"><a href="#6-5-演示模式" class="headerlink" title="6.5 演示模式"></a>6.5 演示模式</h3><p>按 ALT + V 选择 Enter Presentation Mode 进入演示模式，可以放大编辑窗口，十分适合代码操作演示，如果对于 IDEA 快捷键比较熟练，操作起来依旧行云流水。</p>
+<h3 id="6-6-补全判断"><a href="#6-6-补全判断" class="headerlink" title="6.6 补全判断"></a>6.6 补全判断</h3><p>对某个对象判断是否为 null，或者对某个字符串判空等，都可以使用 <strong>IDEA 智能语法</strong>。</p>
+<p>比如：</p>
+<p><img src="/assets/idea-skill/1571763565635.png" alt="代码"></p>
+<p><strong>content.notnull</strong> 回车可以自动生成下面的代码，类似的操作在 IDEA 中还有很多，不再一一列举。</p>
+<p><img src="/assets/idea-skill/1571763587951.png" alt="生成代码"></p>
+<p>文中的一些 <strong>IDEA</strong> 使用技巧都是工作中经常使用的，当然 <strong>IDEA</strong> 的功能远不止这些。</p>
+
+    </div>
+
+    
+    
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/assets/webinfo/weixin-public.jpg" alt="未读代码 wechat" style="width: 200px; max-width: 100%;">
+  <div>🚀 关注公众号回复【资源】获取精心整理的 Java知识&面试 pdf。</div>
+</div>
+
+      <div>
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>未读代码</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.codingme.net/2019/10/develop/idea-skill/" title="抛弃Eclipse，投入IDEA 的独孤求败江湖">https://www.codingme.net/2019/10/develop/idea-skill/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/idea/" rel="tag"># idea</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/springboot/springboot-14-https/" rel="next" title="Springboot 系列（十四）迅速启用 HTTPS 加密你的网站">
+                <i class="fa fa-chevron-left"></i> Springboot 系列（十四）迅速启用 HTTPS 加密你的网站
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/10/jdk/jdk8-time/" rel="prev" title="Jdk14 都要出了，Jdk8 的时间处理姿势还不了解一下？">
+                Jdk14 都要出了，Jdk8 的时间处理姿势还不了解一下？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/webinfo/head.jpg"
+      alt="未读代码">
+  <p class="site-author-name" itemprop="name">未读代码</p>
+  <div class="site-description motion-element" itemprop="description">有风有雨是常态，风雨无阻是心态，风雨兼程是状态。</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-窗口切换-凌波微步"><span class="nav-text">1.   窗口切换 - 凌波微步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-项目切换-来而不往"><span class="nav-text">2. 项目切换 - 来而不往</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-文件定位-来去自如"><span class="nav-text">3. 文件定位 - 来去自如</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-代码定位-百步穿杨"><span class="nav-text">4. 代码定位 - 百步穿杨</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-代码操作-出神入化"><span class="nav-text">5. 代码操作 - 出神入化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-惊世骇俗-深藏不露"><span class="nav-text">6. 惊世骇俗 - 深藏不露</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-集成插件"><span class="nav-text">6.1  集成插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-Rest-Client"><span class="nav-text">6.2 Rest Client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-剪切板历史"><span class="nav-text">6.3 剪切板历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-JSON-格式化"><span class="nav-text">6.4 JSON 格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-演示模式"><span class="nav-text">6.5 演示模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-补全判断"><span class="nav-text">6.6 补全判断</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">未读代码</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+    var gitalk = new Gitalk({
+      clientID: '2b4c7322297fdf10f81c',
+      clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+      repo: 'git-comments',
+      owner: 'niumoo',
+      admin: ['niumoo'],
+      id: '6af97dc09b84298173c5878832cc9649',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

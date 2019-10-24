@@ -4,17 +4,17 @@
 
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="generator" content="Hexo 3.7.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0">
-  <link rel="mask-icon" href="https://upload-images.jianshu.io/upload_images/2626549-1f694a9c85f330cf.png?v=7.3.0" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="mask-icon" href="/assets/webinfo/head-fav.jpg?v=7.3.0" color="#222">
 
 <link rel="stylesheet" href="/css/main.css?v=7.3.0">
 
@@ -26,7 +26,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '7.3.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
@@ -60,7 +60,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web笔记（三）Servlet 的类与接口API">
 <meta property="og:url" content="https://www.codingme.net/2018/09/develop/web/web-base-03/index.html">
-<meta property="og:site_name" content="雪漫士兵">
+<meta property="og:site_name" content="未读代码">
 <meta property="og:description" content="Servlet 介绍Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。使用 Servlet，您可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页。Java Servlet 通常情况下与使用 CGI（Common Gateway Int">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/68c057bb4390b74f4ebb980719345e2a.jpg">
@@ -70,7 +70,7 @@
 <meta name="twitter:title" content="Web笔记（三）Servlet 的类与接口API">
 <meta name="twitter:description" content="Servlet 介绍Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。使用 Servlet，您可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页。Java Servlet 通常情况下与使用 CGI（Common Gateway Int">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/68c057bb4390b74f4ebb980719345e2a.jpg">
-  <link rel="alternate" href="/atom.xml" title="雪漫士兵" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2018/09/develop/web/web-base-03/">
 
 
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title>Web笔记（三）Servlet 的类与接口API | 雪漫士兵</title>
+  <title>Web笔记（三）Servlet 的类与接口API | 未读代码</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130656610-1"></script>
   <script>
@@ -153,7 +153,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">雪漫士兵</span>
+        <span class="site-title">未读代码</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -197,7 +197,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">32</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">35</span></a>
 
   </li>
       
@@ -210,7 +210,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
 
   </li>
       
@@ -223,7 +223,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
 
   </li>
       
@@ -267,13 +267,13 @@
     <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2018/09/develop/web/web-base-03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雪漫士兵">
-      <meta itemprop="description" content="种一棵树，最好的时间是十年前，其次是现在">
-      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="未读代码">
+      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
+      <meta itemprop="image" content="/assets/webinfo/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪漫士兵">
+      <meta itemprop="name" content="未读代码">
     </span>
       <header class="post-header">
 
@@ -379,41 +379,16 @@
     
     
       <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
-  <img id="wechat_subscriber_qcode" src="/images/weixin-public.jpg" alt="雪漫士兵 wechat" style="width: 200px; max-width: 100%;">
-  <div>🚀 欢迎关注公众号，获取独家整理的学习资料!</div>
+  <img id="wechat_subscriber_qcode" src="/assets/webinfo/weixin-public.jpg" alt="未读代码 wechat" style="width: 200px; max-width: 100%;">
+  <div>🚀 关注公众号回复【资源】获取精心整理的 Java知识&面试 pdf。</div>
 </div>
 
-    
-      <div>
-        <div id="reward-container">
-  <div>打赏一个鸡腿 🍗</div>
-  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-        
-      
-      <div style="display: inline-block">
-        <img src="/images/wechat.png" alt="雪漫士兵 微信支付">
-        <p>微信支付</p>
-      </div>
-        
-      
-      <div style="display: inline-block">
-        <img src="/images/alipay.png" alt="雪漫士兵 支付宝">
-        <p>支付宝</p>
-      </div>
-
-  </div>
-</div>
-
-      </div>
       <div>
         
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>雪漫士兵</li>
+    <strong>本文作者： </strong>未读代码</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     <a href="https://www.codingme.net/2018/09/develop/web/web-base-03/" title="Web笔记（三）Servlet 的类与接口API">https://www.codingme.net/2018/09/develop/web/web-base-03/</a>
@@ -493,17 +468,17 @@
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image"
-      src="/images/head.jpg"
-      alt="雪漫士兵">
-  <p class="site-author-name" itemprop="name">雪漫士兵</p>
-  <div class="site-description motion-element" itemprop="description">种一棵树，最好的时间是十年前，其次是现在</div>
+      src="/assets/webinfo/head.jpg"
+      alt="未读代码">
+  <p class="site-author-name" itemprop="name">未读代码</p>
+  <div class="site-description motion-element" itemprop="description">有风有雨是常态，风雨无阻是心态，风雨兼程是状态。</div>
 </div>
   <nav class="site-state motion-element">
       <div class="site-state-item site-state-posts">
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -538,7 +513,9 @@
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -617,7 +594,13 @@
         
           
         
-        <span class="site-state-item-count">31</span>
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -667,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-介绍"><span class="nav-number">1.</span> <span class="nav-text">Servlet 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-API"><span class="nav-number">2.</span> <span class="nav-text">Servlet API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet-接口"><span class="nav-number">2.1.</span> <span class="nav-text">Servlet 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletConfig-接口"><span class="nav-number">2.2.</span> <span class="nav-text">ServletConfig 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GenericServlet-接口"><span class="nav-number">2.3.</span> <span class="nav-text">GenericServlet 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpServlet-接口"><span class="nav-number">2.4.</span> <span class="nav-text">HttpServlet 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletRequest-和-ServletResponse-接口"><span class="nav-number">2.5.</span> <span class="nav-text">ServletRequest 和 ServletResponse 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpServletRequest-和-HttpServletResponse-接口"><span class="nav-number">2.6.</span> <span class="nav-text">HttpServletRequest 和 HttpServletResponse 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletContext-接口"><span class="nav-number">2.7.</span> <span class="nav-text">ServletContext 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpSession-接口"><span class="nav-number">2.8.</span> <span class="nav-text">HttpSession 接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录：HttpServletRequest的请求信息获取"><span class="nav-number">3.</span> <span class="nav-text">附录：HttpServletRequest的请求信息获取</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-介绍"><span class="nav-text">Servlet 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-API"><span class="nav-text">Servlet API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet-接口"><span class="nav-text">Servlet 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletConfig-接口"><span class="nav-text">ServletConfig 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GenericServlet-接口"><span class="nav-text">GenericServlet 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpServlet-接口"><span class="nav-text">HttpServlet 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletRequest-和-ServletResponse-接口"><span class="nav-text">ServletRequest 和 ServletResponse 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpServletRequest-和-HttpServletResponse-接口"><span class="nav-text">HttpServletRequest 和 HttpServletResponse 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletContext-接口"><span class="nav-text">ServletContext 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpSession-接口"><span class="nav-text">HttpSession 接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录：HttpServletRequest的请求信息获取"><span class="nav-text">附录：HttpServletRequest的请求信息获取</span></a></li></ol></div>
             
 
           </div>
@@ -696,11 +679,11 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">雪漫士兵</span>
+  <span class="author" itemprop="copyrightHolder">未读代码</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
 
         
 <div class="busuanzi-count">
@@ -733,6 +716,7 @@
 
   <script src="/js/affix.js?v=7.3.0"></script>
   <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
 
 
 <script src="/js/next-boot.js?v=7.3.0"></script>
