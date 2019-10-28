@@ -55,22 +55,22 @@
   };
 </script>
 
-  <meta name="description" content="有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。以下操作运行于Linux下。 Tomcat 下载Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.32 Tomcat官方网站 12//">
+  <meta name="description" content="有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。以下操作运行于Linux下。 Tomcat 下载Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.32 12// 解压tar -zxv">
 <meta name="keywords" content="Tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux配置Tomcat的单机多实例">
 <meta property="og:url" content="https://www.codingme.net/2018/08/develop/install-tomcat-many-instance/index.html">
 <meta property="og:site_name" content="未读代码">
-<meta property="og:description" content="有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。以下操作运行于Linux下。 Tomcat 下载Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.32 Tomcat官方网站 12//">
+<meta property="og:description" content="有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。以下操作运行于Linux下。 Tomcat 下载Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.32 12// 解压tar -zxv">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/51fa7f6cb24ed127236269f915864d89.jpg">
+<meta property="og:image" content="https://www.codingme.net/assets/install-tomcat-many-instance/1571963198487.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/119d56104ea62415e369bae13f6269b6.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/e73313a3dd0634c258ae09e34e8be295.png">
-<meta property="og:updated_time" content="2019-10-23T02:16:23.415Z">
+<meta property="og:updated_time" content="2019-10-25T00:41:21.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux配置Tomcat的单机多实例">
-<meta name="twitter:description" content="有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。以下操作运行于Linux下。 Tomcat 下载Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.32 Tomcat官方网站 12//">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/51fa7f6cb24ed127236269f915864d89.jpg">
+<meta name="twitter:description" content="有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。以下操作运行于Linux下。 Tomcat 下载Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.32 12// 解压tar -zxv">
+<meta name="twitter:image" content="https://www.codingme.net/assets/install-tomcat-many-instance/1571963198487.png">
   <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2018/08/develop/install-tomcat-many-instance/">
 
@@ -198,7 +198,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">35</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">36</span></a>
 
   </li>
       
@@ -211,7 +211,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
 
   </li>
       
@@ -224,7 +224,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">43</span></a>
 
   </li>
       
@@ -307,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-23 10:16:23" itemprop="dateModified" datetime="2019-10-23T10:16:23+08:00">2019-10-23</time>
+                <time title="修改时间：2019-10-25 08:41:21" itemprop="dateModified" datetime="2019-10-25T08:41:21+08:00">2019-10-25</time>
               </span>
             
           
@@ -336,18 +336,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/51fa7f6cb24ed127236269f915864d89.jpg" alt="Nginx - Tomcat"></p>
+        <p><img src="/assets/install-tomcat-many-instance/1571963198487.png" alt="多示例"></p>
 <p>有时候需要在一个服务器上部署多个Tomcat，通过不同的端口进行区分，比如，反向代理。但是不想简单的通过复制Tomcat来实现，这样既不方便以后的升级也不方便管理，那么这时候就需要配置Tomcat的单机多实例了。<br>以下操作运行于Linux下。</p>
 <h3 id="Tomcat-下载"><a href="#Tomcat-下载" class="headerlink" title="Tomcat 下载"></a>Tomcat 下载</h3><p>Tomcat的下载可以直接到Tomcat官方网站下载自己需要的版本，博主这里下载的Tomcat8.5.<em>32</em></p>
-<p><a href="https://tomcat.apache.org/download-80.cgi" target="_blank" rel="noopener">Tomcat官方网站</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 解压</span><br><span class="line">tar -zxvf apache-tomcat-8.5.32.tar.gz</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>可以看到解压后目录如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">niu@ubuntu:~/develop/test$ cd apache-tomcat-8.5.32/</span><br><span class="line">niu@ubuntu:~/develop/test/apache-tomcat-8.5.32$ ll</span><br><span class="line">total 120</span><br><span class="line">drwxr-x--- 2 niu niu  4096 8月  10 01:35 bin/</span><br><span class="line">drwx------ 2 niu niu  4096 6月  20 12:53 conf/</span><br><span class="line">drwxr-x--- 2 niu niu  4096 8月  10 01:35 lib/</span><br><span class="line">-rw-r----- 1 niu niu 57092 6月  20 12:53 LICENSE</span><br><span class="line">drwxr-x--- 2 niu niu  4096 6月  20 12:50 logs/</span><br><span class="line">-rw-r----- 1 niu niu  1723 6月  20 12:53 NOTICE</span><br><span class="line">-rw-r----- 1 niu niu  7138 6月  20 12:53 RELEASE-NOTES</span><br><span class="line">-rw-r----- 1 niu niu 16246 6月  20 12:53 RUNNING.txt</span><br><span class="line">drwxr-x--- 2 niu niu  4096 8月  10 01:35 temp/</span><br><span class="line">drwxr-x--- 7 niu niu  4096 6月  20 12:51 webapps/</span><br><span class="line">drwxr-x--- 2 niu niu  4096 6月  20 12:50 work/</span><br></pre></td></tr></table></figure></p>
-<h3 id="配置多实例模版"><a href="#配置多实例模版" class="headerlink" title="配置多实例模版"></a>配置多实例模版</h3><p>要实现单Tomcat的多实例启动，首先我们要修改一下当前的Tomcat目录结构具体操作如下。为了方便，我们会先配置一个模版实例，然后在模版实例中编写一个启动停止shell脚本。以后扩展实例只需要拷贝一份修改端口号<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 删除无用文件</span><br><span class="line">rm LICENSE </span><br><span class="line">rm NOTICE </span><br><span class="line">rm RELEASE-NOTES</span><br><span class="line">rm RUNNING.txt</span><br><span class="line">// 创建WEB实例模版文件夹，以后部署新实例只需要拷贝一份</span><br><span class="line">mkdir web-template</span><br><span class="line">// 移动实例文件到实例模版文件夹</span><br><span class="line">mv conf/ ./web-template/</span><br><span class="line">mv logs/ ./web-template/</span><br><span class="line">mv tem/ ./web-template/</span><br><span class="line">mv temp/ ./web-template/</span><br><span class="line">mv webapps/ ./web-template/</span><br><span class="line">mv work/ ./web-template/</span><br></pre></td></tr></table></figure></p>
+<p>可以看到解压后目录如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">niu@ubuntu:~/develop/test$ cd apache-tomcat-8.5.32/</span><br><span class="line">niu@ubuntu:~/develop/test/apache-tomcat-8.5.32$ ll</span><br><span class="line">total 120</span><br><span class="line">drwxr-x--- 2 niu niu  4096 8月  10 01:35 bin/</span><br><span class="line">drwx------ 2 niu niu  4096 6月  20 12:53 conf/</span><br><span class="line">drwxr-x--- 2 niu niu  4096 8月  10 01:35 lib/</span><br><span class="line">-rw-r----- 1 niu niu 57092 6月  20 12:53 LICENSE</span><br><span class="line">drwxr-x--- 2 niu niu  4096 6月  20 12:50 logs/</span><br><span class="line">-rw-r----- 1 niu niu  1723 6月  20 12:53 NOTICE</span><br><span class="line">-rw-r----- 1 niu niu  7138 6月  20 12:53 RELEASE-NOTES</span><br><span class="line">-rw-r----- 1 niu niu 16246 6月  20 12:53 RUNNING.txt</span><br><span class="line">drwxr-x--- 2 niu niu  4096 8月  10 01:35 temp/</span><br><span class="line">drwxr-x--- 7 niu niu  4096 6月  20 12:51 webapps/</span><br><span class="line">drwxr-x--- 2 niu niu  4096 6月  20 12:50 work/</span><br></pre></td></tr></table></figure>
+<h3 id="配置多实例模版"><a href="#配置多实例模版" class="headerlink" title="配置多实例模版"></a>配置多实例模版</h3><p>要实现单Tomcat的多实例启动，首先我们要修改一下当前的Tomcat目录结构具体操作如下。为了方便，我们会先配置一个模版实例，然后在模版实例中编写一个启动停止shell脚本。以后扩展实例只需要拷贝一份修改端口号。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 删除无用文件</span><br><span class="line">rm LICENSE </span><br><span class="line">rm NOTICE </span><br><span class="line">rm RELEASE-NOTES</span><br><span class="line">rm RUNNING.txt</span><br><span class="line">// 创建WEB实例模版文件夹，以后部署新实例只需要拷贝一份</span><br><span class="line">mkdir web-template</span><br><span class="line">// 移动实例文件到实例模版文件夹</span><br><span class="line">mv conf/ ./web-template/</span><br><span class="line">mv logs/ ./web-template/</span><br><span class="line">mv tem/ ./web-template/</span><br><span class="line">mv temp/ ./web-template/</span><br><span class="line">mv webapps/ ./web-template/</span><br><span class="line">mv work/ ./web-template/</span><br></pre></td></tr></table></figure></p>
 <p>在模版文件夹下编写启动停止Tomcat的shell脚本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 新建sehll脚本</span><br><span class="line">vim tomcat.sh</span><br></pre></td></tr></table></figure></p>
-<p>输入如下内容<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">RETVAL=$?</span><br><span class="line"><span class="meta">#</span> tomcat实例目录</span><br><span class="line">export CATALINA_BASE="$PWD"</span><br><span class="line"><span class="meta">#</span> tomcat安装目录，改成自己的</span><br><span class="line">export CATALINA_HOME="/home/niu/develop/test/apache-tomcat-8.5.32"</span><br><span class="line"><span class="meta">#</span> 可选</span><br><span class="line">export JVM_OPTIONS="-Xms128m -Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=512m"</span><br><span class="line">case "$1" in</span><br><span class="line">start)</span><br><span class="line">if [ -f $CATALINA_HOME/bin/startup.sh ];then</span><br><span class="line">echo $"Start Tomcat"</span><br><span class="line"><span class="meta">$</span>CATALINA_HOME/bin/startup.sh</span><br><span class="line">fi</span><br><span class="line">;;</span><br><span class="line">stop)</span><br><span class="line">if [ -f $CATALINA_HOME/bin/shutdown.sh ];then</span><br><span class="line">echo $"Stop Tomcat"</span><br><span class="line"><span class="meta">$</span>CATALINA_HOME/bin/shutdown.sh</span><br><span class="line">fi</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo $"Usage:$0 &#123;start|stop&#125;"</span><br><span class="line">exit 1</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p>
-<p>保存退出，赋予执行权限<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x tomcat.sh</span><br></pre></td></tr></table></figure></p>
-<p>经过上面的操作，现在的Tomcat目录结构如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apache-tomcat-8.5.32</span><br><span class="line">├── bin</span><br><span class="line">├── lib</span><br><span class="line">└── web-template</span><br><span class="line">    ├── conf</span><br><span class="line">    ├── logs</span><br><span class="line">    ├── temp</span><br><span class="line">    ├── webapps</span><br><span class="line">    └── work</span><br></pre></td></tr></table></figure></p>
+<p>输入如下内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">RETVAL=$?</span><br><span class="line"><span class="meta">#</span> tomcat实例目录</span><br><span class="line">export CATALINA_BASE="$PWD"</span><br><span class="line"><span class="meta">#</span> tomcat安装目录，改成自己的</span><br><span class="line">export CATALINA_HOME="/home/niu/develop/test/apache-tomcat-8.5.32"</span><br><span class="line"><span class="meta">#</span> 可选</span><br><span class="line">export JVM_OPTIONS="-Xms128m -Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=512m"</span><br><span class="line">case "$1" in</span><br><span class="line">start)</span><br><span class="line">if [ -f $CATALINA_HOME/bin/startup.sh ];then</span><br><span class="line">echo $"Start Tomcat"</span><br><span class="line"><span class="meta">$</span>CATALINA_HOME/bin/startup.sh</span><br><span class="line">fi</span><br><span class="line">;;</span><br><span class="line">stop)</span><br><span class="line">if [ -f $CATALINA_HOME/bin/shutdown.sh ];then</span><br><span class="line">echo $"Stop Tomcat"</span><br><span class="line"><span class="meta">$</span>CATALINA_HOME/bin/shutdown.sh</span><br><span class="line">fi</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo $"Usage:$0 &#123;start|stop&#125;"</span><br><span class="line">exit 1</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p>
+<p>保存退出，赋予执行权限。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x tomcat.sh</span><br></pre></td></tr></table></figure></p>
+<p>经过上面的操作，现在的Tomcat目录结构如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apache-tomcat-8.5.32</span><br><span class="line">├── bin</span><br><span class="line">├── lib</span><br><span class="line">└── web-template</span><br><span class="line">    ├── conf</span><br><span class="line">    ├── logs</span><br><span class="line">    ├── temp</span><br><span class="line">    ├── webapps</span><br><span class="line">    └── work</span><br></pre></td></tr></table></figure></p>
 <h3 id="测试实例模版"><a href="#测试实例模版" class="headerlink" title="测试实例模版"></a>测试实例模版</h3><p>实例模版中包含config文件夹，也就是此实例的配置文件，可以修改端口号等信息。我们没有进行修改过，默认也就是<code>8080</code>。webapps文件夹中的ROOT目录也就是Tomcat的默认发布目录，我们没有进行修改，里面存放的是Tomcat默认首页信息。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 启动模版实例进行测试,可以看到正常启动的日志</span><br><span class="line">tomcat.sh start</span><br><span class="line">// 停止则使用stop</span><br><span class="line">tomcat.sh stop</span><br></pre></td></tr></table></figure></p>
 <p>成功启动后，访问IP+8080进行测试。<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/119d56104ea62415e369bae13f6269b6.png" alt="Tomcat首页"><br>看到属性的页面，大功告成。距离多实例只有一步之遥。</p>
 <h3 id="增加一个实例"><a href="#增加一个实例" class="headerlink" title="增加一个实例"></a>增加一个实例</h3><p>增加一个实例，只拷贝一份模版实例。然后修改端口号即可。不然会因为端口占用而无法启动。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 拷贝一份实例</span><br><span class="line">cp -r web-template/ web-9090</span><br><span class="line"><span class="meta">#</span> 修改端口号为9090</span><br><span class="line">vim conf/server.xml</span><br><span class="line"><span class="meta">#</span> 修改HTTP端口号从8080变为9090，第69行左右</span><br><span class="line">&lt;Connector port="9090" protocol="HTTP/1.1"</span><br><span class="line">  connectionTimeout="20000"</span><br><span class="line">  redirectPort="8443" /&gt;</span><br><span class="line"><span class="meta">#</span> 修改SHUTDOWN端口号从8005变为9005，第22行左右</span><br><span class="line">ver port="9005" shutdown="SHUTDOWN"&gt;</span><br><span class="line"><span class="meta">#</span> 保存，退出，启动</span><br><span class="line">tomcat.sh start</span><br></pre></td></tr></table></figure></p>
@@ -460,7 +460,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -497,7 +497,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -582,7 +584,9 @@
         
           
         
-        <span class="site-state-item-count">34</span>
+          
+        
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

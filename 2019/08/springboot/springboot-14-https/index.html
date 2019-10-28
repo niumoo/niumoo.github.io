@@ -65,7 +65,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/3f4682d8b6eaa6ac7bf29eae9f9d5109.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/29a658a7761aa462cb80e1e34e5b0017.png">
-<meta property="og:updated_time" content="2019-10-21T23:45:12.555Z">
+<meta property="og:updated_time" content="2019-08-08T06:26:04.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot 系列（十四）迅速启用 HTTPS 加密你的网站">
 <meta name="twitter:description" content="1. 获取 HTTPS 证书正常情况下 HTTPS 证书需要从证书授权中心获得，这样获得的证书才具有公信力，也会被各种浏览器客户端所认可。常见的证书品牌如 Symantec，GeoTrustm，TrustAsia，Symantec 等。不过在 Springboot 的 HTTPS 实验中就没有必要去申请了，我们可以使用 Java 自带的 keytool 生成 HTTPS 证书。">
@@ -197,7 +197,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">35</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">36</span></a>
 
   </li>
       
@@ -210,7 +210,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
 
   </li>
       
@@ -223,7 +223,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">43</span></a>
 
   </li>
       
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-22 07:45:12" itemprop="dateModified" datetime="2019-10-22T07:45:12+08:00">2019-10-22</time>
+                <time title="修改时间：2019-08-08 14:26:04" itemprop="dateModified" datetime="2019-08-08T14:26:04+08:00">2019-08-08</time>
               </span>
             
           
@@ -353,11 +353,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Https 接口控制类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/4/20 22:59</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpsController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello HTTPS"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>启动之后可以通过 <a href="https://localhost/hello" target="_blank" rel="noopener">https://localhost/hello</a> 进行访问了。</p>
 <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/29a658a7761aa462cb80e1e34e5b0017.png" alt="HTTPS 访问测试"></p>
-<p>当然，由于是自己生成的证书，会提示不安全，继续访问即可，如果是正常申请或者购买的证书就不会有这个问题的，文末有免费的 CA 证书申请方式。</p>
+<p>当然，由于是自己生成的证书，会提示不安全，继续访问即可，如果是正常申请或者购买的证书就不会有这个问题的。</p>
 <h2 id="4-HTTP-跳转-HTTPS"><a href="#4-HTTP-跳转-HTTPS" class="headerlink" title="4. HTTP 跳转 HTTPS"></a>4. HTTP 跳转 HTTPS</h2><p>在上面的测试里，HTTPS 已经可以访问了，但是 HTTP 却不能访问，大多数情况下在启用了 HTTPS 之后，都会希望 HTTP 的请求会自动跳转到 HTTPS，这个在 Springboot 里自然也是可以实现的。我们只需要写一个配置类把 HTTP 请求直接转发到 HTTPS 即可。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * HTTP 强制跳转 HTTPS</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/4/21 17:47</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Http2Https</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sslPort;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.http-port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> httpPort;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactory <span class="title">servletContainerFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatServletWebServerFactory tomcat = <span class="keyword">new</span> TomcatServletWebServerFactory() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">postProcessContext</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint securityConstraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                securityConstraint.setUserConstraint(<span class="string">"CONFIDENTIAL"</span>);</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                securityConstraint.addCollection(collection);</span><br><span class="line">                context.addConstraint(securityConstraint);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Connector connector = <span class="keyword">new</span> Connector(<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span>);</span><br><span class="line">        connector.setScheme(<span class="string">"http"</span>);</span><br><span class="line">        connector.setPort(httpPort);</span><br><span class="line">        connector.setRedirectPort(sslPort);</span><br><span class="line">        tomcat.addAdditionalTomcatConnectors(connector);</span><br><span class="line">        <span class="keyword">return</span> tomcat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>再次启动之后，使用 <a href="http://localhost/hello" target="_blank" rel="noopener">http://localhost/hello</a> 访问会自动跳转到 <a href="https://localhost/hello" target="_blank" rel="noopener">https://localhost/hello</a>.</p>
-<h2 id="5-免费证书申请"><a href="#5-免费证书申请" class="headerlink" title="5. 免费证书申请"></a>5. 免费证书申请</h2><p>如果需要申请免费证书，可以在腾讯云上免费申请，请参考：</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>如果需要申请免费证书，可以在腾讯云上免费申请，请参考：</p>
 <ul>
 <li><a href="https://cloud.tencent.com/document/product/400/6813#.E8.8E.B7.E5.8F.96.E8.AF.81.E4.B9.A6" target="_blank" rel="noopener">免费版 DV SSL 证书申请</a>。</li>
 </ul>
@@ -477,7 +477,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -514,7 +514,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -599,7 +601,9 @@
         
           
         
-        <span class="site-state-item-count">34</span>
+          
+        
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -651,7 +655,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取-HTTPS-证书"><span class="nav-text">1. 获取 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置-HTTPS-证书"><span class="nav-text">2. 配置 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试-HTTPS-证书"><span class="nav-text">3. 测试 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HTTP-跳转-HTTPS"><span class="nav-text">4. HTTP 跳转 HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-免费证书申请"><span class="nav-text">5. 免费证书申请</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取-HTTPS-证书"><span class="nav-text">1. 获取 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置-HTTPS-证书"><span class="nav-text">2. 配置 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试-HTTPS-证书"><span class="nav-text">3. 测试 HTTPS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HTTP-跳转-HTTPS"><span class="nav-text">4. HTTP 跳转 HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-text">附录</span></a></li></ol></div>
             
 
           </div>
