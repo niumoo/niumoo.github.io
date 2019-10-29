@@ -63,13 +63,14 @@
 <meta property="og:site_name" content="未读代码">
 <meta property="og:description" content="1. 什么是热加载热加载是指可以在不重启服务的情况下让更改的代码生效，热加载可以显著的提升开发以及调试的效率，它是基于 Java 的类加载器实现的，但是由于热加载的不安全性，一般不会用于正式的生产环境。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.codingme.net/assets/java-hotput/640.webp">
 <meta property="og:image" content="https://www.codingme.net/assets/java-hotput/1572188635986.png">
 <meta property="og:image" content="https://www.codingme.net/assets/java-hotput/1572192565262.png">
-<meta property="og:updated_time" content="2019-10-28T01:59:54.466Z">
+<meta property="og:updated_time" content="2019-10-29T00:22:36.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原来热加载如此简单，手动写一个 Java 热加载吧">
 <meta name="twitter:description" content="1. 什么是热加载热加载是指可以在不重启服务的情况下让更改的代码生效，热加载可以显著的提升开发以及调试的效率，它是基于 Java 的类加载器实现的，但是由于热加载的不安全性，一般不会用于正式的生产环境。">
-<meta name="twitter:image" content="https://www.codingme.net/assets/java-hotput/1572188635986.png">
+<meta name="twitter:image" content="https://www.codingme.net/assets/java-hotput/640.webp">
   <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2019/10/jvm/java-hotput/">
 
@@ -295,11 +296,19 @@
                 
               
 
-              <time title="创建时间：2019-10-28 08:35:00 / 修改时间：09:59:54" itemprop="dateCreated datePublished" datetime="2019-10-28T08:35:00+08:00">2019-10-28</time>
+              <time title="创建时间：2019-10-28 08:35:00" itemprop="dateCreated datePublished" datetime="2019-10-28T08:35:00+08:00">2019-10-28</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-29 08:22:36" itemprop="dateModified" datetime="2019-10-29T08:22:36+08:00">2019-10-29</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -327,7 +336,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-什么是热加载"><a href="#1-什么是热加载" class="headerlink" title="1. 什么是热加载"></a>1. 什么是热加载</h1><p><strong>热加载</strong>是指可以在不重启服务的情况下让更改的代码生效，<strong>热加载</strong>可以显著的提升开发以及调试的效率，它是基于 Java 的类加载器实现的，但是由于热加载的不安全性，一般不会用于正式的生产环境。<br><a id="more"></a></p>
+        <p> <img src="/assets/java-hotput/640.webp" alt="热加载"> </p>
+<h1 id="1-什么是热加载"><a href="#1-什么是热加载" class="headerlink" title="1. 什么是热加载"></a>1. 什么是热加载</h1><p><strong>热加载</strong>是指可以在不重启服务的情况下让更改的代码生效，<strong>热加载</strong>可以显著的提升开发以及调试的效率，它是基于 Java 的类加载器实现的，但是由于热加载的不安全性，一般不会用于正式的生产环境。<br><a id="more"></a></p>
 <h1 id="2-热加载与热部署的区别"><a href="#2-热加载与热部署的区别" class="headerlink" title="2. 热加载与热部署的区别"></a>2. 热加载与热部署的区别</h1><p>首先，不管是<strong>热加载</strong>还是热部署，都可以在不重启服务的情况下编译/部署项目，都是基于 Java 的类加载器实现的。</p>
 <p>那么两者到底有什么区别呢？</p>
 <p>在部署方式上：</p>
@@ -402,6 +412,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     System.out.println(LocalTime.now() + <span class="string">": Java类的热加载 Oh~~~~"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到控制台的输出已经自动更改了（IDEA 在更改后需要按 CTRL + F9）。</p>
 <p><img src="/assets/java-hotput/1572192565262.png" alt="类的热加载"></p>
+<p>代码已经放到Github: <a href="https://github.com/niumoo/lab-notes/" target="_blank" rel="noopener">https://github.com/niumoo/lab-notes/</a></p>
 
     </div>
 

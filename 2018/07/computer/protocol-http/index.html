@@ -63,17 +63,17 @@
 <meta property="og:site_name" content="未读代码">
 <meta property="og:description" content="HTTP的简介超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c50b8c5ad942894b35ef8a30f552add4.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5008f0a9cb84c78ffc040ef0464d10df.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae3fe2acba5a78462d247d03cccaa3ec.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6e442fc98cc8988ef631f7103f213b0b.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/09766111948104bd7ac918219cf7eedf.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7026e1d3c06ff8407683f0447073e406.jpg">
+<meta property="og:image" content="https://www.codingme.net/assets/protocol-http/http-to-https-Image-1024x576.png">
+<meta property="og:image" content="https://www.codingme.net/assets/protocol-http/5008f0a9cb84c78ffc040ef0464d10df.jpg">
+<meta property="og:image" content="https://www.codingme.net/assets/protocol-http/ae3fe2acba5a78462d247d03cccaa3ec.jpg">
+<meta property="og:image" content="https://www.codingme.net/assets/protocol-http/6e442fc98cc8988ef631f7103f213b0b.jpg">
+<meta property="og:image" content="https://www.codingme.net/assets/protocol-http/09766111948104bd7ac918219cf7eedf.jpg">
+<meta property="og:image" content="https://www.codingme.net/assets/protocol-http/7026e1d3c06ff8407683f0447073e406.jpg">
 <meta property="og:updated_time" content="2018-07-13T16:37:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络协议之HTTP">
 <meta name="twitter:description" content="HTTP的简介超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c50b8c5ad942894b35ef8a30f552add4.jpg">
+<meta name="twitter:image" content="https://www.codingme.net/assets/protocol-http/http-to-https-Image-1024x576.png">
   <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2018/07/computer/protocol-http/">
 
@@ -327,12 +327,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <!-- ![HTTP协议](https://raw.githubusercontent.com/niumoo/files/master/images/blog/fdda0fd46ee5b66d6307cf658b88edcd.jpg)
--->
-<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/c50b8c5ad942894b35ef8a30f552add4.jpg" alt="HTTP协议"></p>
+        <p> <img src="/assets/protocol-http/http-to-https-Image-1024x576.png" alt="HTTP">   </p>
 <h3 id="HTTP的简介"><a href="#HTTP的简介" class="headerlink" title="HTTP的简介"></a>HTTP的简介</h3><p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。</p>
 <a id="more"></a>
-<p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/5008f0a9cb84c78ffc040ef0464d10df.jpg" alt="Http协议图解"></p>
+<p> <img src="/assets/protocol-http/5008f0a9cb84c78ffc040ef0464d10df.jpg" alt=""> </p>
 <p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
 <p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。</p>
 <p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
@@ -347,8 +345,8 @@
 <blockquote>
 <p>　<a href="http://host[:port][abs_path]" target="_blank" rel="noopener">http://host[:port][abs_path]</a></p>
 </blockquote>
-<p><code>http</code>表示要通过HTTP协议来定位网络资源。<br><code>host</code>表示合法的Internet主机域名或IP地址（以点分十进制格式表示）；<br><code>port</code>用于指定一个端口号，拥有被请求资源的服务器主机监听该端口的TCP连接。<br>如果port是空，则使用<code>缺省的端口80</code>。当服务器的端口不是80的时候，需要显式指定端口号。<br><code>abs_path</code>指定请求资源的URI(Uniform Resource Identifier，统一资源定位符)，如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出。通常这个工作浏览器就帮我们完成了。</p>
-<h3 id="HTTP的请求消息Request"><a href="#HTTP的请求消息Request" class="headerlink" title="HTTP的请求消息Request"></a>HTTP的请求消息Request</h3><p>消息格式：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ae3fe2acba5a78462d247d03cccaa3ec.jpg" alt="HTTP协议消息格式"></p>
+<p><code>http</code>表示要通过HTTP协议来定位网络资源。<br><code>host</code>表示合法的Internet主机域名或IP地址（以点分十进制格式表示）。<br><code>port</code>用于指定一个端口号，拥有被请求资源的服务器主机监听该端口的TCP连接。<br>如果port是空，则使用<code>缺省的端口80</code>。当服务器的端口不是80的时候，需要显式指定端口号。<br><code>abs_path</code>指定请求资源的URI(Uniform Resource Identifier，统一资源定位符)，如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出。通常这个工作浏览器就帮我们完成了。</p>
+<h3 id="HTTP的请求消息Request"><a href="#HTTP的请求消息Request" class="headerlink" title="HTTP的请求消息Request"></a>HTTP的请求消息Request</h3><p>消息格式：<br> <img src="/assets/protocol-http/ae3fe2acba5a78462d247d03cccaa3ec.jpg" alt="HTTP 消息格式"> </p>
 <p>先来看下HTTP的请求消息头：</p>
 <ul>
 <li>Accept: text/html,image/* 【浏览器告诉服务器，它支持的数据类型】</li>
@@ -363,7 +361,8 @@
 <li>Connection: close/Keep-Alive 【浏览器告诉服务器，请求完后是断开链接还是保持链接】</li>
 <li>Date: Tue, 11 Jul 2000 18:23:51 GMT【浏览器告诉服务器，请求的时间</li>
 </ul>
-<p>使用Chrome请求网址进行观察：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/6e442fc98cc8988ef631f7103f213b0b.jpg" alt=""><br>Chrome请求信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.8</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Cookie:JSESSIONID=2A40A51EDDE663C840A2D03B7587D660; Hm_lvt_1b51c3ea9a3e7b1a2bc55df97ab4efd3=1500964170,1500976171,1500994669,1501056813; Hm_lpvt_1b51c3ea9a3e7b1a2bc55df97ab4efd3=1501056816</span><br><span class="line">Host:blog.codingme.net</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3080.5 Safari/537.36</span><br></pre></td></tr></table></figure></p>
+<p>使用Chrome请求网址进行观察：<br> <img src="/assets/protocol-http/6e442fc98cc8988ef631f7103f213b0b.jpg" alt=""><br>Chrome请求信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.8</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Cookie:JSESSIONID=2A40A51EDDE663C840A2D03B7587D660; Hm_lvt_1b51c3ea9a3e7b1a2bc55df97ab4efd3=1500964170,1500976171,1500994669,1501056813; Hm_lpvt_1b51c3ea9a3e7b1a2bc55df97ab4efd3=1501056816</span><br><span class="line">Host:blog.codingme.net</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3080.5 Safari/537.36</span><br></pre></td></tr></table></figure>
 <h3 id="HTTP的响应消息Response"><a href="#HTTP的响应消息Response" class="headerlink" title="HTTP的响应消息Response"></a>HTTP的响应消息Response</h3><p>一个完整的HTTP响应应该包含四个部分：</p>
 <ol>
 <li>一个状态行【用于描述服务器对请求的处理结果。】</li>
@@ -390,7 +389,7 @@
 <li>Connection: close/Keep-Alive 【服务器告诉浏览器连接方式】</li>
 <li>Date: Tue, 11 Jul 2000 18:23:51 GMT【服务器告诉浏览器回送数据的时间】</li>
 </ul>
-<p>Chrome请求网址<a href="http://bing.codingme.net" target="_blank" rel="noopener">http://bing.codingme.net</a>  抓包展示;<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/09766111948104bd7ac918219cf7eedf.jpg" alt=""></p>
+<p>Chrome请求网址<a href="http://bing.codingme.net" target="_blank" rel="noopener">http://bing.codingme.net</a>  抓包展示;<br> <img src="/assets/protocol-http/09766111948104bd7ac918219cf7eedf.jpg" alt="Chrome 请求信息"> </p>
 <h3 id="HTTP的状态码"><a href="#HTTP的状态码" class="headerlink" title="HTTP的状态码"></a>HTTP的状态码</h3><p>状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:</p>
 <p>1xx：指示信息–表示请求已接收，继续处理</p>
 <p>2xx：成功–表示请求已被成功接收、理解、接受</p>
@@ -410,17 +409,26 @@
 <p>详情可以查看<a href="http://kb.cnblogs.com/page/168720/" target="_blank" rel="noopener">更多状态码</a></p>
 <h3 id="HTTP的请求方法（动作）"><a href="#HTTP的请求方法（动作）" class="headerlink" title="HTTP的请求方法（动作）"></a>HTTP的请求方法（动作）</h3><p>HTTP协议中定义了8中方法来表明不同的动作</p>
 <ol>
-<li>OPTIONS<br>返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性</li>
-<li>HEAD<br>向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。</li>
-<li>GET<br>向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在Web Application中，其中一个原因是GET可能会被网络蜘蛛等随意访问。Loadrunner中对应get请求函数：web_link和web_url</li>
-<li>POST<br>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form</li>
-<li>PUT<br>向指定资源位置上传其最新内容</li>
-<li>DELETE<br>请求服务器删除Request-URL所标识的资源</li>
-<li>TRACE<br>回显服务器收到的请求，主要用于测试或诊断</li>
-<li>CONNECT<br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</li>
+<li><p>OPTIONS<br>返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性。</p>
+</li>
+<li><p>HEAD<br>向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。</p>
+</li>
+<li><p>GET<br>向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在Web Application中，其中一个原因是GET可能会被网络蜘蛛等随意访问。<br>Loadrunner中对应get请求函数：web_link和web_url.</p>
+</li>
+<li><p>POST<br>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form.</p>
+</li>
+<li><p>PUT<br>向指定资源位置上传其最新内容。</p>
+</li>
+<li><p>DELETE<br>请求服务器删除Request-URL所标识的资源。</p>
+</li>
+<li><p>TRACE<br>回显服务器收到的请求，主要用于测试或诊断。</p>
+</li>
+<li><p>CONNECT<br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</p>
+</li>
 </ol>
 <h3 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h3><p>HTTP使用TCP进行输出传输，在建立TCP连接时会进行三次握手。</p>
-<p>所谓三次握手（Three-Way Handshake）即建立TCP连接，就是指建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。在socket编程中，这一过程由客户端执行connect来触发，整个流程如下图所示：<br><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/7026e1d3c06ff8407683f0447073e406.jpg" alt="TCP三次握手"></p>
+<p>所谓三次握手（Three-Way Handshake）即建立TCP连接，就是指建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。在socket编程中，这一过程由客户端执行connect来触发，整个流程如下图所示：</p>
+<p> <img src="/assets/protocol-http/7026e1d3c06ff8407683f0447073e406.jpg" alt="TCP 三次握手"> </p>
 <ol>
 <li>建立连接时，客户端发送SYN包（SYN=i）到服务器，并进入到SYN-SEND状态，等待服务器确认</li>
 <li>服务器收到SYN包，必须确认客户的SYN（ack=i+1）,同时自己也发送一个SYN包（SYN=k）,即SYN+ACK包，此时服务器进入SYN-RECV状态</li>
