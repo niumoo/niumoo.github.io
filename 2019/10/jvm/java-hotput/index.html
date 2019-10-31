@@ -66,7 +66,7 @@
 <meta property="og:image" content="https://www.codingme.net/assets/java-hotput/640.webp">
 <meta property="og:image" content="https://www.codingme.net/assets/java-hotput/1572188635986.png">
 <meta property="og:image" content="https://www.codingme.net/assets/java-hotput/1572192565262.png">
-<meta property="og:updated_time" content="2019-10-31T08:57:51.357Z">
+<meta property="og:updated_time" content="2019-10-31T08:59:17.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原来热加载如此简单，手动写一个 Java 热加载吧">
 <meta name="twitter:description" content="1. 什么是热加载热加载是指可以在不重启服务的情况下让更改的代码生效，热加载可以显著的提升开发以及调试的效率，它是基于 Java 的类加载器实现的，但是由于热加载的不安全性，一般不会用于正式的生产环境。">
@@ -198,7 +198,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">36</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">38</span></a>
 
   </li>
       
@@ -224,7 +224,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">43</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">44</span></a>
 
   </li>
       
@@ -307,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-31 16:57:51" itemprop="dateModified" datetime="2019-10-31T16:57:51+08:00">2019-10-31</time>
+                <time title="修改时间：2019-10-31 16:59:17" itemprop="dateModified" datetime="2019-10-31T16:59:17+08:00">2019-10-31</time>
               </span>
             
           
@@ -390,7 +390,7 @@
 <p>在 Java 中，类加载器也就是  <code>java.lang.ClassLoader</code>. 所以如果我们想要自己实现一个类加载器，就需要继承 <code>ClassLoader</code> 然后重写里面 <code>findClass</code>的方法，同时因为类加载器是 <code>双亲委派模型</code>实现（也就说。除了一个最顶层的类加载器之外，每个类加载器都要有父加载器，而加载时，会先询问父加载器能否加载，如果父加载器不能加载，则会自己尝试加载）所以我们还需要指定父加载器。</p>
 <p>最后根据传入的类路径，加载类的代码看下面。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.codingme.box.classloader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 自定义 Java类加载器来实现Java 类的热加载</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/10/24 23:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClasslLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 要加载的 Java 类的 classpath 路径 */</span></span><br><span class="line">    <span class="keyword">private</span> String classpath;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyClasslLoader</span><span class="params">(String classpath)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 指定父加载器</span></span><br><span class="line">        <span class="keyword">super</span>(ClassLoader.getSystemClassLoader());</span><br><span class="line">        <span class="keyword">this</span>.classpath = classpath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">this</span>.loadClassData(name);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.defineClass(name, data, <span class="number">0</span>, data.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加载 class 文件中的内容</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] loadClassData(String name) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 传进来是带包名的</span></span><br><span class="line">            name = name.replace(<span class="string">"."</span>, <span class="string">"//"</span>);</span><br><span class="line">            FileInputStream inputStream = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(classpath + name + <span class="string">".class"</span>));</span><br><span class="line">            <span class="comment">// 定义字节数组输出流</span></span><br><span class="line">            ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">            <span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((b = inputStream.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">                baos.write(b);</span><br><span class="line">            &#125;</span><br><span class="line">            inputStream.close();</span><br><span class="line">            <span class="keyword">return</span> baos.toByteArray();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-3-定义要进行热加载的类"><a href="#4-3-定义要进行热加载的类" class="headerlink" title="4.3 定义要进行热加载的类"></a>4.3 定义要进行热加载的类</h2><p>我们假设某个接口（BaseManager.java）下的某个方法（logic）要进行热加载处理。</p>
+<h2 id="4-3-定义要热加载的类"><a href="#4-3-定义要热加载的类" class="headerlink" title="4.3 定义要热加载的类"></a>4.3 定义要热加载的类</h2><p>我们假设某个接口（BaseManager.java）下的某个方法（logic）要进行热加载处理。</p>
 <p>首先定义接口信息。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.codingme.box.classloader;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 实现这个接口的子类，需要动态更新。也就是热加载</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/10/24 23:29</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logic</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>写一个这个接口的实现类。</p>
@@ -421,7 +421,7 @@
     
       <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
   <img id="wechat_subscriber_qcode" src="/assets/webinfo/weixin-public.jpg" alt="未读代码 wechat" style="width: 200px; max-width: 100%;">
-  <div>🚀 关注公众号回复【资源】获取精心整理的 Java知识&面试 pdf。</div>
+  <div>🚀 欢迎关注公众号一起成长，回复资源获取精心整理的 Java核心知识&面试资料。</div>
 </div>
 
       <div>
@@ -458,6 +458,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/11/springboot/springboot-15-my-starter/" rel="prev" title="Springboot 系列（十五）如何编写自己的 Springboot starter">
+                Springboot 系列（十五）如何编写自己的 Springboot starter <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -515,7 +519,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -641,7 +645,11 @@
         
           
         
-        <span class="site-state-item-count">35</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -691,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是热加载"><span class="nav-text">1. 什么是热加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-热加载与热部署的区别"><span class="nav-text">2. 热加载与热部署的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-类加载五个阶段"><span class="nav-text">3. 类加载五个阶段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-实现类的热加载"><span class="nav-text">4. 实现类的热加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-实现思路"><span class="nav-text">4.1 实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-自定义类加载器"><span class="nav-text">4.2 自定义类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-定义要进行热加载的类"><span class="nav-text">4.3 定义要进行热加载的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-热加载获取类信息"><span class="nav-text">4.4 热加载获取类信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-热加载测试"><span class="nav-text">4.5  热加载测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是热加载"><span class="nav-text">1. 什么是热加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-热加载与热部署的区别"><span class="nav-text">2. 热加载与热部署的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-类加载五个阶段"><span class="nav-text">3. 类加载五个阶段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-实现类的热加载"><span class="nav-text">4. 实现类的热加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-实现思路"><span class="nav-text">4.1 实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-自定义类加载器"><span class="nav-text">4.2 自定义类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-定义要热加载的类"><span class="nav-text">4.3 定义要热加载的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-热加载获取类信息"><span class="nav-text">4.4 热加载获取类信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-热加载测试"><span class="nav-text">4.5  热加载测试</span></a></li></ol></li></ol></div>
             
 
           </div>
