@@ -193,7 +193,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">38</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">39</span></a>
 
   </li>
       
@@ -219,7 +219,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">47</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">48</span></a>
 
   </li>
       
@@ -252,6 +252,186 @@
           <div id="content" class="content page-home">
             
   <section id="posts" class="posts-expand">
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/11/jdk/jdk8-stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="未读代码">
+      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
+      <meta itemprop="image" content="/assets/webinfo/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未读代码">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+              <a href="/2019/11/jdk/jdk8-stream/" class="post-title-link" itemprop="url">还看不懂同事的代码？超强的 Stream 流操作姿势还不学习一下</a>
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-18 09:00:00 / 修改时间：10:18:47" itemprop="dateCreated datePublished" datetime="2019-11-18T09:00:00+08:00">2019-11-18</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Jdk-新特性/" itemprop="url" rel="index"><span itemprop="name">Jdk 新特性</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p><img src="/assets/jdk8-stream/java-streams.png" alt="java-streams"></p>
+<p>Java 8 新特性系列文章索引。</p>
+<ol>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MzI1MDIxNjQ1OQ==&amp;mid=2247483879&amp;idx=1&amp;sn=1eb37f5a97fda31ebb9d80d6e96cfb88&amp;chksm=e984e883def361957df3a954b0f28775404b5f0a278958e91c65b3f3175a37f5384b0988c564&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Jdk14都要出了，还不能使用 Optional优雅的处理空指针？</a> </li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MzI1MDIxNjQ1OQ==&amp;mid=2247483801&amp;idx=1&amp;sn=eea69b039feb1ae86187ade222e6bfd8&amp;chksm=e984e8fddef361ebd4acc58e11f3ccdeea9b06b6514957a5c203d52046c551f3ea3203d187e9&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Jdk14 都要出了，Jdk8 的时间处理姿势还不了解一下？</a> </li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MzI1MDIxNjQ1OQ==&amp;mid=2247483923&amp;idx=1&amp;sn=57c720a9ba7dbd79e84a069e0d6fa84f&amp;chksm=e984eb77def36261de6f0b9edd8aaa9ef34f74f90c08e6d395880545b6bf1a7b054ecdbff483#rd" target="_blank" rel="noopener">还看不懂同事的代码？Lambda 表达式、函数接口了解一下</a> </li>
+</ol>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们都知道 <code>Lambda</code> 和 Stream 是 Java 8 的两大亮点功能，在前面的文章里已经介绍过 <code>Lambda</code> 相关知识，这次介绍下 Java 8 的 Stream 流操作。它完全不同于 java.io 包的 Input/Output Stream ，也不是大数据实时处理的 Stream 流。这个 Stream 流操作是 Java 8 对集合操作功能的增强，专注于对集合的各种高效、便利、优雅的<strong>聚合操作</strong>。借助于 <code>Lambda</code> 表达式，显著的提高<strong>编程效率</strong>和<strong>可读性</strong>。且 Stream 提供了<strong>并行计算</strong>模式，可以简洁的编写出并行代码，能充分发挥如今计算机的多核处理优势。</p>
+<p>在使用 Stream 流操作之前你应该先了解 <code>Lambda</code> 相关知识，如果还不了解，可以参考之前文章：<a href="http://mp.weixin.qq.com/s?__biz=MzI1MDIxNjQ1OQ==&amp;mid=2247483923&amp;idx=1&amp;sn=57c720a9ba7dbd79e84a069e0d6fa84f&amp;chksm=e984eb77def36261de6f0b9edd8aaa9ef34f74f90c08e6d395880545b6bf1a7b054ecdbff483#rd" target="_blank" rel="noopener">还看不懂同事的代码？Lambda 表达式、函数接口了解一下</a> 。</p>
+<h2 id="1-Stream-流介绍"><a href="#1-Stream-流介绍" class="headerlink" title="1. Stream 流介绍"></a>1. Stream 流介绍</h2><p>Stream 不同于其他集合框架，它也不是某种数据结构，也不会保存数据，但是它负责相关计算，使用起来更像一个高级的迭代器。在之前的迭代器中，我们只能先遍历然后在执行业务操作，而现在只需要指定执行什么操作， Stream 就会隐式的遍历然后做出想要的操作。另外 Stream 和迭代器一样的只能单向处理，如同奔腾长江之水一去而不复返。 </p>
+<p>由于 Stream 流提供了<strong>惰性计算</strong>和<strong>并行处理</strong>的能力，在使用并行计算方式时数据会被自动分解成多段然后并行处理，最后将结果汇总。所以 Stream 操作可以让程序运行变得更加高效。</p>
+<h2 id="2-Stream-流概念"><a href="#2-Stream-流概念" class="headerlink" title="2. Stream 流概念"></a>2. Stream 流概念</h2><p>Stream 流的使用总是按照一定的步骤进行，可以抽象出下面的使用流程。</p>
+<blockquote>
+<p>数据源（source） -&gt; 数据处理/转换（intermedia） -&gt; 结果处理（terminal ）</p>
+</blockquote>
+<h3 id="2-1-数据源"><a href="#2-1-数据源" class="headerlink" title="2.1. 数据源"></a>2.1. 数据源</h3><p><code>数据源（source）</code>也就是数据的来源，可以通过多种方式获得 Stream 数据源，下面列举几种常见的获取方式。</p>
+<ul>
+<li>Collection.stream();  从集合获取流。</li>
+<li>Collection.parallelStream();  从集合获取<strong>并行流。</strong></li>
+<li>Arrays.stream(T array) or Stream.of(); 从数组获取流。</li>
+<li>BufferedReader.lines(); 从输入流中获取流。</li>
+<li>IntStream.of() ; 从静态方法中获取流。</li>
+<li>Stream.generate(); 自己生成流</li>
+</ul>
+<h3 id="2-2-数据处理"><a href="#2-2-数据处理" class="headerlink" title="2.2. 数据处理"></a>2.2. 数据处理</h3><p><code>数据处理/转换（intermedia）</code>步骤可以有多个操作，这步也被称为<code>intermedia</code>（中间操作）。在这个步骤中不管怎样操作，它返回的都是一个新的流对象，原始数据不会发生任何改变，而且这个步骤是<code>惰性计算</code>处理的，也就是说只调用方法并不会开始处理，只有在真正的开始收集结果时，中间操作才会生效，而且如果遍历没有完成，想要的结果已经获取到了（比如获取第一个值），会停止遍历，然后返回结果。<code>惰性计算</code>可以显著提高运行效率。</p>
+<p>数据处理演示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">streamDemo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;String&gt; nameList = Arrays.asList(<span class="string">"Darcy"</span>, <span class="string">"Chris"</span>, <span class="string">"Linda"</span>, <span class="string">"Sid"</span>, <span class="string">"Kim"</span>, <span class="string">"Jack"</span>, <span class="string">"Poul"</span>, <span class="string">"Peter"</span>);</span><br><span class="line">    <span class="comment">// 1. 筛选出名字长度为4的</span></span><br><span class="line">    <span class="comment">// 2. 名字前面拼接 This is</span></span><br><span class="line">    <span class="comment">// 3. 遍历输出</span></span><br><span class="line">    nameList.stream()</span><br><span class="line">            .filter(name -&gt; name.length() == <span class="number">4</span>)</span><br><span class="line">            .map(name -&gt; <span class="string">"This is "</span>+name)</span><br><span class="line">            .forEach(name -&gt; System.out.println(name));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// This is Jack</span></span><br><span class="line"><span class="comment">// This is Poul</span></span><br></pre></td></tr></table></figure>
+<p><code>数据处理/转换</code>操作自然不止是上面演示的过滤 <code>filter</code> 和 <code>map</code>映射两种，另外还有 map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered 等。</p>
+<h3 id="2-3-收集结果"><a href="#2-3-收集结果" class="headerlink" title="2.3. 收集结果"></a>2.3. 收集结果</h3><p><code>结果处理（terminal ）</code>是流处理的最后一步，执行完这一步之后流会被彻底用尽，流也不能继续操作了。也只有到了这个操作的时候，流的<code>数据处理/转换</code>等中间过程才会开始计算，也就是上面所说的<code>惰性计算</code>。<code>结果处理</code>也必定是流操作的最后一步。</p>
+<p>常见的<code>结果处理</code>操作有 forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator 等。</p>
+<p>下面演示了简单的<code>结果处理</code>的例子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 转换成为大写然后收集结果，遍历输出</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">toUpperCaseDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; nameList = Arrays.asList(<span class="string">"Darcy"</span>, <span class="string">"Chris"</span>, <span class="string">"Linda"</span>, <span class="string">"Sid"</span>, <span class="string">"Kim"</span>, <span class="string">"Jack"</span>, <span class="string">"Poul"</span>, <span class="string">"Peter"</span>);</span><br><span class="line">    List&lt;String&gt; upperCaseNameList = nameList.stream()</span><br><span class="line">            .map(String::toUpperCase)</span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">    upperCaseNameList.forEach(name -&gt; System.out.println(name + <span class="string">","</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// DARCY,CHRIS,LINDA,SID,KIM,JACK,POUL,PETER,</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-short-circuiting"><a href="#2-4-short-circuiting" class="headerlink" title="2.4. short-circuiting"></a>2.4. short-circuiting</h3><p>有一种 Stream 操作被称作 <code>short-circuiting</code> ，它是指当 Stream 流<strong>无限大</strong>但是需要返回的 Stream 流是<strong>有限</strong>的时候，而又希望它能在<strong>有限的时间</strong>内计算出结果，那么这个操作就被称为<code>short-circuiting</code>。例如　<code>findFirst</code>操作。</p>
+<h2 id="3-Stream-流使用"><a href="#3-Stream-流使用" class="headerlink" title="3. Stream 流使用"></a>3. Stream 流使用</h2><p>Stream 流在使用时候总是借助于 <code>Lambda</code> 表达式进行操作，Stream 流的操作也有很多种方式，下面列举的是常用的 11 种操作。</p>
+<h3 id="3-1-Stream-流获取"><a href="#3-1-Stream-流获取" class="headerlink" title="3.1. Stream 流获取"></a>3.1. Stream 流获取</h3><p>获取 Stream 的几种方式在上面的 Stream 数据源里已经介绍过了，下面是针对上面介绍的几种获取 Stream 流的使用示例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createStream</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">    List&lt;String&gt; nameList = Arrays.asList(<span class="string">"Darcy"</span>, <span class="string">"Chris"</span>, <span class="string">"Linda"</span>, <span class="string">"Sid"</span>, <span class="string">"Kim"</span>, <span class="string">"Jack"</span>, <span class="string">"Poul"</span>, <span class="string">"Peter"</span>);</span><br><span class="line">    String[] nameArr = &#123;<span class="string">"Darcy"</span>, <span class="string">"Chris"</span>, <span class="string">"Linda"</span>, <span class="string">"Sid"</span>, <span class="string">"Kim"</span>, <span class="string">"Jack"</span>, <span class="string">"Poul"</span>, <span class="string">"Peter"</span>&#125;;</span><br><span class="line">    <span class="comment">// 集合获取 Stream 流</span></span><br><span class="line">    Stream&lt;String&gt; nameListStream = nameList.stream();</span><br><span class="line">    <span class="comment">// 集合获取并行 Stream 流</span></span><br><span class="line">    Stream&lt;String&gt; nameListStream2 = nameList.parallelStream();</span><br><span class="line">    <span class="comment">// 数组获取 Stream 流</span></span><br><span class="line">    Stream&lt;String&gt; nameArrStream = Stream.of(nameArr);</span><br><span class="line">    <span class="comment">// 数组获取 Stream 流</span></span><br><span class="line">    Stream&lt;String&gt; nameArrStream1 = Arrays.stream(nameArr);</span><br><span class="line">    <span class="comment">// 文件流获取 Stream 流</span></span><br><span class="line">    BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"README.md"</span>));</span><br><span class="line">    Stream&lt;String&gt; linesStream = bufferedReader.lines();</span><br><span class="line">    <span class="comment">// 从静态方法获取流操作</span></span><br><span class="line">    IntStream rangeStream = IntStream.range(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">    rangeStream.limit(<span class="number">10</span>).forEach(num -&gt; System.out.print(num+<span class="string">","</span>));</span><br><span class="line">    System.out.println();</span><br><span class="line">    IntStream intStream = IntStream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    intStream.forEach(num -&gt; System.out.print(num+<span class="string">","</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-forEach"><a href="#3-2-forEach" class="headerlink" title="3.2. forEach"></a>3.2. forEach</h3><p><code>forEach</code> 是 <code>Stream</code> 流中的一个重要方法，用于遍历 <code>Stream</code> 流，它支持传入一个标准的 <code>Lambda</code> 表达式。但是它的遍历不能通过 return/break 进行终止。同时它也是一个 <code>terminal</code> 操作，执行之后 <code>Stream</code> 流中的数据会被消费掉。</p>
+<p>如输出对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; numberList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line">numberList.stream().forEach(number -&gt; System.out.println(number+<span class="string">","</span>));</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 1,2,3,4,5,6,7,8,9,</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-map-flatMap"><a href="#3-3-map-flatMap" class="headerlink" title="3.3. map / flatMap"></a>3.3. map / flatMap</h3><p>使用 <code>map</code> 把对象一对一映射成另一种对象或者形式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把数字值乘以2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mapTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numberList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line">    <span class="comment">// 映射成 2倍数字</span></span><br><span class="line">    List&lt;Integer&gt; collect = numberList.stream()</span><br><span class="line">            .map(number -&gt; number * <span class="number">2</span>)</span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">    collect.forEach(number -&gt; System.out.print(number + <span class="string">","</span>));</span><br><span class="line">    System.out.println();</span><br><span class="line"></span><br><span class="line">    numberList.stream()</span><br><span class="line">            .map(number -&gt; <span class="string">"数字 "</span> + number + <span class="string">","</span>)</span><br><span class="line">            .forEach(number -&gt; System.out.println(number));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 2,4,6,8,10,12,14,16,18,</span></span><br><span class="line"><span class="comment">// 数字 1,数字 2,数字 3,数字 4,数字 5,数字 6,数字 7,数字 8,数字 9,</span></span><br></pre></td></tr></table></figure>
+<p>上面的 <code>map</code> 可以把数据进行一对一的映射，而有些时候关系可能不止 1对 1那么简单，可能会有1对多。这时可以使用 <code>flatMap。下面演示</code>使用 <code>flatMap</code>把对象扁平化展开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * flatmap把对象扁平化</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMapTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Stream&lt;List&lt;Integer&gt;&gt; inputStream = Stream.of(</span><br><span class="line">            Arrays.asList(<span class="number">1</span>),</span><br><span class="line">            Arrays.asList(<span class="number">2</span>, <span class="number">3</span>),</span><br><span class="line">            Arrays.asList(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">    );</span><br><span class="line">    List&lt;Integer&gt; collect = inputStream</span><br><span class="line">            .flatMap((childList) -&gt; childList.stream())</span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">    collect.forEach(number -&gt; System.out.print(number + <span class="string">","</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 1,2,3,4,5,6,</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4-filter"><a href="#3-4-filter" class="headerlink" title="3.4. filter"></a>3.4. filter</h3><p>使用 <code>filter</code> 进行数据筛选，挑选出想要的元素，下面的例子演示怎么挑选出偶数数字。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * filter 数据筛选</span></span><br><span class="line"><span class="comment"> * 筛选出偶数数字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">filterTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numberList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line">    List&lt;Integer&gt; collect = numberList.stream()</span><br><span class="line">            .filter(number -&gt; number % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">    collect.forEach(number -&gt; System.out.print(number + <span class="string">","</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2,4,6,8,</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-findFirst"><a href="#3-5-findFirst" class="headerlink" title="3.5. findFirst"></a>3.5. findFirst</h3><p><code>findFirst</code> 可以查找出 <code>Stream</code> 流中的第一个元素，它返回的是一个 Optional 类型，如果还不知道 Optional 类的用处，可以参考之前文章 <a href="http://mp.weixin.qq.com/s?__biz=MzI1MDIxNjQ1OQ==&amp;mid=2247483879&amp;idx=1&amp;sn=1eb37f5a97fda31ebb9d80d6e96cfb88&amp;chksm=e984e883def361957df3a954b0f28775404b5f0a278958e91c65b3f3175a37f5384b0988c564&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Jdk14都要出了，还不能使用 Optional优雅的处理空指针？</a> 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查找第一个数据</span></span><br><span class="line"><span class="comment"> * 返回的是一个 Optional 对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findFirstTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numberList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line">    Optional&lt;Integer&gt; firstNumber = numberList.stream()</span><br><span class="line">            .findFirst();</span><br><span class="line">    System.out.println(firstNumber.orElse(-<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p><code>findFirst</code> 方法在查找到需要的数据之后就会返回<strong>不再遍历</strong>数据了，也因此 <code>findFirst</code> 方法可以对有无限数据的  <code>Stream</code> 流进行操作，也可以说 <code>findFirst</code> 是一个 <code>short-circuiting</code> 操作。</p>
+<h3 id="3-6-collect-toArray"><a href="#3-6-collect-toArray" class="headerlink" title="3.6. collect / toArray"></a>3.6. collect / toArray</h3><p><code>Stream</code> 流可以轻松的转换为其他结构，下面是几种常见的示例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Stream 转换为其他数据结构</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">collectTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numberList = Arrays.asList(<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// to array</span></span><br><span class="line">    Integer[] toArray = numberList.stream()</span><br><span class="line">            .toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">    <span class="comment">// to List</span></span><br><span class="line">    List&lt;Integer&gt; integerList = numberList.stream()</span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">    <span class="comment">// to set</span></span><br><span class="line">    Set&lt;Integer&gt; integerSet = numberList.stream()</span><br><span class="line">            .collect(Collectors.toSet());</span><br><span class="line">    System.out.println(integerSet);</span><br><span class="line">    <span class="comment">// to string</span></span><br><span class="line">    String toString = numberList.stream()</span><br><span class="line">            .map(number -&gt; String.valueOf(number))</span><br><span class="line">            .collect(Collectors.joining()).toString();</span><br><span class="line">    System.out.println(toString);</span><br><span class="line">    <span class="comment">// to string split by ,</span></span><br><span class="line">    String toStringbJoin = numberList.stream()</span><br><span class="line">            .map(number -&gt; String.valueOf(number))</span><br><span class="line">            .collect(Collectors.joining(<span class="string">","</span>)).toString();</span><br><span class="line">    System.out.println(toStringbJoin);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// [1, 2, 3, 4, 5]</span></span><br><span class="line"><span class="comment">// 112233445</span></span><br><span class="line"><span class="comment">// 1,1,2,2,3,3,4,4,5</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-7-limit-skip"><a href="#3-7-limit-skip" class="headerlink" title="3.7. limit / skip"></a>3.7. limit / skip</h3><p>获取或者扔掉前 n 个元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取 / 扔掉前 n 个元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">limitOrSkipTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 生成自己的随机数流</span></span><br><span class="line">    List&lt;Integer&gt; ageList = Arrays.asList(<span class="number">11</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">25</span>, <span class="number">26</span>);</span><br><span class="line">    ageList.stream()</span><br><span class="line">            .limit(<span class="number">3</span>)</span><br><span class="line">            .forEach(age -&gt; System.out.print(age+<span class="string">","</span>));</span><br><span class="line">    System.out.println();</span><br><span class="line">    </span><br><span class="line">    ageList.stream()</span><br><span class="line">            .skip(<span class="number">3</span>)</span><br><span class="line">            .forEach(age -&gt; System.out.print(age+<span class="string">","</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 11,22,13,</span></span><br><span class="line"><span class="comment">// 14,25,26,</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-8-Statistics"><a href="#3-8-Statistics" class="headerlink" title="3.8. Statistics"></a>3.8. Statistics</h3><p>数学统计功能，求一组数组的最大值、最小值、个数、数据和、平均数等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数学计算测试</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mathTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line">    IntSummaryStatistics stats = list.stream().mapToInt(x -&gt; x).summaryStatistics();</span><br><span class="line">    System.out.println(<span class="string">"最小值："</span> + stats.getMin());</span><br><span class="line">    System.out.println(<span class="string">"最大值："</span> + stats.getMax());</span><br><span class="line">    System.out.println(<span class="string">"个数："</span> + stats.getCount());</span><br><span class="line">    System.out.println(<span class="string">"和："</span> + stats.getSum());</span><br><span class="line">    System.out.println(<span class="string">"平均数："</span> + stats.getAverage());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 最小值：1</span></span><br><span class="line"><span class="comment">// 最大值：6</span></span><br><span class="line"><span class="comment">// 个数：6</span></span><br><span class="line"><span class="comment">// 和：21</span></span><br><span class="line"><span class="comment">// 平均数：3.5</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-9-groupingBy"><a href="#3-9-groupingBy" class="headerlink" title="3.9. groupingBy"></a>3.9. groupingBy</h3><p>分组聚合功能，和数据库的 Group by 的功能一致。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * groupingBy</span></span><br><span class="line"><span class="comment"> * 按年龄分组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">groupByTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; ageList = Arrays.asList(<span class="number">11</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">25</span>, <span class="number">26</span>);</span><br><span class="line">    Map&lt;String, List&lt;Integer&gt;&gt; ageGrouyByMap = ageList.stream()            </span><br><span class="line">        .collect(Collectors.groupingBy(age -&gt; String.valueOf(age / <span class="number">10</span>)));</span><br><span class="line">    ageGrouyByMap.forEach((k, v) -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"年龄"</span> + k + <span class="string">"0多岁的有："</span> + v);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 年龄10多岁的有：[11, 13, 14]</span></span><br><span class="line"><span class="comment">// 年龄20多岁的有：[22, 25, 26]</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-10-partitioningBy"><a href="#3-10-partitioningBy" class="headerlink" title="3.10. partitioningBy"></a>3.10. partitioningBy</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * partitioningBy</span></span><br><span class="line"><span class="comment"> * 按某个条件分组</span></span><br><span class="line"><span class="comment"> * 给一组年龄，分出成年人和未成年人</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">partitioningByTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; ageList = Arrays.asList(<span class="number">11</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">25</span>, <span class="number">26</span>);</span><br><span class="line">    Map&lt;Boolean, List&lt;Integer&gt;&gt; ageMap = ageList.stream()</span><br><span class="line">            .collect(Collectors.partitioningBy(age -&gt; age &gt; <span class="number">18</span>));</span><br><span class="line">    System.out.println(<span class="string">"未成年人："</span> + ageMap.get(<span class="keyword">false</span>));</span><br><span class="line">    System.out.println(<span class="string">"成年人："</span> + ageMap.get(<span class="keyword">true</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 未成年人：[11, 13, 14]</span></span><br><span class="line"><span class="comment">// 成年人：[22, 25, 26]</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-11-进阶-自己生成-Stream-流"><a href="#3-11-进阶-自己生成-Stream-流" class="headerlink" title="3.11. 进阶 - 自己生成 Stream 流"></a>3.11. 进阶 - 自己生成 Stream 流</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生成自己的 Stream 流</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generateTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 生成自己的随机数流</span></span><br><span class="line">    Random random = <span class="keyword">new</span> Random();</span><br><span class="line">    Stream&lt;Integer&gt; generateRandom = Stream.generate(random::nextInt);</span><br><span class="line">    generateRandom.limit(<span class="number">5</span>).forEach(System.out::println);</span><br><span class="line">    <span class="comment">// 生成自己的 UUID 流</span></span><br><span class="line">    Stream&lt;UUID&gt; generate = Stream.generate(UUID::randomUUID);</span><br><span class="line">    generate.limit(<span class="number">5</span>).forEach(System.out::println);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 793776932</span></span><br><span class="line"><span class="comment">// -2051545609</span></span><br><span class="line"><span class="comment">// -917435897</span></span><br><span class="line"><span class="comment">// 298077102</span></span><br><span class="line"><span class="comment">// -1626306315</span></span><br><span class="line"><span class="comment">// 31277974-841a-4ad0-a809-80ae105228bd</span></span><br><span class="line"><span class="comment">// f14918aa-2f94-4774-afcf-fba08250674c</span></span><br><span class="line"><span class="comment">// d86ccefe-1cd2-4eb4-bb0c-74858f2a7864</span></span><br><span class="line"><span class="comment">// 4905724b-1df5-48f4-9948-fa9c64c7e1c9</span></span><br><span class="line"><span class="comment">// 3af2a07f-0855-455f-a339-6e890e533ab3</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中 <code>Stream</code> 流是无限的，但是获取到的结果是有限的，使用了 <code>Limit</code> 限制获取的数量，所以这个操作也是 <code>short-circuiting</code> 操作。</p>
+<h2 id="4-Stream-流优点"><a href="#4-Stream-流优点" class="headerlink" title="4. Stream 流优点"></a>4. Stream 流优点</h2><h3 id="4-1-简洁优雅"><a href="#4-1-简洁优雅" class="headerlink" title="4.1. 简洁优雅"></a>4.1. 简洁优雅</h3><p>正确使用并且<strong>正确格式化</strong>的 <code>Stream</code> 流操作代码不仅<strong>简洁优雅</strong>，更让人赏心悦目。下面对比下在使用 <code>Stream</code> 流和不使用 <code>Stream</code> 流时相同操作的编码风格。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用流操作和不使用流操作的编码风格对比</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">diffTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 不使用流操作</span></span><br><span class="line">    List&lt;String&gt; names = Arrays.asList(<span class="string">"Jack"</span>, <span class="string">"Jill"</span>, <span class="string">"Nate"</span>, <span class="string">"Kara"</span>, <span class="string">"Kim"</span>, <span class="string">"Jullie"</span>, <span class="string">"Paul"</span>, <span class="string">"Peter"</span>);</span><br><span class="line">    <span class="comment">// 筛选出长度为4的名字</span></span><br><span class="line">    List&lt;String&gt; subList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String name : names) &#123;</span><br><span class="line">        <span class="keyword">if</span> (name.length() == <span class="number">4</span>) &#123;</span><br><span class="line">            subList.add(name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 把值用逗号分隔</span></span><br><span class="line">    StringBuilder sbNames = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; subList.size() - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        sbNames.append(subList.get(i));</span><br><span class="line">        sbNames.append(<span class="string">", "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 去掉最后一个逗号</span></span><br><span class="line">    <span class="keyword">if</span> (subList.size() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        sbNames.append(subList.get(subList.size() - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(sbNames);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// Jack, Jill, Nate, Kara, Paul</span></span><br></pre></td></tr></table></figure>
+<p>如果是使用 <code>Stream</code> 流操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Stream 流操作</span></span><br><span class="line">String nameString = names.stream()</span><br><span class="line">       .filter(num -&gt; num.length() == <span class="number">4</span>)</span><br><span class="line">       .collect(Collectors.joining(<span class="string">", "</span>));</span><br><span class="line">System.out.println(nameString);</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-惰性计算"><a href="#4-2-惰性计算" class="headerlink" title="4.2. 惰性计算"></a>4.2. 惰性计算</h3><p>上面有提到，<code>数据处理/转换（intermedia）</code> 操作 map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered 等这些操作，在调用方法时并不会立即调用，而是在真正使用的时候才会生效，这样可以让操作延迟到真正需要使用的时刻。</p>
+<p>下面会举个例子演示这一点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 找出偶数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lazyTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 生成自己的随机数流</span></span><br><span class="line">    List&lt;Integer&gt; numberLIst = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line">    <span class="comment">// 找出偶数</span></span><br><span class="line">    Stream&lt;Integer&gt; integerStream = numberLIst.stream()</span><br><span class="line">            .filter(number -&gt; &#123;</span><br><span class="line">                <span class="keyword">int</span> temp = number % <span class="number">2</span>;</span><br><span class="line">    			 <span class="keyword">if</span> (temp == <span class="number">0</span> )&#123;</span><br><span class="line">                    System.out.println(number);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> temp == <span class="number">0</span>;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">"分割线"</span>);</span><br><span class="line">    List&lt;Integer&gt; collect = integerStream.collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有 <code>惰性计算</code>，那么很明显会先输出偶数，然后输出 <code>分割线</code>。而实际的效果是。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">分割线</span><br><span class="line">2</span><br><span class="line">4</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+<p>可见 <code>惰性计算</code> 把计算延迟到了真正需要的时候。</p>
+<h3 id="4-3-并行计算"><a href="#4-3-并行计算" class="headerlink" title="4.3. 并行计算"></a>4.3. 并行计算</h3><p>获取 <code>Stream</code> 流时可以使用 <code>parallelStream</code> 方法代替 <code>stream</code> 方法以获取并行处理流，并行处理可以充分的发挥多核优势，而且不增加编码的复杂性。</p>
+<p>下面的代码演示了生成一千万个随机数后，把每个随机数乘以2然后求和时，串行计算和并行计算的耗时差异。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 并行计算</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 生成自己的随机数流，取一千万个随机数</span></span><br><span class="line">    Random random = <span class="keyword">new</span> Random();</span><br><span class="line">    Stream&lt;Integer&gt; generateRandom = Stream.generate(random::nextInt);</span><br><span class="line">    List&lt;Integer&gt; numberList = generateRandom.limit(<span class="number">10000000</span>).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 串行 - 把一千万个随机数，每个随机数 * 2 ，然后求和</span></span><br><span class="line">    <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">int</span> sum = numberList.stream()</span><br><span class="line">        .map(number -&gt; number * <span class="number">2</span>)</span><br><span class="line">        .mapToInt(x -&gt; x)</span><br><span class="line">        .sum();</span><br><span class="line">    <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"串行耗时："</span>+(end - start)+<span class="string">"ms，和是:"</span>+sum);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 并行 - 把一千万个随机数，每个随机数 * 2 ，然后求和</span></span><br><span class="line">    start = System.currentTimeMillis();</span><br><span class="line">    sum = numberList.parallelStream()</span><br><span class="line">        .map(number -&gt; number * <span class="number">2</span>)</span><br><span class="line">        .mapToInt(x -&gt; x)</span><br><span class="line">        .sum();</span><br><span class="line">    end = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"并行耗时："</span>+(end - start)+<span class="string">"ms，和是:"</span>+sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到如下输出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">串行耗时：<span class="number">1005</span>ms，和是:<span class="number">481385106</span></span><br><span class="line">并行耗时：<span class="number">47</span>ms，和是:<span class="number">481385106</span></span><br></pre></td></tr></table></figure>
+<p>效果显而易见，代码简洁优雅。</p>
+<h2 id="5-Stream-流建议"><a href="#5-Stream-流建议" class="headerlink" title="5. Stream 流建议"></a>5. Stream 流建议</h2><h3 id="5-1-保证正确排版"><a href="#5-1-保证正确排版" class="headerlink" title="5.1 保证正确排版"></a>5.1 保证正确排版</h3><p>从上面的使用案例中，可以发现使用 <code>Stream</code> 流操作的代码非常简洁，而且可读性更高。但是如果不正确的排版，那么看起来将会很糟糕，比如下面的同样功能的代码例子，多几层操作呢，是不是有些让人头大？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不排版</span></span><br><span class="line">String string = names.stream().filter(num -&gt; num.length() == <span class="number">4</span>).map(name -&gt; name.toUpperCase()).collect(Collectors.joining(<span class="string">","</span>));</span><br><span class="line"><span class="comment">// 排版</span></span><br><span class="line">String string = names.stream()</span><br><span class="line">        .filter(num -&gt; num.length() == <span class="number">4</span>)</span><br><span class="line">        .map(name -&gt; name.toUpperCase())</span><br><span class="line">        .collect(Collectors.joining(<span class="string">","</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="5-1-保证函数纯度"><a href="#5-1-保证函数纯度" class="headerlink" title="5.1 保证函数纯度"></a>5.1 保证函数纯度</h3><p>如果想要你的 <code>Stream</code> 流对于每次的相同操作的结果都是相同的话，那么你必须保证 <code>Lambda</code> 表达式的纯度，也就是下面亮点。</p>
+<ul>
+<li>Lambda 中不会更改任何元素。</li>
+<li>Lambda 中不依赖于任何可能更改的元素。</li>
+</ul>
+<p>这两点对于保证函数的幂等非常重要，不然你程序执行结果可能会变得难以预测，就像下面的例子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">simpleTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">int</span>[] factor = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">2</span> &#125;;</span><br><span class="line">    Stream&lt;Integer&gt; stream = numbers.stream()</span><br><span class="line">            .map(e -&gt; e * factor[<span class="number">0</span>]);</span><br><span class="line">    factor[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    stream.forEach(System.out::println);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>文中代码都已经上传到 </p>
+<p><a href="https://github.com/niumoo/jdk-feature/blob/master/src/main/java/net/codingme/feature/jdk8/Jdk8Stream.java" target="_blank" rel="noopener"> https://github.com/niumoo/jdk-feature/blob/master/src/main/java/net/codingme/feature/jdk8/Jdk8Stream.java </a>。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
       
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -1201,114 +1381,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/03/springboot/springboot-12-data-mybatis-page/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="未读代码">
-      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
-      <meta itemprop="image" content="/assets/webinfo/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未读代码">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-              
-              <a href="/2019/03/springboot/springboot-12-data-mybatis-page/" class="post-title-link" itemprop="url">Springboot 系列（十二）使用 Mybatis 集成 pagehelper 分页插件和 mapper 插件</a>
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-08 00:40:22" itemprop="dateCreated datePublished" datetime="2019-03-08T00:40:22+08:00">2019-03-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://raw.githubusercontent.com/niumoo/files/master/images/blog/64cccddf32b7e3f4069ca2459057496e.png" alt="桌面生活（来自网络）"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 Springboot 系列文章第十一篇里（<a href="https://mp.weixin.qq.com/s?__biz=MzI1MDIxNjQ1OQ==&amp;mid=2247483756&amp;idx=1&amp;sn=902dba8ed665131453bc26de246ccaa1&amp;chksm=e984e808def3611edf0949a9db71ea6dc29432b25fb27015d78bc8117a50a3bedd79194de5ea&amp;token=93558379&amp;lang=zh_CN#rd" target="_blank" rel="noopener">使用 Mybatis（自动生成插件） 访问数据库</a>），实验了 Springboot 结合 Mybatis 以及 Mybatis-generator 生成插件的开发过程，其实对于 Mybatis 来讲还有很多优秀方便好用的插件，比如这次要演示的 通用 Mapper 生成插件和分页插件。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/springboot/springboot-12-data-mybatis-page/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1349,7 +1421,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1479,7 +1551,9 @@
         
           
         
-        <span class="site-state-item-count">37</span>
+          
+        
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
