@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.7.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="mask-icon" href="/assets/webinfo/head-fav.jpg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="前言目前来说，在 Java 领域使用 Springboot 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 REST API 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 REST API 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文">
+<meta name="keywords" content="Springboot,swagger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot 系列（十六）你真的了解 Swagger 文档吗？">
+<meta property="og:url" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/index.html">
+<meta property="og:site_name" content="未读代码">
+<meta property="og:description" content="前言目前来说，在 Java 领域使用 Springboot 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 REST API 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 REST API 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/oas_original-01.png">
+<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191125225207292.png">
+<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126000341030.png">
+<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126000613238.png">
+<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126000808167.png">
+<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126001337387.png">
+<meta property="og:updated_time" content="2019-11-26T00:45:25.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Springboot 系列（十六）你真的了解 Swagger 文档吗？">
+<meta name="twitter:description" content="前言目前来说，在 Java 领域使用 Springboot 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 REST API 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 REST API 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文">
+<meta name="twitter:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/oas_original-01.png">
+  <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
+  <link rel="canonical" href="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Springboot 系列（十六）你真的了解 Swagger 文档吗？ | 未读代码</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130656610-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-130656610-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未读代码</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">专注Java</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">40</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">49</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-springboot">
+      
+    
+      
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br>Springboot</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="未读代码">
+      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
+      <meta itemprop="image" content="/assets/webinfo/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未读代码">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">Springboot 系列（十六）你真的了解 Swagger 文档吗？
+
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-26 08:08:08 / 修改时间：08:45:25" itemprop="dateCreated datePublished" datetime="2019-11-26T08:08:08+08:00">2019-11-26</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前来说，在 Java 领域使用 <code>Springboot</code> 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 <code>REST API</code> 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 <code>REST API</code> 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文档的及时性，经常会年久失修，失去应有的意义。因此选择一种新的 API 文档维护方式很有必要，这也是这篇文章要介绍的内容。</p>
+<h2 id="1-OpenAPI-规范介绍"><a href="#1-OpenAPI-规范介绍" class="headerlink" title="1. OpenAPI  规范介绍"></a>1. OpenAPI  规范介绍</h2><p><img src="assets/oas_original-01.png" alt="Open API"></p>
+<p><code>OpenAPI Specification</code> 简称 OAS，中文也称  <code>OpenAPI</code> 描述规范，使用 <code>OpenAPI</code> 文件可以描述整个 API，它制定了一套的适合通用的与语言无关的 <code>REST API</code> 描述规范，如 API 路径规范、请求方法规范、请求参数规范、返回格式规范等各种相关信息，使人类和计算机都可以不需要访问源代码就可以理解和使用服务的功能。</p>
+<p>下面是 <code>OpenAPI</code> 规范中建议的 API 设计规范，基本路径设计规范。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://api.example.com/v1/users?role=admin&amp;status=active</span><br><span class="line">\________________________/\____/ \______________________/</span><br><span class="line">         server URL       endpoint    query parameters</span><br><span class="line">                            path</span><br></pre></td></tr></table></figure></p>
+<p>对于传参的设计也有规范，可以像下面这样：</p>
+<ul>
+<li><a href="https://swagger.io/docs/specification/describing-parameters/#path-parameters" target="_blank" rel="noopener">路径参数</a>, 例如 <code>/users/{id}</code></li>
+<li><a href="https://swagger.io/docs/specification/describing-parameters/#query-parameters" target="_blank" rel="noopener">查询参数</a>, 例如 <code>/users?role=未读代码</code></li>
+<li><a href="https://swagger.io/docs/specification/describing-parameters/#header-parameters" target="_blank" rel="noopener">header 参数</a>, 例如 <code>X-MyHeader: Value</code></li>
+<li><a href="https://swagger.io/docs/specification/describing-parameters/#cookie-parameters" target="_blank" rel="noopener">cookie 参数</a>,  例如 <code>Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCU</code></li>
+</ul>
+<p><code>OpenAPI</code> 规范的东西远远不止这些，目前 <code>OpenAPI</code> 规范最新版本是 3.0.2，如果你想了解更多的 <code>OpenAPI</code> 规范，可以访问下面的链接。<br><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md" target="_blank" rel="noopener">OpenAPI Specification (https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)</a></p>
+<h2 id="2-Swagger-介绍"><a href="#2-Swagger-介绍" class="headerlink" title="2. Swagger 介绍"></a>2. Swagger 介绍</h2><p><img src="assets/image-20191125225207292.png" alt="swagger"></p>
+<p>很多人都以为 <code>Swagger</code> 只是一个接口文档生成框架，其实并不是。 Swagger  是一个围绕着 <code>OpenAPI Specification</code>（OAS，中文也称 OpenAPI规范）构建的一组开源工具。可以帮助你从 API 的设计到 API 文档的输出再到  API 的测试，直至最后的 API 部署等整个 API 的开发周期提供相应的解决方案，是一个庞大的项目。 Swagger  不仅免费，而且开源，不管你是企业用户还是个人玩家，都可以使用 Swagger 提供的方案构建令人惊艳的 <code>REST API</code>。</p>
+<p>Swagger 有几个主要的产品。</p>
+<ul>
+<li><a href="http://editor.swagger.io/?_ga=2.112541447.2078165713.1574600445-3923049.1574128700" target="_blank" rel="noopener">Swagger Editor</a> – 一个基于浏览器的 Open API 规范编辑器。</li>
+<li><a href="https://swagger.io/swagger-ui/" target="_blank" rel="noopener">Swagger UI</a> – 一个将 OpenAPI 规范呈现为可交互在线文档的工具。</li>
+<li><a href="https://github.com/swagger-api/swagger-codegen" target="_blank" rel="noopener">Swagger Codegen</a> – 一个根据 OpenAPI 生成调用代码的工具。</li>
+</ul>
+<p>如果你想了解更多信息，可以访问 Swagger 官方网站 <a href="https://swagger.io" target="_blank" rel="noopener">https://swagger.io</a>。</p>
+<h2 id="3-Springfox-介绍"><a href="#3-Springfox-介绍" class="headerlink" title="3. Springfox 介绍"></a>3. Springfox 介绍</h2><p>源于 Java 中 Spring 框架的流行，让一个叫做  Marrty Pitt 的老外有了为 SpringMVC 添加接口描述的想法，因此他创建了一个遵守 OpenAPI 规范（OAS）的项目，取名为 <em>swagger-springmvc</em>，这个项目可以让 Spring 项目自动生成 JSON 格式的 OpenAPI 文档。这个框架也仿照了 Spring 项目的开发习惯，使用注解来进行信息配置。</p>
+<p>后来这个项目发展成为 <code>Springfox</code>，再后来扩展出 <code>springfox-swagger2</code> ，为了让 JSON 格式的 API 文档更好的呈现，又出现了 <code>springfox-swagger-ui</code> 用来展示和测试生成的 OpenAPI 。这里的 springfox-swagger-ui 其实就是上面介绍的 Swagger-ui，只是它被通过 webjar 的方式打包到 jar 包内，并通过 maven 的方式引入进来。 </p>
+<p>上面提到了 Springfox-swagger2 也是通过注解进行信息配置的，那么是怎么使用的呢？下面列举常用的一些注解，这些注解在下面的 Springboot 整合 Swagger 中会用到。</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>示例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@ApiModel</td>
+<td>@ApiModel(value = “用户对象”)</td>
+<td>描述一个实体对象</td>
+</tr>
+<tr>
+<td>@ApiModelProperty</td>
+<td>@ApiModelProperty(value = “用户ID”, required = true, example = “1000”)</td>
+<td>描述属性信息，执行描述，是否必须，给出示例</td>
+</tr>
+<tr>
+<td>@Api</td>
+<td>@Api(value = “用户操作 API(v1)”, tags = “用户操作接口”)</td>
+<td>用在接口类上，为接口类添加描述</td>
+</tr>
+<tr>
+<td>@ApiOperation</td>
+<td>@ApiOperation(value = “新增用户”)</td>
+<td>描述类的一个方法或者说一个接口</td>
+</tr>
+<tr>
+<td>@ApiParam</td>
+<td>@ApiParam(value = “用户名”, required = true)</td>
+<td>描述单个参数</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>更多的 Springfox 介绍，可以访问 Springfox 官方网站。</p>
+<p><a href="http://springfox.github.io/springfox/docs/current/" target="_blank" rel="noopener">Springfox Reference Documentation (http://springfox.github.io)</a></p>
+<h2 id="4-Springboot-整合-Swagger"><a href="#4-Springboot-整合-Swagger" class="headerlink" title="4. Springboot 整合 Swagger"></a>4. Springboot 整合 Swagger</h2><p>就目前来说 ，Springboot 框架是非常流行的微服务框架，在微服务框架下，很多时候我们都是直接提供 <code>REST API</code> 的。REST API 如果没有文档的话，使用者就很头疼了。不过不用担心，上面说了有一位叫 Marrty Pitt 的老外已经创建了一个发展成为 Springfox 的项目，可以方便的提供 JSON 格式的 OpenAPI 规范和文档支持。且扩展出了 springfox-swagger-ui 用于页面的展示。</p>
+<p>需要注意的是，这里使用的所谓的 Swagger 其实和真正的 Swagger 并不是一个东西，这里使用的是 Springfox 提供的 Swagger 实现。它们都是基于 OpenAPI 规范进行 API 构建。所以也都可以 Swagger-ui 进行 API 的页面呈现。</p>
+<h3 id="4-1-创建项目"><a href="#4-1-创建项目" class="headerlink" title="4.1. 创建项目"></a>4.1. 创建项目</h3><p>如何创建一个 Springboot 项目这里不提，你可以直接从 <a href="https://start.spring.io/" target="_blank" rel="noopener">Springboot 官方</a> 下载一个标准项目，也可以使用 idea 快速创建一个 Springboot 项目，也可以顺便拷贝一个 Springboot 项目过来测试，总之，方式多种多样，任你选择。</p>
+<p>下面演示如何在 Springboot 项目中使用 swagger2。</p>
+<h3 id="4-2-引入依赖"><a href="#4-2-引入依赖" class="headerlink" title="4.2. 引入依赖"></a>4.2. 引入依赖</h3><p>这里主要是引入了 springfox-swagger2，可以通过注解生成 JSON 格式的 OpenAPI 接口文档，然后由于 Springfox 需要依赖 jackson，所以引入之。springfox-swagger-ui 可以把生成的 OpenAPI 接口文档显示为页面。Lombok 的引入可以通过注解为实体类生成 get/set 方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span> </span><br><span class="line">	<span class="comment">&lt;!-- Spring Boot web 开发整合 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-json<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入swagger2的依赖--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- jackson相关依赖 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Lombok 工具 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-3-配置-Springfox-swagger"><a href="#4-3-配置-Springfox-swagger" class="headerlink" title="4.3. 配置 Springfox-swagger"></a>4.3. 配置 Springfox-swagger</h3><p>Springfox-swagger 的配置通过一个 Docket 来包装，Docket 里的 apiInfo 方法可以传入关于接口总体的描述信息。而 apis 方法可以指定要扫描的包的具体路径。在类上添加 @Configuration 声明这是一个配置类，最后使用 @EnableSwagger2 开启 Springfox-swagger2。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.builders.ApiInfoBuilder;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.builders.PathSelectors;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.builders.RequestHandlerSelectors;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.service.ApiInfo;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.spi.DocumentationType;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.spring.web.plugins.Docket;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.swagger2.annotations.EnableSwagger2;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Springfox-swagger2 配置</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/11/19 23:17</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                .select()</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">"net.codingme.boot.controller"</span>))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">                .title(<span class="string">"未读代码 API"</span>)</span><br><span class="line">                .description(<span class="string">"公众号：未读代码(weidudaima) springboot-swagger2 在线借口文档"</span>)</span><br><span class="line">                .termsOfServiceUrl(<span class="string">"https://www.codingme.net"</span>)</span><br><span class="line">                .contact(<span class="string">"达西呀"</span>)</span><br><span class="line">                .version(<span class="string">"1.0"</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-4-代码编写"><a href="#4-4-代码编写" class="headerlink" title="4.4. 代码编写"></a>4.4. 代码编写</h3><p>文章不会把所有代码一一列出来，这没有太大意义，所以只贴出主要代码，完整代码会上传到 Github，并在文章底部附上 Github 链接。</p>
+<p>参数实体类 <code>User.java</code>，使用 <code>@ApiModel</code> 和 <code>@ApiModelProperty</code> 描述参数对象，使用 <code>@NotNull</code> 进行数据校验，使用 <code>@Data</code> 为参数实体类自动生成 get/set 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiModel;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiModelProperty;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.format.annotation.DateTimeFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotNull;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 用户实体类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2018/12/19 17:13</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@ApiModel</span>(value = <span class="string">"用户对象"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户ID</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Id</span> 主键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@GeneratedValue</span> 自增主键</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"用户 ID 不能为空"</span>)</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户ID"</span>, required = <span class="keyword">true</span>, example = <span class="string">"1000"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"用户名不能为空"</span>)</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户名"</span>, required = <span class="keyword">true</span>)</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"密码不能为空"</span>)</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户密码"</span>, required = <span class="keyword">true</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户年龄"</span>, example = <span class="string">"18"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生日</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DateTimeFormat</span>(pattern = <span class="string">"yyyy-MM-dd hh:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户生日"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 技能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户技能"</span>)</span><br><span class="line">    <span class="keyword">private</span> String skills;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写 Controller 层，使用 <code>@Api</code> 描述接口类，使用 <code>@ApiOperation</code> 描述接口，使用 <code>@ApiParam</code> 描述接口参数。代码中在查询用户信息的两个接口上都添加了 <code>tags = &quot;用户查询&quot;</code> 标记，这样这两个方法在生成 Swagger 接口文档时候会分到一个共同的标签组里。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.swagger.annotations.Api;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiOperation;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiParam;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> net.codingme.boot.domain.Response;</span><br><span class="line"><span class="keyword">import</span> net.codingme.boot.domain.User;</span><br><span class="line"><span class="keyword">import</span> net.codingme.boot.enums.ResponseEnum;</span><br><span class="line"><span class="keyword">import</span> net.codingme.boot.utils.ResponseUtill;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.BindingResult;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.validation.Valid;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotNull;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 用户操作</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> niujinpeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/11/19 23:17</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RestController</span>(value = <span class="string">"/v1"</span>)</span><br><span class="line"><span class="meta">@Api</span>(value = <span class="string">"用户操作 API(v1)"</span>, tags = <span class="string">"用户操作接口"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"新增用户"</span>)</span><br><span class="line">    <span class="meta">@PostMapping</span>(value = <span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">create</span><span class="params">(@Valid User user, BindingResult bindingResult)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bindingResult.hasErrors()) &#123;</span><br><span class="line">            String message = bindingResult.getFieldError().getDefaultMessage();</span><br><span class="line">            log.info(message);</span><br><span class="line">            <span class="keyword">return</span> ResponseUtill.error(ResponseEnum.ERROR.getCode(), message);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 新增用户信息 do something</span></span><br><span class="line">            <span class="keyword">return</span> ResponseUtill.success(<span class="string">"用户["</span> + user.getUsername() + <span class="string">"]信息已新增"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"删除用户"</span>)</span><br><span class="line">    <span class="meta">@DeleteMapping</span>(value = <span class="string">"/user/&#123;username&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">delete</span><span class="params">(@PathVariable(<span class="string">"username"</span>)</span></span></span><br><span class="line"><span class="function">                           @<span class="title">ApiParam</span><span class="params">(value = <span class="string">"用户名"</span>, required = <span class="keyword">true</span>)</span> String name) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 删除用户信息 do something</span></span><br><span class="line">        <span class="keyword">return</span> ResponseUtill.success(<span class="string">"用户["</span> + name + <span class="string">"]信息已删除"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"修改用户"</span>)</span><br><span class="line">    <span class="meta">@PutMapping</span>(value = <span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">update</span><span class="params">(@Valid User user, BindingResult bindingResult)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bindingResult.hasErrors()) &#123;</span><br><span class="line">            String message = bindingResult.getFieldError().getDefaultMessage();</span><br><span class="line">            log.info(message);</span><br><span class="line">            <span class="keyword">return</span> ResponseUtill.error(ResponseEnum.ERROR.getCode(), message);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            String username = user.getUsername();</span><br><span class="line">            <span class="keyword">return</span> ResponseUtill.success(<span class="string">"用户["</span> + username + <span class="string">"]信息已修改"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"获取单个用户信息"</span>, tags = <span class="string">"用户查询"</span>)</span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/user/&#123;username&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">get</span><span class="params">(@PathVariable(<span class="string">"username"</span>)</span></span></span><br><span class="line"><span class="function">                        @<span class="title">NotNull</span><span class="params">(message = <span class="string">"用户名称不能为空"</span>)</span></span></span><br><span class="line"><span class="function">                        @<span class="title">ApiParam</span><span class="params">(value = <span class="string">"用户名"</span>, required = <span class="keyword">true</span>)</span> String username) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 查询用户信息 do something</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">10000</span>);</span><br><span class="line">        user.setUsername(username);</span><br><span class="line">        user.setAge(<span class="number">99</span>);</span><br><span class="line">        user.setSkills(<span class="string">"cnp"</span>);</span><br><span class="line">        <span class="keyword">return</span> ResponseUtill.success(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"获取用户列表"</span>, tags = <span class="string">"用户查询"</span>)</span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">selectAll</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 查询用户信息列表 do something</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">10000</span>);</span><br><span class="line">        user.setUsername(<span class="string">"未读代码"</span>);</span><br><span class="line">        user.setAge(<span class="number">99</span>);</span><br><span class="line">        user.setSkills(<span class="string">"cnp"</span>);</span><br><span class="line">        List&lt;User&gt; userList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        userList.add(user);</span><br><span class="line">        <span class="keyword">return</span> ResponseUtill.success(userList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，为了让代码变得更加符合规范和好用，使用一个统一的类进行接口响应。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@ApiModel</span>(value = <span class="string">"响应信息"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Response</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"响应码"</span>)</span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"响应信息"</span>)</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"响应数据"</span>)</span><br><span class="line">    <span class="keyword">private</span> Collection content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-5-运行访问"><a href="#4-5-运行访问" class="headerlink" title="4.5. 运行访问"></a>4.5. 运行访问</h3><p>直接启动 Springboog 项目，可以看到控制台输出扫描到的各个接口的访问路径，其中就有 <code>/2/api-docs</code>。</p>
+<p><img src="assets/image-20191126000341030.png" alt="Springboot 启动"></p>
+<p>这个也就是生成的 OpenAPI 规范的描述 JSON 访问路径，访问可以看到。</p>
+<p><img src="assets/image-20191126000613238.png" alt="OpenAPI - JSON"></p>
+<p>因为上面我们在引入依赖时，也引入了 springfox-swagger-ui 包，所以还可以访问 API 的页面文档。访问路径是 /swagger-ui.html，访问看到的效果可以看下图。</p>
+<p><img src="assets/image-20191126000808167.png" alt="swagger 访问"></p>
+<p>也可以看到用户查询的两个方法会归到了一起，原因就是这两个方法的注解上使用相同的 tag 属性。</p>
+<h3 id="4-7-调用测试"><a href="#4-7-调用测试" class="headerlink" title="4.7. 调用测试"></a>4.7. 调用测试</h3><p>springfox-swagger-ui 不仅是生成了 API 文档，还提供了调用测试功能。下面是在页面上测试获取单个用户信息的过程。</p>
+<ol>
+<li>点击接口 [/user/{username}] 获取单个用户信息。</li>
+<li>点击 <code>**Try it out**</code> 进入测试传参页面。</li>
+<li>输入参数，点击 <strong>Execute</strong> 蓝色按钮执行调用。</li>
+<li>查看返回信息。</li>
+</ol>
+<p>下面是测试时的响应截图。</p>
+<p><img src="assets/image-20191126001337387.png" alt="swagger 测试"></p>
+<h2 id="5-常见报错"><a href="#5-常见报错" class="headerlink" title="5. 常见报错"></a>5. 常见报错</h2><p>如果你在程序运行中经常发现像下面这样的报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NumberFormatException: For input string: &quot;&quot;</span><br><span class="line">	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[na:1.8.0_111]</span><br><span class="line">	at java.lang.Long.parseLong(Long.java:601) ~[na:1.8.0_111]</span><br><span class="line">	at java.lang.Long.valueOf(Long.java:803) ~[na:1.8.0_111]</span><br><span class="line">	at io.swagger.models.parameters.AbstractSerializableParameter.getExample(AbstractSerializableParameter.java:412) ~[swagger-models-1.5.20.jar:1.5.20]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_111]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_111]</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_111]</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_111]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:536) [jackson-databind-2.5.4.jar:2.5.4]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:666) [jackson-databind-2.5.4.jar:2.5.4]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:156) [jackson-databind-2.5.4.jar:2.5.4]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:113) [jackson-databind-2.5.4.jar:2.5.4]</span><br></pre></td></tr></table></figure>
+<p>那么你需要检查使用了 <code>@ApiModelProperty</code> 注解且字段类型为数字类型的属性上，<code>@ApiModelProperty</code> 注解是否设置了 example 值，如果没有，那就需要设置一下，像下面这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotNull</span>(message = <span class="string">"用户 ID 不能为空"</span>)</span><br><span class="line"><span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户ID"</span>, required = <span class="keyword">true</span>, example = <span class="string">"1000"</span>)</span><br><span class="line"><span class="keyword">private</span> Integer id;</span><br></pre></td></tr></table></figure>
+<p>文中代码都已经上传到 <a href="https://github.com/niumoo/springboot" target="_blank" rel="noopener"> https://github.com/niumoo/springboot </a></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md" target="_blank" rel="noopener">OpenAPI Specification</a></li>
+<li><a href="https://swagger.io/docs/specification/about/" target="_blank" rel="noopener">Swagger Documentation</a></li>
+<li><a href="http://springfox.github.io/springfox/docs/current/" target="_blank" rel="noopener">Springfox Reference Documentation</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/assets/webinfo/weixin-public.jpg" alt="未读代码 wechat" style="width: 200px; max-width: 100%;">
+  <div>🚀 欢迎关注公众号一起成长，回复资源获取精心整理的 Java核心知识&面试资料。</div>
+</div>
+
+      <div>
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>未读代码</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/" title="Springboot 系列（十六）你真的了解 Swagger 文档吗？">https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Springboot/" rel="tag"># Springboot</a>
+          
+            <a href="/tags/swagger/" rel="tag"># swagger</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/11/jdk/jdk8-stream/" rel="next" title="还看不懂同事的代码？超强的 Stream 流操作姿势还不学习一下">
+                <i class="fa fa-chevron-left"></i> 还看不懂同事的代码？超强的 Stream 流操作姿势还不学习一下
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/webinfo/head.jpg"
+      alt="未读代码">
+  <p class="site-author-name" itemprop="name">未读代码</p>
+  <div class="site-description motion-element" itemprop="description">有风有雨是常态，风雨无阻是心态，风雨兼程是状态。</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+              
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-OpenAPI-规范介绍"><span class="nav-text">1. OpenAPI  规范介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Swagger-介绍"><span class="nav-text">2. Swagger 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Springfox-介绍"><span class="nav-text">3. Springfox 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Springboot-整合-Swagger"><span class="nav-text">4. Springboot 整合 Swagger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-创建项目"><span class="nav-text">4.1. 创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-引入依赖"><span class="nav-text">4.2. 引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-配置-Springfox-swagger"><span class="nav-text">4.3. 配置 Springfox-swagger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-代码编写"><span class="nav-text">4.4. 代码编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-运行访问"><span class="nav-text">4.5. 运行访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-调用测试"><span class="nav-text">4.7. 调用测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-常见报错"><span class="nav-text">5. 常见报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">未读代码</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+    var gitalk = new Gitalk({
+      clientID: '2b4c7322297fdf10f81c',
+      clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+      repo: 'git-comments',
+      owner: 'niumoo',
+      admin: ['niumoo'],
+      id: 'ae9807a6c1f70b340b9817366df26557',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
