@@ -63,17 +63,17 @@
 <meta property="og:site_name" content="未读代码">
 <meta property="og:description" content="前言目前来说，在 Java 领域使用 Springboot 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 REST API 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 REST API 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/oas_original-01.png">
-<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191125225207292.png">
-<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126000341030.png">
-<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126000613238.png">
-<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126000808167.png">
-<meta property="og:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/image-20191126001337387.png">
-<meta property="og:updated_time" content="2019-11-26T00:45:25.932Z">
+<meta property="og:image" content="https://www.codingme.net/assets/oas_original-01.png">
+<meta property="og:image" content="https://www.codingme.net/assets/image-20191125225207292.png">
+<meta property="og:image" content="https://www.codingme.net/assets/image-20191126000341030.png">
+<meta property="og:image" content="https://www.codingme.net/assets/image-20191126000613238.png">
+<meta property="og:image" content="https://www.codingme.net/assets/image-20191126000808167.png">
+<meta property="og:image" content="https://www.codingme.net/assets/image-20191126001337387.png">
+<meta property="og:updated_time" content="2019-11-26T00:47:59.574Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot 系列（十六）你真的了解 Swagger 文档吗？">
 <meta name="twitter:description" content="前言目前来说，在 Java 领域使用 Springboot 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 REST API 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 REST API 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文">
-<meta name="twitter:image" content="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/assets/oas_original-01.png">
+<meta name="twitter:image" content="https://www.codingme.net/assets/oas_original-01.png">
   <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2019/11/springboot/springboot-16-web-swagger/">
 
@@ -299,7 +299,7 @@
                 
               
 
-              <time title="创建时间：2019-11-26 08:08:08 / 修改时间：08:45:25" itemprop="dateCreated datePublished" datetime="2019-11-26T08:08:08+08:00">2019-11-26</time>
+              <time title="创建时间：2019-11-26 08:08:08 / 修改时间：08:47:59" itemprop="dateCreated datePublished" datetime="2019-11-26T08:08:08+08:00">2019-11-26</time>
             </span>
           
             
@@ -331,8 +331,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前来说，在 Java 领域使用 <code>Springboot</code> 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 <code>REST API</code> 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 <code>REST API</code> 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文档的及时性，经常会年久失修，失去应有的意义。因此选择一种新的 API 文档维护方式很有必要，这也是这篇文章要介绍的内容。</p>
-<h2 id="1-OpenAPI-规范介绍"><a href="#1-OpenAPI-规范介绍" class="headerlink" title="1. OpenAPI  规范介绍"></a>1. OpenAPI  规范介绍</h2><p><img src="assets/oas_original-01.png" alt="Open API"></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前来说，在 Java 领域使用 <code>Springboot</code> 构建微服务是比较流行的，在构建微服务时，我们大多数会选择暴漏一个 <code>REST API</code> 以供调用。又或者公司采用前后端分离的开发模式，让前端和后端的工作由完全不同的工程师进行开发完成。不管是微服务还是这种前后端分离开发，维持一份完整的及时更新的 <code>REST API</code> 文档，会极大的提高我们的工作效率。而传统的文档更新方式（如手动编写），很难保证文档的及时性，经常会年久失修，失去应有的意义。因此选择一种新的 API 文档维护方式很有必要，这也是这篇文章要介绍的内容。<br><a id="more"></a></p>
+<h2 id="1-OpenAPI-规范介绍"><a href="#1-OpenAPI-规范介绍" class="headerlink" title="1. OpenAPI  规范介绍"></a>1. OpenAPI  规范介绍</h2><p><img src="/assets/oas_original-01.png" alt="Open API"></p>
 <p><code>OpenAPI Specification</code> 简称 OAS，中文也称  <code>OpenAPI</code> 描述规范，使用 <code>OpenAPI</code> 文件可以描述整个 API，它制定了一套的适合通用的与语言无关的 <code>REST API</code> 描述规范，如 API 路径规范、请求方法规范、请求参数规范、返回格式规范等各种相关信息，使人类和计算机都可以不需要访问源代码就可以理解和使用服务的功能。</p>
 <p>下面是 <code>OpenAPI</code> 规范中建议的 API 设计规范，基本路径设计规范。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://api.example.com/v1/users?role=admin&amp;status=active</span><br><span class="line">\________________________/\____/ \______________________/</span><br><span class="line">         server URL       endpoint    query parameters</span><br><span class="line">                            path</span><br></pre></td></tr></table></figure></p>
 <p>对于传参的设计也有规范，可以像下面这样：</p>
@@ -343,7 +343,7 @@
 <li><a href="https://swagger.io/docs/specification/describing-parameters/#cookie-parameters" target="_blank" rel="noopener">cookie 参数</a>,  例如 <code>Cookie: debug=0; csrftoken=BUSe35dohU3O1MZvDCU</code></li>
 </ul>
 <p><code>OpenAPI</code> 规范的东西远远不止这些，目前 <code>OpenAPI</code> 规范最新版本是 3.0.2，如果你想了解更多的 <code>OpenAPI</code> 规范，可以访问下面的链接。<br><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md" target="_blank" rel="noopener">OpenAPI Specification (https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)</a></p>
-<h2 id="2-Swagger-介绍"><a href="#2-Swagger-介绍" class="headerlink" title="2. Swagger 介绍"></a>2. Swagger 介绍</h2><p><img src="assets/image-20191125225207292.png" alt="swagger"></p>
+<h2 id="2-Swagger-介绍"><a href="#2-Swagger-介绍" class="headerlink" title="2. Swagger 介绍"></a>2. Swagger 介绍</h2><p><img src="/assets/image-20191125225207292.png" alt="swagger"></p>
 <p>很多人都以为 <code>Swagger</code> 只是一个接口文档生成框架，其实并不是。 Swagger  是一个围绕着 <code>OpenAPI Specification</code>（OAS，中文也称 OpenAPI规范）构建的一组开源工具。可以帮助你从 API 的设计到 API 文档的输出再到  API 的测试，直至最后的 API 部署等整个 API 的开发周期提供相应的解决方案，是一个庞大的项目。 Swagger  不仅免费，而且开源，不管你是企业用户还是个人玩家，都可以使用 Swagger 提供的方案构建令人惊艳的 <code>REST API</code>。</p>
 <p>Swagger 有几个主要的产品。</p>
 <ul>
@@ -410,11 +410,11 @@
 <p>最后，为了让代码变得更加符合规范和好用，使用一个统一的类进行接口响应。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@ApiModel</span>(value = <span class="string">"响应信息"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Response</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"响应码"</span>)</span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"响应信息"</span>)</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"响应数据"</span>)</span><br><span class="line">    <span class="keyword">private</span> Collection content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="4-5-运行访问"><a href="#4-5-运行访问" class="headerlink" title="4.5. 运行访问"></a>4.5. 运行访问</h3><p>直接启动 Springboog 项目，可以看到控制台输出扫描到的各个接口的访问路径，其中就有 <code>/2/api-docs</code>。</p>
-<p><img src="assets/image-20191126000341030.png" alt="Springboot 启动"></p>
+<p><img src="/assets/image-20191126000341030.png" alt="Springboot 启动"></p>
 <p>这个也就是生成的 OpenAPI 规范的描述 JSON 访问路径，访问可以看到。</p>
-<p><img src="assets/image-20191126000613238.png" alt="OpenAPI - JSON"></p>
+<p><img src="/assets/image-20191126000613238.png" alt="OpenAPI - JSON"></p>
 <p>因为上面我们在引入依赖时，也引入了 springfox-swagger-ui 包，所以还可以访问 API 的页面文档。访问路径是 /swagger-ui.html，访问看到的效果可以看下图。</p>
-<p><img src="assets/image-20191126000808167.png" alt="swagger 访问"></p>
+<p><img src="/assets/image-20191126000808167.png" alt="swagger 访问"></p>
 <p>也可以看到用户查询的两个方法会归到了一起，原因就是这两个方法的注解上使用相同的 tag 属性。</p>
 <h3 id="4-7-调用测试"><a href="#4-7-调用测试" class="headerlink" title="4.7. 调用测试"></a>4.7. 调用测试</h3><p>springfox-swagger-ui 不仅是生成了 API 文档，还提供了调用测试功能。下面是在页面上测试获取单个用户信息的过程。</p>
 <ol>
@@ -424,7 +424,7 @@
 <li>查看返回信息。</li>
 </ol>
 <p>下面是测试时的响应截图。</p>
-<p><img src="assets/image-20191126001337387.png" alt="swagger 测试"></p>
+<p><img src="/assets/image-20191126001337387.png" alt="swagger 测试"></p>
 <h2 id="5-常见报错"><a href="#5-常见报错" class="headerlink" title="5. 常见报错"></a>5. 常见报错</h2><p>如果你在程序运行中经常发现像下面这样的报错。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NumberFormatException: For input string: &quot;&quot;</span><br><span class="line">	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[na:1.8.0_111]</span><br><span class="line">	at java.lang.Long.parseLong(Long.java:601) ~[na:1.8.0_111]</span><br><span class="line">	at java.lang.Long.valueOf(Long.java:803) ~[na:1.8.0_111]</span><br><span class="line">	at io.swagger.models.parameters.AbstractSerializableParameter.getExample(AbstractSerializableParameter.java:412) ~[swagger-models-1.5.20.jar:1.5.20]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_111]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_111]</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_111]</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_111]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:536) [jackson-databind-2.5.4.jar:2.5.4]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:666) [jackson-databind-2.5.4.jar:2.5.4]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:156) [jackson-databind-2.5.4.jar:2.5.4]</span><br><span class="line">	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:113) [jackson-databind-2.5.4.jar:2.5.4]</span><br></pre></td></tr></table></figure>
 <p>那么你需要检查使用了 <code>@ApiModelProperty</code> 注解且字段类型为数字类型的属性上，<code>@ApiModelProperty</code> 注解是否设置了 example 值，如果没有，那就需要设置一下，像下面这样。</p>
