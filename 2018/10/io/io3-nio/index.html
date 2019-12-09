@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="多路复用IO从非阻塞同步IO的介绍中可以发现，为每一个接入创建一个线程在请求很多的情况下不那么适用了，因为这会渐渐耗尽服务器的资源，人们也都意识到了这个 问题，因此终于有人发明了IO多路复用。最大的特点就是不需要开那么多的线程和进程。多路复用IO是指使用一个线程来检查多个文件描述符（Socket）的就绪状态，比如调用select和poll函数，传入多个文件描述符，如果有一个文件描述符就绪，则返回">
-<meta name="keywords" content="IO,非阻塞,NIO">
+<meta name="keywords" content="IO,NIO,非阻塞">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IO通信模型（三）多路复用IO">
 <meta property="og:url" content="https://www.codingme.net/2018/10/io/io3-nio/index.html">
@@ -67,7 +67,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/083f9772318bc178ec518d6aaadca09e.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/1f344908223446333ce9db0f67bcc38f.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/niumoo/files/master/images/blog/ff580cf428b9f8e3b5f381df31d083f6.png">
-<meta property="og:updated_time" content="2019-05-20T16:26:48.569Z">
+<meta property="og:updated_time" content="2019-05-14T16:25:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IO通信模型（三）多路复用IO">
 <meta name="twitter:description" content="多路复用IO从非阻塞同步IO的介绍中可以发现，为每一个接入创建一个线程在请求很多的情况下不那么适用了，因为这会渐渐耗尽服务器的资源，人们也都意识到了这个 问题，因此终于有人发明了IO多路复用。最大的特点就是不需要开那么多的线程和进程。多路复用IO是指使用一个线程来检查多个文件描述符（Socket）的就绪状态，比如调用select和poll函数，传入多个文件描述符，如果有一个文件描述符就绪，则返回">
@@ -199,7 +199,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">40</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">41</span></a>
 
   </li>
       
@@ -225,7 +225,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">49</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">50</span></a>
 
   </li>
       
@@ -308,7 +308,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-21 00:26:48" itemprop="dateModified" datetime="2019-05-21T00:26:48+08:00">2019-05-21</time>
+                <time title="修改时间：2019-05-15 00:25:23" itemprop="dateModified" datetime="2019-05-15T00:25:23+08:00">2019-05-15</time>
               </span>
             
           
@@ -454,9 +454,9 @@
         <div class="post-tags">
             <a href="/tags/IO/" rel="tag"># IO</a>
           
-            <a href="/tags/非阻塞/" rel="tag"># 非阻塞</a>
-          
             <a href="/tags/NIO/" rel="tag"># NIO</a>
+          
+            <a href="/tags/非阻塞/" rel="tag"># 非阻塞</a>
           
         </div>
         <div class="post-nav">
@@ -531,7 +531,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -665,7 +665,9 @@
         
           
         
-        <span class="site-state-item-count">39</span>
+          
+        
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
