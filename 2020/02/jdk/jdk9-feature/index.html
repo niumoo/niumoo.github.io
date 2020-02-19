@@ -63,18 +63,18 @@
 <meta property="og:site_name" content="未读代码">
 <meta property="og:description" content="Java 9 中最大的亮点是 Java 平台模块化的引入，以及模块化 JDK。但是 Java 9 还有很多其他新功能，这篇文字会将重点介绍开发人员特别感兴趣的几种功能。 这篇文章也是 Java 新特性系列文章中的一篇，往期文章可以查看下面链接。 还看不懂同事的代码？超强的 Stream 流操作姿势还不学习一下 还看不懂同事的代码？Lambda 表达式、函数接口了解一下 Jdk14 都要出了，还不">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/140916143852191.png">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/Explicit-modules.png">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/image-20200217111754648.png">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/image-20200217112025069.png">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/image-20200217225456437.png">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/image-20200217232617028.png">
-<meta property="og:image" content="https://www.codingme.net/assets/jdk9-feature/image-20200218113246293.png">
-<meta property="og:updated_time" content="2020-02-18T14:39:29.126Z">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/140916143852191.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/Explicit-modules.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/image-20200217111754648.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/image-20200217112025069.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/image-20200217225456437.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/image-20200217232617028.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/image-20200218113246293.png">
+<meta property="og:updated_time" content="2020-02-18T15:18:24.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jdk14 都要出了，Jdk9 的新特性还不了解一下？">
 <meta name="twitter:description" content="Java 9 中最大的亮点是 Java 平台模块化的引入，以及模块化 JDK。但是 Java 9 还有很多其他新功能，这篇文字会将重点介绍开发人员特别感兴趣的几种功能。 这篇文章也是 Java 新特性系列文章中的一篇，往期文章可以查看下面链接。 还看不懂同事的代码？超强的 Stream 流操作姿势还不学习一下 还看不懂同事的代码？Lambda 表达式、函数接口了解一下 Jdk14 都要出了，还不">
-<meta name="twitter:image" content="https://www.codingme.net/assets/jdk9-feature/140916143852191.png">
+<meta name="twitter:image" content="https://www.codingme.net/assets/jdk-new-feature/140916143852191.png">
   <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
   <link rel="canonical" href="https://www.codingme.net/2020/02/jdk/jdk9-feature/">
 
@@ -311,7 +311,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-18 22:39:29" itemprop="dateModified" datetime="2020-02-18T22:39:29+08:00">2020-02-18</time>
+                <time title="修改时间：2020-02-18 23:18:24" itemprop="dateModified" datetime="2020-02-18T23:18:24+08:00">2020-02-18</time>
               </span>
             
           
@@ -340,7 +340,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="/assets/jdk9-feature/140916143852191.png" alt="Java 9"></p>
+        <p><img src="/assets/jdk-new-feature/140916143852191.png" alt="Java 9"></p>
 <p><code>Java 9</code> 中最大的亮点是 <strong>Java 平台模块化</strong>的引入，以及模块化 JDK。但是 <code>Java 9</code> 还有很多其他新功能，这篇文字会将重点介绍开发人员特别感兴趣的几种功能。</p>
 <p>这篇文章也是 Java 新特性系列文章中的一篇，往期文章可以查看下面链接。</p>
 <p><a href="https://www.codingme.net/2019/11/jdk/jdk8-stream/">还看不懂同事的代码？超强的 Stream 流操作姿势还不学习一下</a></p>
@@ -350,7 +350,7 @@
 <p><a href="https://www.codingme.net/2020/01/jdk/jdk7-start/">还看不懂同事代码？快来补一波 Java 7 语法特性</a></p>
 <a id="more"></a>
 <h2 id="1-模块化"><a href="#1-模块化" class="headerlink" title="1.  模块化"></a>1.  模块化</h2><p><code>Java 9</code> 中的<strong>模块化</strong>是对 <code>Java</code> 的一次重大改进。但是<strong>模块化</strong>并不是最近才提出来的，我们经常使用的  <code>maven</code> 构建工具，就是典型的模块化构建工具。<strong>模块化</strong>不仅让模块命名清晰，写出高内聚低耦合的代码，更可以方便处理模块之间的调用关系。</p>
-<p><img src="/assets/jdk9-feature/Explicit-modules.png" alt="Java 9 模块系统"></p>
+<p><img src="/assets/jdk-new-feature/Explicit-modules.png" alt="Java 9 模块系统"></p>
 <p>在 Oracle 官方中为 <code>Java 9</code> 中的模块系统的定义如下：</p>
 <blockquote>
 <p>the module, which is a named, self-describing collection of code and data. This module system.</p>
@@ -364,9 +364,9 @@
 <li>清晰明了的模块调用关系，避免调用不当出来的各种问题。</li>
 </ul>
 <p>上面提到了 JDK 自身的模块化，我们通过浏览 JDK 9 的目录结构也可以发现一些变化。</p>
-<p><img src="/assets/jdk9-feature/image-20200217111754648.png" alt="JDK 模块化"></p>
+<p><img src="/assets/jdk-new-feature/image-20200217111754648.png" alt="JDK 模块化"></p>
 <p>最明显的是在 JDK 9 中 jre 文件夹不存在了。下面是在 IDEA 中查看的 JDK 9 的依赖，命名规范的模块看起来是不是让人赏心悦目呢？</p>
-<p><img src="/assets/jdk9-feature/image-20200217112025069.png" alt="JDK 9 在 IDEA"></p>
+<p><img src="/assets/jdk-new-feature/image-20200217112025069.png" alt="JDK 9 在 IDEA"></p>
 <p>当然，这篇文章主要介绍 Java 9 的新特性，而模块化是一个巨大改变，结合示例介绍下来篇幅会比较长，这里就不占用太多篇幅了。</p>
 <p>模块化文章预告：如何编写一个模块化系统，如何打包让没有安装 Java 环境的系统运行编写的代码，都可以通过模块化选择运行时模块实现。我后面的文章就会通过一个模块化项目介绍到，有兴趣的可以关注我后续文章 😎。</p>
 <h2 id="2-集合工厂方法"><a href="#2-集合工厂方法" class="headerlink" title="2. 集合工厂方法"></a>2. 集合工厂方法</h2><p>在 Java 9 中为集合的创建增加了静态工厂创建方式，也就是 <code>of</code> 方法，通过静态工厂 <code>of</code> 方法创建的集合是<strong>只读集合</strong>，里面的对象<strong>不可改变</strong>。并在<strong>不能存在 <code>null</code> 值</strong>，对于 <code>set</code> 和 <code>map</code> 集合，也<strong>不能存在 <code>key</code> 值重复</strong>。这样不仅<strong>线程安全</strong>，而且<strong>消耗的内存也更小</strong>。</p>
@@ -425,7 +425,7 @@
 <p>输出得到的结果，这里是这个网站的报错信息。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">There is no method xxxAction in ApiController</span><br></pre></td></tr></table></figure>
 <p>可能你运行的时候会报找不到 <code>httpClient</code> 模块之类的问题，这时候需要你在你项目代码目录添加 <code>httpClient 模块</code> 才能解决，添加方式看下面的图。</p>
-<p><img src="/assets/jdk9-feature/image-20200217225456437.png" alt="Java 9 导入导出模块"></p>
+<p><img src="/assets/jdk-new-feature/image-20200217225456437.png" alt="Java 9 导入导出模块"></p>
 <p><code>export</code> 写自己的包路径，<code>requires</code> 写引入的模块名。</p>
 <h2 id="6-Java-REPL-JShell"><a href="#6-Java-REPL-JShell" class="headerlink" title="6. Java REPL - JShell"></a>6. Java REPL - JShell</h2><p>交互式的编程环境在其他语言如 Python 上早就有了，而 Java 上的交互式语言只到 <code>Java 9</code>才出现。交互式的编程可以让开发者在输入代码的时候就获取到程序的运行结果，而不用像之前一样新建文件、创建类、导包、测试一系列流程。</p>
 <p><code>JShell</code> 中支持 <code>tab</code> 补全代码以及自动添加分号，下面通过一个例子演示 <code>JShell</code> 的使用。</p>
@@ -448,11 +448,11 @@
 <li><p>将代码保存到文件并退出。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jshell&gt; /save d:/JShell.java</span><br><span class="line">jshell&gt; /exit</span><br><span class="line">  再见</span><br></pre></td></tr></table></figure>
 <p>在 D 盘看到的保存的代码片段。</p>
-<p><img src="/assets/jdk9-feature/image-20200217232617028.png" alt="JShell 保存的到吗"></p>
+<p><img src="/assets/jdk-new-feature/image-20200217232617028.png" alt="JShell 保存的代码"></p>
 </li>
 </ol>
 <p>操作起来还是挺简单的，还记得上面介绍集合工厂 <code>of</code> 方法创建出来的 <code>set</code> 和 <code>map</code> 数据在每个 <code>JVM</code> 周期里是无序的嘛？也可以用 <code>JShell</code> 实验下。</p>
-<p><img src="/assets/jdk9-feature/image-20200218113246293.png" alt="Set.of 的随机遍历"></p>
+<p><img src="/assets/jdk-new-feature/image-20200218113246293.png" alt="Set.of 的随机遍历"></p>
 <h2 id="7-其他更新"><a href="#7-其他更新" class="headerlink" title="7. 其他更新"></a>7. 其他更新</h2><p><code>Java 9</code> 中增加或者优化的功能远不止这些，上面只是列举了常用的一些新特性，更多的新特性如：</p>
 <ul>
 <li>不能使用下划线 _ 作为变量名，因为它是一个关键字。</li>
