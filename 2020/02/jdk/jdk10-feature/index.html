@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.7.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/webinfo/head-fav.jpg?v=7.3.0">
+  <link rel="mask-icon" href="/assets/webinfo/head-fav.jpg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="自从 Java 9 开始，Oracle 调整了 Java 版本的发布策略，不再是之前的 N 年一个大版本，取而代之的是 6 个月一个小版本，三年一个大版本，这样可以让 Java 的最新改变迅速上线，而小版本的维护周期缩短到下个版本发布之前，大版本的维护周期则是 3 年之久。而 10 就是这么一个小版本，因为 Java 的后续版本基本都会包含之前新特性，所以还是把 Java 10 带来的改变单独写">
+<meta name="keywords" content="Java10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最通俗易懂的 Java 10 新特性讲解">
+<meta property="og:url" content="https://www.codingme.net/2020/02/jdk/jdk10-feature/index.html">
+<meta property="og:site_name" content="未读代码">
+<meta property="og:description" content="自从 Java 9 开始，Oracle 调整了 Java 版本的发布策略，不再是之前的 N 年一个大版本，取而代之的是 6 个月一个小版本，三年一个大版本，这样可以让 Java 的最新改变迅速上线，而小版本的维护周期缩短到下个版本发布之前，大版本的维护周期则是 3 年之久。而 10 就是这么一个小版本，因为 Java 的后续版本基本都会包含之前新特性，所以还是把 Java 10 带来的改变单独写">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/Whats_New_Java10-881x441.png">
+<meta property="og:image" content="https://www.codingme.net/assets/jdk-new-feature/image-20200223223401909.png">
+<meta property="og:updated_time" content="2020-02-28T13:52:07.021Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最通俗易懂的 Java 10 新特性讲解">
+<meta name="twitter:description" content="自从 Java 9 开始，Oracle 调整了 Java 版本的发布策略，不再是之前的 N 年一个大版本，取而代之的是 6 个月一个小版本，三年一个大版本，这样可以让 Java 的最新改变迅速上线，而小版本的维护周期缩短到下个版本发布之前，大版本的维护周期则是 3 年之久。而 10 就是这么一个小版本，因为 Java 的后续版本基本都会包含之前新特性，所以还是把 Java 10 带来的改变单独写">
+<meta name="twitter:image" content="https://www.codingme.net/assets/jdk-new-feature/Whats_New_Java10-881x441.png">
+  <link rel="alternate" href="/atom.xml" title="未读代码" type="application/atom+xml">
+  <link rel="canonical" href="https://www.codingme.net/2020/02/jdk/jdk10-feature/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>最通俗易懂的 Java 10 新特性讲解 | 未读代码</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130656610-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-130656610-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?03b37bb9d9200ff268fe15acfd6eb811";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">未读代码</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">专注Java</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">48</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">55</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-springboot">
+      
+    
+      
+    
+
+    <a href="/categories/Springboot/" rel="section"><i class="menu-item-icon fa fa-fw fa-leaf"></i> <br>Springboot</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.codingme.net/2020/02/jdk/jdk10-feature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="未读代码">
+      <meta itemprop="description" content="有风有雨是常态，风雨无阻是心态，风雨兼程是状态。">
+      <meta itemprop="image" content="/assets/webinfo/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未读代码">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">最通俗易懂的 Java 10 新特性讲解
+
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-27 08:01:01" itemprop="dateCreated datePublished" datetime="2020-02-27T08:01:01+08:00">2020-02-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-28 21:52:07" itemprop="dateModified" datetime="2020-02-28T21:52:07+08:00">2020-02-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java-新特性/" itemprop="url" rel="index"><span itemprop="name">Java 新特性</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/assets/jdk-new-feature/Whats_New_Java10-881x441.png" alt="Java 10"></p>
+<p>自从 <code>Java 9</code> 开始，Oracle 调整了 Java 版本的发布策略，不再是之前的 N 年一个大版本，取而代之的是 6 个月一个小版本，三年一个大版本，这样可以让 Java 的最新改变迅速上线，而小版本的维护周期缩短到下个版本发布之前，大版本的维护周期则是 3 年之久。而 10 就是这么一个小版本，因为 Java 的后续版本基本都会包含之前新特性，所以还是把 <code>Java 10</code> 带来的改变单独写一写。</p>
+<a id="more"></a>
+<h2 id="1-JEP-322-基于时间的版本号"><a href="#1-JEP-322-基于时间的版本号" class="headerlink" title="1. JEP 322 - 基于时间的版本号"></a>1. JEP 322 - 基于时间的版本号</h2><p>就像上面说的，Java 调整了发布策略，为了适应这种发布节奏，随着改变的还有 Java 版本号的记录方式。</p>
+<p>版本号的新模式是：<code>$FEATURE.$INTERIM.$UPDATE.$PATCH</code></p>
+<ul>
+<li><code>$FEATURE</code> ：基于发布版本，如 Java 10 的 10 。</li>
+<li><code>$INTERIM</code> ：问题修复和功能增强时 + 1，默认是 0 。</li>
+<li><code>$UPDATE</code> ：在进行兼容更新，修复新功能安全问题时 +1。</li>
+<li><code>$PATCH</code> ：特殊问题修复时 +1。</li>
+</ul>
+<p>查看自己的  <code>Java 10</code> 版本。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br><span class="line">java version <span class="string">"10.0.1"</span> <span class="number">2018</span>-<span class="number">04</span>-<span class="number">17</span></span><br><span class="line">Java(TM) SE Runtime Environment <span class="number">18.3</span> (build <span class="number">10.0</span>.1+<span class="number">10</span>)</span><br><span class="line"><span class="function">Java <span class="title">HotSpot</span><span class="params">(TM)</span> 64-Bit Server VM 18.3 <span class="params">(build <span class="number">10.0</span><span class="number">.1</span>+<span class="number">10</span>, mixed mode)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="2-JEP-286-局部类型推断"><a href="#2-JEP-286-局部类型推断" class="headerlink" title="2. JEP 286 - 局部类型推断"></a>2. JEP 286 - 局部类型推断</h2><p>JEP 286 提案让 Java 增加了局部类型推断（Local-Variable Type Inference）功能，这让 Java 可以像 <code>Js</code> 里的 <code>var</code> 或者其他语言的 <code>auto</code> 一样可以自动推断数据类型。这其实只是一个新的语法糖，底层并没有变化，在编译时就已经把 <code>var</code> 转化成具体的数据类型了，但是这样可以减少代码的编写。</p>
+<p>你可以像下面这样使用 <code>var</code> 语法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var hashMap = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">hashMap.put(<span class="string">"微信"</span>,<span class="string">"wn8398"</span>);</span><br><span class="line">var string = <span class="string">"hello java 10"</span>;</span><br><span class="line">var stream = Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">var list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
+<p>如果你反编译编译后的这段代码，你会发现还是熟悉的代码片段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String, String&gt; hashMap = <span class="keyword">new</span> HashMap();</span><br><span class="line">hashMap.put(<span class="string">"微信"</span>, <span class="string">"wn8398"</span>);</span><br><span class="line">String string = <span class="string">"hello java 10"</span>;</span><br><span class="line">Stream&lt;Integer&gt; stream = Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList();</span><br></pre></td></tr></table></figure>
+<p><code>var</code> 看似好用，其实也有很多限制，官方介绍了 <code>var</code> 只能用于下面的几种情况。</p>
+<ol>
+<li>仅限带有初始化的程序的局部变量。</li>
+<li><code>for</code> 循环或者<code>增强for</code> 循环中。</li>
+<li><code>for</code>循环中的声明。</li>
+</ol>
+<p>下面演示三种使用情况。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testVar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 情况1，没有初始化会报错</span></span><br><span class="line">    <span class="comment">// var list;</span></span><br><span class="line">    var list = List.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    <span class="comment">// 情况2</span></span><br><span class="line">    <span class="keyword">for</span> (var integer : list) &#123;</span><br><span class="line">        System.out.println(integer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 情况3</span></span><br><span class="line">    <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">        System.out.println(list.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽管对 <code>var</code> 的使用场景增加了很多限制，但在实际使用时你还是要注意，就像下面的代码，你可能一眼并不能看出 <code>result</code> 的数据类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var query = <span class="string">"xxx"</span>;</span><br><span class="line">var result = dbUtil.executeQuery(query);</span><br></pre></td></tr></table></figure>
+<h2 id="3-JEP-317-基于-Java-的-JIT-编译器（实验性）"><a href="#3-JEP-317-基于-Java-的-JIT-编译器（实验性）" class="headerlink" title="3. JEP 317 - 基于 Java 的 JIT 编译器（实验性）"></a>3. JEP 317 - 基于 Java 的 JIT 编译器（实验性）</h2><p>这个功能让基于 Java 开发的 JIT 编译器 <code>Graal</code> 结合 <code>Java 10</code> 用在 Linux / x64 平台上，这是一个实验性的 JIT 编译器，有人说这也是 <code>Java 10</code> 中最具有未来感的引入。Graal 其实在 <code>Java 9</code> 中就已经引入了，它带来了 Java 中的 AOT （Ahead Of Time）编译，还支持多种语言，如 Js、Python、Ruby、R、以及其他基于 JVM （如 Java、Kotlin）的和基于 LLVM （如 C、C++）的语言。</p>
+<p>想切换到 <code>Graal</code> 可以使用下面的 <code>jvm</code> 参数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler</span><br></pre></td></tr></table></figure>
+<p>这里面有一点我觉得很有意思，看这个图。</p>
+<p><img src="/assets/jdk-new-feature/image-20200223223401909.png" alt="Graal 由 Java 编写"></p>
+<p>这就很有意思了，<code>Graal</code> 是 Java 语言编写的，用 Java 编写的编译器，然后用来将 Java 字节码编译机器代码。</p>
+<p><code>Graal</code> 官网：<a href="https://www.graalvm.org/" target="_blank" rel="noopener">https://www.graalvm.org/</a></p>
+<h2 id="4-JEP-310-类数据共享"><a href="#4-JEP-310-类数据共享" class="headerlink" title="4. JEP 310 - 类数据共享"></a>4. JEP 310 - 类数据共享</h2><p>JVM 启动时有一步是需要在内存中加载类，而如果有多个 jar，加载第一个 jar  的速度是最慢的。这就延长了程序的启动时间，为了减少这个时间，<code>Java 10</code> 引入了应用程序类数据共享（CDS）机制，它可以把你想共享的类共享在程序之间，使不同的 Java 进程之间共享这个类来减少这个类占用的空间以及加载速度。</p>
+<h2 id="5-JEP-307-G1-并行全GC"><a href="#5-JEP-307-G1-并行全GC" class="headerlink" title="5. JEP 307 - G1 并行全GC"></a>5. JEP 307 - G1 并行全GC</h2><p>早在 <code>Java 9</code> 时就已经引入了 G1 垃圾收集器，G1 的优点很多。而在 <code>Java 10</code> 中还是做了小小调整，当 G1 的并发收集线程不能快速的完成全 GC 时，就会自动切换到<strong>并行</strong>收集，这可以减少在最坏情况下的 GC 速度。</p>
+<h2 id="6-JEP-314-Unicode-语言标签扩展"><a href="#6-JEP-314-Unicode-语言标签扩展" class="headerlink" title="6. JEP 314 - Unicode 语言标签扩展"></a>6. JEP 314 - Unicode 语言标签扩展</h2><p>这个提案让 JDK 实现了最新的 <a href="http://www.unicode.org/reports/tr35/tr35.html#Locale_Extension_Key_and_Type_Data" target="_blank" rel="noopener">LDML 规范</a>中指定的更多的扩展。</p>
+<p>主要增加了下面几个扩展方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">java.time.temporal.WeekFields::of</span><br><span class="line">java.util.Calendar::&#123;getFirstDayOfWeek,getMinimalDaysInWeek&#125;</span><br><span class="line">java.util.Currency::getInstance</span><br><span class="line">java.util.Locale::getDisplayName</span><br><span class="line">java.util.spi.LocaleNameProvider</span><br><span class="line">java.text.DateFormat::get*Instance</span><br><span class="line">java.text.DateFormatSymbols::getInstance</span><br><span class="line">java.text.DecimalFormatSymbols::getInstance</span><br><span class="line">java.text.NumberFormat::get*Instance</span><br><span class="line">java.time.format.DateTimeFormatter::localizedBy</span><br><span class="line">java.time.format.DateTimeFormatterBuilder::getLocalizedDateTimePattern</span><br><span class="line">java.time.format.DecimalStyle::of</span><br></pre></td></tr></table></figure>
+<p>尝试一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Currency chinaCurrency = Currency.getInstance(Locale.CHINA);</span><br><span class="line">Currency usCurrency = Currency.getInstance(Locale.US);</span><br><span class="line">System.out.println(<span class="string">"本地货币："</span> + chinaCurrency);</span><br><span class="line">System.out.println(<span class="string">"US.货币："</span> + usCurrency);</span><br><span class="line"></span><br><span class="line">String displayName = Locale.getDefault().getDisplayName();</span><br><span class="line">String displayLanguage = Locale.getDefault().getDisplayLanguage();</span><br><span class="line">String displayCountry = Locale.getDefault().getDisplayCountry();</span><br><span class="line">System.out.println(<span class="string">"本地名称："</span> + displayName);</span><br><span class="line">System.out.println(<span class="string">"本地语言："</span> + displayLanguage);</span><br><span class="line">System.out.println(<span class="string">"本地国家："</span> + displayCountry);</span><br><span class="line"><span class="keyword">int</span> firstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();</span><br><span class="line">System.out.println(<span class="string">"本地每周第一天："</span> + firstDayOfWeek);</span><br></pre></td></tr></table></figure>
+<p>输出结果。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">本地货币：CNY</span><br><span class="line">US.货币：USD</span><br><span class="line">本地名称：中文 (中国)</span><br><span class="line">本地语言：中文</span><br><span class="line">本地国家：中国</span><br><span class="line">本地每周第一天：1</span><br></pre></td></tr></table></figure>
+<h2 id="7-API-更新"><a href="#7-API-更新" class="headerlink" title="7. API 更新"></a>7. API 更新</h2><p><code>Java 10</code> 删除了部分 API，也增加了一些实用方法。比如可以通过 <code>Collection.copyOf</code> 复制得到一个不可改变集合，即使原来的集合元素发生了变化也不会有影响。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">list.add(<span class="string">"wechat"</span>);</span><br><span class="line">list.add(<span class="string">"wn8398"</span>);</span><br><span class="line">List&lt;String&gt; copyList = List.copyOf(list);</span><br><span class="line">list.add(<span class="string">"test"</span>);</span><br><span class="line">System.out.println(copyList);</span><br><span class="line"><span class="comment">// result</span></span><br><span class="line"><span class="comment">// [wechat, wn8398]</span></span><br></pre></td></tr></table></figure>
+<p>也为 <code>Optional</code> 增加了一个新的方法 <code>orElseThrow</code>。调用这个方法也可以获取到 <code>optional</code> 中的 <code>value</code> , 但是如果 <code>value</code> 为 <code>null</code> ，就会抛出异常。</p>
+<p>另外在 <code>Stream</code> 最后收集数据的时候，<code>Collectors</code> 可以直接指定收集的集合为不可变集合，像下面这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list.stream().collect(Collectors.toUnmodifiableList());</span><br><span class="line">list.stream().collect(Collectors.toUnmodifiableSet());</span><br></pre></td></tr></table></figure>
+<h2 id="其他更新"><a href="#其他更新" class="headerlink" title="其他更新"></a>其他更新</h2><p><code>Java 10</code> 的更新内容不止这些，上面只是列举了常用的以及比较有意思的新特性。还有部分更新如：</p>
+<ol>
+<li>JEP 312：Thread-Local Handshakes，JVM 内部功能，可以提高 JVM 性能。</li>
+<li>JEP 313：删除了 <code>javah</code> 工具，说是删除，其实功能已经包含在 <code>Java 8</code> 中的 <code>javac</code> 里。</li>
+<li>JEP 316：让 JVM 可以在备用的存储设备（如 NV-DIMM）上分配堆内存，而不用更改程序代码。</li>
+<li>JEP 319：在JDK中提供一组默认的根证书颁发机构（CA）证书。</li>
+</ol>
+<p>文章案例都已经上传到 Github：<a href="https://github.com/niumoo/jdk-feature" target="_blank" rel="noopener">niumoo/jdk-feature</a></p>
+
+    </div>
+
+    
+    
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="/assets/webinfo/weixin-public.jpg" alt="未读代码 wechat" style="width: 200px; max-width: 100%;">
+  <div>🚀 欢迎关注公众号一起成长，回复资源获取精心整理的 Java核心知识&面试资料。</div>
+</div>
+
+      <div>
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>未读代码</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.codingme.net/2020/02/jdk/jdk10-feature/" title="最通俗易懂的 Java 10 新特性讲解">https://www.codingme.net/2020/02/jdk/jdk10-feature/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Java10/" rel="tag"># Java10</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/02/jdk/jdk9-feature/" rel="next" title="Jdk14 都要出了，Jdk9 的新特性还不了解一下？">
+                <i class="fa fa-chevron-left"></i> Jdk14 都要出了，Jdk9 的新特性还不了解一下？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/03/jdk/jdk11-feature/" rel="prev" title="最通俗易懂的 Java 11 新特性讲解">
+                最通俗易懂的 Java 11 新特性讲解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/webinfo/head.jpg"
+      alt="未读代码">
+  <p class="site-author-name" itemprop="name">未读代码</p>
+  <div class="site-description motion-element" itemprop="description">有风有雨是常态，风雨无阻是心态，风雨兼程是状态。</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/niumoo" title="GitHub &rarr; https://github.com/niumoo" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:i@codingme.net" title="E-Mail &rarr; mailto:i@codingme.net" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-JEP-322-基于时间的版本号"><span class="nav-text">1. JEP 322 - 基于时间的版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-JEP-286-局部类型推断"><span class="nav-text">2. JEP 286 - 局部类型推断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JEP-317-基于-Java-的-JIT-编译器（实验性）"><span class="nav-text">3. JEP 317 - 基于 Java 的 JIT 编译器（实验性）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-JEP-310-类数据共享"><span class="nav-text">4. JEP 310 - 类数据共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-JEP-307-G1-并行全GC"><span class="nav-text">5. JEP 307 - G1 并行全GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-JEP-314-Unicode-语言标签扩展"><span class="nav-text">6. JEP 314 - Unicode 语言标签扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-API-更新"><span class="nav-text">7. API 更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他更新"><span class="nav-text">其他更新</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">未读代码</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+    var gitalk = new Gitalk({
+      clientID: '2b4c7322297fdf10f81c',
+      clientSecret: '50ad9d97d3d69b24df43e2ab195ecf75bd9c96fa',
+      repo: 'git-comments',
+      owner: 'niumoo',
+      admin: ['niumoo'],
+      id: '165e4f67ac81b57961d82e16a452de11',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
